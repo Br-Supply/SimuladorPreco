@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Simulador de Preço · Br Supply</title>
+<link rel="icon" type="image/png" href="assets/icone.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  @font-face { font-family:'Roboto'; font-weight:400; src:url('assets/fontes/roboto-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Roboto'; font-weight:500; src:url('assets/fontes/roboto-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Roboto'; font-weight:700; src:url('assets/fontes/roboto-latin-700-normal.woff2') format('woff2'); }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+
+  :root {
+    --laranja:#ff782d; --laranja-escuro:#e8641c; --laranja-80:#ff9357; --laranja-40:#fec8aa; --laranja-20:#fee3d4; --laranja-10:#fff1e8; --laranja-claro:#fff1e8;
+    --texto:#1f2430; --texto-2:#5b6272; --texto-3:#8a91a0;
+    --borda:#e6e8ec; --borda-2:#eef0f3;
+    --fundo:#f5f6f8; --fundo-2:#fafbfc; --branco:#fff;
+    --escuro-1:#2b3140; --escuro-2:#1b2030;
+    --vermelho:#d1434e; --vermelho-10:#fdecee; --vermelho-20:#f7d4d7;
+    --verde:#1f9d55; --verde-10:#e8f6ee;
+    --sombra:0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06);
+    --raio:14px; --raio-sm:10px;
+    --fonte:'Inter', 'Roboto', Arial, sans-serif;
+    --lateral:256px;
+  }
+  html, body { height:100%; }
+  body { font-family:var(--fonte); background:var(--fundo); color:var(--texto); font-size:14px; -webkit-font-smoothing:antialiased; }
+  button, input, select { font-family:inherit; color:inherit; }
+  .oculto { display:none !important; }
+  svg.ic { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+
+  /* ═════════ LOGIN ═════════ */
+  #tela-login { position:fixed; inset:0; z-index:1000; display:grid; grid-template-columns:55% 45%; background:var(--fundo); }
+  .login-foto { position:relative; overflow:hidden; color:#fff; display:flex; flex-direction:column; padding:48px 52px 40px;
+    background:url('assets/login_fundo.jpg') center/cover no-repeat; }
+  .login-foto::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,24,38,.55) 0%, rgba(20,24,38,.72) 55%, rgba(20,24,38,.92) 100%); }
+  .login-foto > * { position:relative; }
+  .login-foto .logo { height:46px; width:auto; align-self:flex-start; }
+  .login-foto .meio { margin-top:auto; margin-bottom:auto; max-width:560px; }
+  .selo { display:inline-block; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#fff; border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.08); border-radius:999px; padding:6px 13px; margin-bottom:22px; }
+  .login-foto h1 { font-size:42px; line-height:1.12; font-weight:800; letter-spacing:-.02em; }
+  .login-foto h1 span { color:var(--laranja); }
+  .login-foto .sub-tit { font-size:22px; font-weight:600; color:var(--laranja); margin-top:10px; }
+  .login-foto .rodape { font-size:13px; color:rgba(255,255,255,.7); }
+  .login-lado { display:flex; align-items:center; justify-content:center; padding:24px; }
+  .login-caixa { width:100%; max-width:420px; background:var(--branco); border:1px solid var(--borda); border-radius:18px; box-shadow:0 10px 30px rgba(16,24,40,.06); padding:40px 36px 30px; }
+  .login-caixa h2 { font-size:26px; font-weight:800; letter-spacing:-.01em; }
+  .login-caixa .sub { color:var(--texto-2); font-size:14.5px; margin-top:6px; margin-bottom:30px; }
+  .campo { margin-bottom:18px; }
+  .campo label { display:block; font-size:14px; font-weight:600; margin-bottom:8px; }
+  .caixa-inp { position:relative; display:flex; align-items:center; }
+  .caixa-inp > svg.ic { position:absolute; left:14px; color:var(--texto-2); pointer-events:none; }
+  .caixa-inp input, .caixa-inp select { width:100%; height:48px; border:1px solid #d9dce2; border-radius:var(--raio-sm); background:#fff; padding:0 44px 0 42px; font-size:15px; outline:none; transition:border-color .15s, box-shadow .15s; -webkit-appearance:none; appearance:none; }
+  .caixa-inp select { cursor:pointer; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6272' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>"); background-repeat:no-repeat; background-position:right 14px center; background-size:16px; }
+  .caixa-inp input:focus, .caixa-inp select:focus { border-color:var(--laranja); box-shadow:0 0 0 4px rgba(255,120,45,.14); }
+  .login-lista { position:absolute; left:0; right:0; top:52px; background:#fff; border:1px solid var(--borda); border-radius:var(--raio-sm); box-shadow:0 12px 28px rgba(16,24,40,.12); max-height:260px; overflow-y:auto; padding:4px; z-index:20; display:none; }
+  .login-lista.on { display:block; }
+  .login-lista div { padding:9px 12px; border-radius:7px; cursor:pointer; font-size:14px; }
+  .login-lista div:hover, .login-lista div.foco { background:var(--laranja-10); color:var(--laranja-escuro); }
+  .login-lista .nada { color:var(--texto-3); cursor:default; }
+  .olho { position:absolute; right:10px; width:32px; height:32px; border:none; background:none; color:var(--texto-2); cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:8px; }
+  .olho:hover { background:var(--fundo); }
+  .btn-entrar { width:100%; height:50px; margin-top:10px; border:none; border-radius:var(--raio-sm); background:var(--laranja); color:#fff; font-size:15.5px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; box-shadow:0 8px 20px rgba(255,120,45,.28); transition:background .15s, transform .1s; }
+  .btn-entrar:hover { background:var(--laranja-escuro); }
+  .btn-entrar:active { transform:translateY(1px); }
+  .btn-entrar:disabled { background:#c9ccd3; box-shadow:none; cursor:wait; }
+  .login-erro { font-size:13px; color:var(--vermelho); background:var(--vermelho-10); border:1px solid var(--vermelho-20); border-radius:var(--raio-sm); padding:10px 12px; margin-bottom:6px; }
+  .login-nota { display:flex; align-items:center; justify-content:center; gap:8px; font-size:12.5px; color:var(--texto-2); margin-top:26px; padding-top:20px; border-top:1px solid var(--borda-2); }
+  .login-nota svg.ic { width:15px; height:15px; color:var(--laranja); }
+
+  /* ═════════ ESTRUTURA DO APP ═════════ */
+  #app { min-height:100vh; display:grid; grid-template-columns:var(--lateral) 1fr; }
+  #app.recolhido { --lateral:76px; }
+  .lateral { position:sticky; top:0; height:100vh; background:var(--branco); border-right:1px solid var(--borda); display:flex; flex-direction:column; z-index:120; }
+  .lat-topo { height:72px; display:flex; align-items:center; justify-content:space-between; padding:0 14px 0 20px; border-bottom:1px solid var(--borda-2); }
+  .lat-topo img { height:40px; width:auto; }
+  .lat-topo .ico-curto { display:none; height:30px; }
+  .btn-recolher { width:30px; height:30px; border:none; background:none; color:var(--texto-3); border-radius:8px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .btn-recolher:hover { background:var(--fundo); color:var(--texto); }
+  .menu { padding:16px 12px; display:flex; flex-direction:column; gap:4px; }
+  .menu a { display:flex; align-items:center; gap:12px; height:46px; padding:0 14px; border-radius:var(--raio-sm); color:var(--texto); text-decoration:none; font-size:15.5px; font-weight:500; }
+  .menu a svg.ic { color:var(--laranja); width:20px; height:20px; }
+  .menu a:hover { background:var(--fundo); }
+  .menu a.ativo { background:var(--laranja-20); color:var(--laranja-escuro); font-weight:600; box-shadow:inset 3px 0 0 var(--laranja); }
+  #app.recolhido .lat-topo img.logo-longo, #app.recolhido .menu a span, #app.recolhido .lat-rodape span { display:none; }
+  #app.recolhido .lat-topo .ico-curto { display:block; }
+  #app.recolhido .lat-topo { padding:0 8px; justify-content:center; flex-direction:column; gap:2px; }
+  #app.recolhido .btn-recolher svg { transform:rotate(180deg); }
+  #app.recolhido .menu a { justify-content:center; padding:0; }
+  .lat-rodape { margin-top:auto; padding:16px 20px; font-size:11.5px; color:var(--texto-3); border-top:1px solid var(--borda-2); }
+
+  .principal { min-width:0; display:flex; flex-direction:column; }
+  .topo { height:72px; background:var(--branco); border-bottom:1px solid var(--borda); display:flex; align-items:center; justify-content:space-between; padding:0 28px; position:sticky; top:0; z-index:110; gap:16px; }
+  .topo h1 { font-size:20px; font-weight:600; letter-spacing:-.01em; white-space:nowrap; }
+  .usuario { display:flex; align-items:center; gap:12px; }
+  .avatar { width:42px; height:42px; border-radius:50%; background:#e9ebef; color:#9aa0ab; display:flex; align-items:center; justify-content:center; border:1px solid var(--borda); }
+  .avatar svg { width:26px; height:26px; fill:currentColor; stroke:none; }
+  .usuario b { display:block; font-size:15px; font-weight:700; }
+  .usuario small { font-size:12.5px; color:var(--texto-2); }
+  .btn-sair { height:36px; border:1px solid var(--borda); background:var(--branco); border-radius:var(--raio-sm); padding:0 12px; font-size:13px; font-weight:500; color:var(--texto-2); cursor:pointer; display:flex; align-items:center; gap:6px; margin-left:8px; }
+  .btn-sair:hover { border-color:var(--laranja); color:var(--laranja); }
+  .btn-sair svg.ic { width:16px; height:16px; }
+
+  main { padding:20px 22px 40px; min-width:0; }
+  @media (max-width:1700px) { .cartao-cab { padding:12px 18px; } }
+  .saudacao { display:flex; align-items:flex-start; gap:10px; margin-bottom:14px; }
+  .saudacao svg.ic { color:var(--laranja); width:22px; height:22px; margin-top:3px; }
+  .saudacao h2 { font-size:19px; font-weight:700; letter-spacing:-.01em; }
+  .saudacao p { font-size:13.5px; color:var(--texto-2); margin-top:3px; }
+
+  /* Cartões */
+  .cartao { background:var(--branco); border:1px solid var(--borda); border-radius:var(--raio); box-shadow:var(--sombra); margin-bottom:20px; min-width:0; }
+  .cartao-cab { display:flex; align-items:center; gap:10px; padding:18px 22px; border-bottom:1px solid var(--borda-2); flex-wrap:wrap; }
+  .cartao-cab svg.ic { color:var(--laranja); }
+  .cartao-cab .t { font-size:16px; font-weight:700; }
+  .cartao-cab .q { font-size:12.5px; color:var(--texto-3); }
+  .cartao-cab .espaco { flex:1; }
+  .cartao-corpo { padding:18px 22px; }
+
+  /* Filtros e parâmetros */
+  .linha-f { display:flex; align-items:flex-end; gap:8px 10px; flex-wrap:wrap; }
+  .linha-f + .linha-f { margin-top:10px; padding-top:10px; border-top:1px dashed var(--borda); }
+  .grp { display:flex; flex-direction:column; gap:6px; }
+  .grp { gap:4px !important; }
+  .grp > span { font-size:11px; font-weight:600; color:var(--texto-2); white-space:nowrap; }
+  .inp { height:34px; border-radius:var(--raio-sm); border:1px solid #d9dce2; background:#fff; padding:0 12px; font-size:13.5px; outline:none; transition:border-color .15s, box-shadow .15s; }
+  .inp:focus { border-color:var(--laranja); box-shadow:0 0 0 4px rgba(255,120,45,.12); }
+  .inp.pct { width:70px; text-align:right; }
+  .inp.pct::placeholder { color:var(--texto-3); font-size:12.5px; }
+  .ativo-filtro { border-color:var(--laranja) !important; background-color:var(--laranja-10) !important; }
+  .sep { width:1px; align-self:stretch; background:var(--borda); margin:0 4px; }
+  .espaco { flex:1; }
+  .btn { height:34px; border:none; border-radius:var(--raio-sm); background:var(--laranja); color:#fff; font-size:13.5px; font-weight:600; padding:0 16px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(255,120,45,.22); }
+  .btn:hover { background:var(--laranja-escuro); }
+  .btn svg.ic { width:16px; height:16px; }
+  .btn-sec { height:34px; border:1px solid var(--borda); background:var(--branco); border-radius:var(--raio-sm); font-size:13px; font-weight:500; color:var(--texto-2); padding:0 14px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; }
+  .btn-sec:hover { border-color:var(--laranja); color:var(--laranja); }
+  .btn-sec:disabled { opacity:.5; cursor:default; }
+
+  /* Combobox pesquisável */
+  .cb { position:relative; }
+  .cb .inp { width:100%; padding-right:30px; }
+  .cb-x { position:absolute; right:7px; top:7px; width:20px; height:20px; border:none; border-radius:50%; background:#e4e6ea; color:var(--texto-2); font-size:11px; cursor:pointer; display:none; }
+  .cb.sel-on .cb-x { display:block; }
+  .cb.sel-on .inp { border-color:var(--laranja); background:var(--laranja-10); }
+  .cb-lista { position:absolute; left:0; top:38px; min-width:100%; width:max-content; max-width:460px; max-height:320px; overflow-y:auto; background:#fff; border:1px solid var(--borda); border-radius:var(--raio-sm); box-shadow:0 12px 28px rgba(16,24,40,.12); z-index:200; display:none; padding:4px; }
+  .cb.aberto .cb-lista { display:block; }
+  .cb-op { padding:8px 10px; font-size:13px; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; border-radius:7px; }
+  .cb-op:hover, .cb-op.foco { background:var(--laranja-10); color:var(--laranja-escuro); }
+  .cb-op.todos { color:var(--texto-3); }
+  .cb-op .cod { color:var(--texto-3); font-size:11px; margin-right:6px; }
+  .cb-lista { padding:0; } .cb-ops { padding:4px; }
+  .cb-acoes { position:sticky; top:0; background:#fff; display:flex; align-items:center; gap:4px; padding:6px 8px; border-bottom:1px solid var(--borda-2); z-index:1; }
+  .cb-acoes button { border:none; background:none; font-size:11.5px; color:var(--laranja-escuro); cursor:pointer; padding:3px 6px; border-radius:6px; }
+  .cb-acoes button:hover { background:var(--laranja-10); }
+  .cb-acoes .cb-n { margin-left:auto; font-size:11px; color:var(--texto-3); }
+  .cb-op { display:flex; align-items:center; }
+  .cb-op .ck { flex:none; width:14px; height:14px; border:1.5px solid #c3c7cf; border-radius:4px; margin-right:8px; background:#fff; }
+  .cb-op.marcado .ck { background:var(--laranja); border-color:var(--laranja); box-shadow:inset 0 0 0 2px #fff; }
+  .cb-op.marcado { font-weight:600; }
+  .cb .inp { text-overflow:ellipsis; }
+  #t-qtd .q2 { color:var(--texto-3); } #t-qtd .aviso { color:#8a5a00; }
+  .segm { display:inline-flex; border:1px solid var(--borda); border-radius:var(--raio-sm); overflow:hidden; height:32px; margin-left:6px; }
+  .segm button { border:none; background:var(--branco); font-size:12.5px; padding:0 12px; cursor:pointer; color:var(--texto-2); }
+  .segm button + button { border-left:1px solid var(--borda); }
+  .segm button.ativo { background:var(--laranja-10); color:var(--laranja-escuro); font-weight:600; }
+  .nota-ipi { font-size:11.5px; color:#8a5a00; background:#fff7e6; border:1px solid #fde3b0; border-radius:8px; padding:5px 10px; }
+  td.nota-ipi { border:none !important; padding-top:10px !important; }
+  .mem-lista { padding-left:18px; line-height:1.65; font-size:13.5px; color:var(--texto-2); }
+  .mem-lista b { color:var(--texto); }
+  .mem-ex { font-size:12.5px; color:var(--texto-3); margin:0 0 12px 4px; }
+  .mem-tag { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:4px 9px; border-radius:6px; }
+  .mem-tag.atual { color:#4a5162; background:#f3f4f7; } .mem-tag.ref { color:var(--laranja-escuro); background:var(--laranja-10); }
+  .mem-tab { width:100%; border-collapse:collapse; font-size:13px; }
+  .mem-tab th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--texto-3); padding:8px 10px; border-bottom:1px solid var(--borda); }
+  .mem-tab td { padding:9px 10px; border-bottom:1px solid var(--borda-2); vertical-align:top; }
+  .mem-tab td:first-child { font-weight:600; white-space:nowrap; width:220px; }
+  .mem-tab code { font-family:inherit; font-size:12.5px; background:var(--fundo); padding:3px 7px; border-radius:6px; color:var(--texto); }
+  .mem-tab .num { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; width:120px; }
+  .cb-info { padding:8px 10px; font-size:11.5px; color:var(--texto-3); }
+  .f-exec { width:160px; } .f-grupo { width:170px; } .f-cd { width:84px; } .f-uf { width:84px; } .f-ct { width:150px; } .f-fam { width:150px; } .f-item { width:220px; }
+  .filtros .cartao-cab { padding:10px 18px; } .filtros .cartao-cab .t { font-size:14.5px; } .filtros .cartao-corpo { padding:12px 18px 14px; }
+
+  /* Indicadores */
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-bottom:16px; }
+  .kpi { background:var(--branco); border:1px solid var(--borda); border-radius:var(--raio); box-shadow:var(--sombra); padding:12px 16px; display:flex; gap:12px; align-items:center; }
+  .kpi .ico { width:34px; height:34px; border-radius:10px; background:var(--laranja-10); color:var(--laranja); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .kpi .k { font-size:12.5px; font-weight:600; color:var(--texto-2); }
+  .kpi .v { font-size:18px; font-weight:700; margin-top:2px; letter-spacing:-.01em; }
+  .kpi .s { font-size:11.5px; color:var(--texto-3); margin-top:1px; }
+  .pos { color:var(--vermelho); }
+  .neg { color:var(--verde); }
+
+  /* Tabela com 4 blocos */
+  .tab-wrap { overflow:auto; max-height:calc(100vh - 150px); min-height:320px; }
+  .tab-wrap thead tr:not(.blocos) th { position:sticky; top:34px; z-index:4; }
+  .tab-wrap thead tr.blocos th { position:sticky; top:0; z-index:5; }
+  .tab-wrap thead th.fixa { z-index:6 !important; left:0; }
+  table.dados { width:100%; border-collapse:separate; border-spacing:0; font-size:11.5px; }
+  table.dados th { background:var(--fundo-2); text-align:right; font-weight:600; font-size:11px; letter-spacing:.02em; text-transform:uppercase; color:var(--texto-2); padding:8px 5px; border-bottom:1px solid var(--borda); cursor:pointer; user-select:none; white-space:normal; line-height:1.2; vertical-align:bottom; min-width:52px; font-size:10.5px; }
+  table.dados th.txt, table.dados td.txt { text-align:left; }
+  table.dados th.txt { min-width:0; }
+  table.dados th:hover { color:var(--laranja); }
+  table.dados th.ord { color:var(--laranja); }
+  table.dados td { padding:6px 5px; border-bottom:1px solid var(--borda-2); text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  table.dados td.txt { overflow:hidden; text-overflow:ellipsis; }
+  table.dados td .cod { color:var(--texto-3); font-size:11px; margin-right:6px; }
+  table.dados td .sub { display:block; font-size:10.5px; color:var(--texto-3); margin-top:1px; }
+  table.dados tbody tr { cursor:pointer; }
+  table.dados tbody tr:hover td { background:var(--laranja-10); }
+  table.dados thead tr.blocos th { cursor:default; text-align:center; font-size:11.5px; font-weight:700; letter-spacing:.1em; padding:9px 8px 7px; border-bottom:2px solid; background:var(--branco); }
+  table.dados thead tr.blocos th.b-atual { color:#4a5162; background:#f3f4f7; border-bottom-color:#7d8496; }
+  table.dados thead tr.blocos th.b-ref { color:var(--laranja-escuro); background:var(--laranja-10); border-bottom-color:var(--laranja); }
+  table.dados thead tr.blocos th.b-imp { color:var(--texto); background:#eef0f3; border-bottom-color:var(--escuro-1); }
+  table.dados thead tr.blocos th.b-info { border-bottom-color:var(--borda); }
+  table.dados thead tr:not(.blocos) th.h1 { background:#fafbfc; }
+  table.dados thead tr:not(.blocos) th.h2 { background:#fffaf6; }
+  table.dados thead tr:not(.blocos) th.h3 { background:#f7f8fa; }
+  table.dados th.det { color:var(--texto-3); box-shadow:inset 0 3px 0 var(--laranja-20); }
+  table.dados td.det { color:var(--texto-2); background:#fcfcfd; }
+  table.dados td.det.ref { background:#fffcf9; }
+  .grp-tg { width:17px; height:17px; border:1px solid #b9bec8; border-radius:4px; background:#fff; color:var(--texto-2); font-size:12px; line-height:14px; font-weight:700; cursor:pointer; margin-right:5px; vertical-align:middle; padding:0; }
+  .grp-tg:hover { border-color:var(--laranja); color:var(--laranja); }
+  table.dados th.b1, table.dados td.b1 { border-left:1px solid #c9ccd3; }
+  table.dados th.b2, table.dados td.b2 { border-left:1px solid var(--laranja-40); }
+  table.dados th.b3, table.dados td.b3 { border-left:1px solid #c9ccd3; }
+  table.dados td.ref { background:#fffaf6; }
+  table.dados td.fixa, table.dados th.fixa { position:sticky; left:0; z-index:2; background:var(--branco); }
+  table.dados thead th.fixa { z-index:3; background:var(--fundo-2); }
+  table.dados tbody tr:hover td.fixa { background:var(--laranja-10); }
+  .mg-inp { width:60px; height:28px; text-align:right; border:1px solid var(--laranja-40); border-radius:7px; padding:0 6px; font-size:12.5px; background:#fff; font-variant-numeric:tabular-nums; }
+  .mg-inp:focus { outline:none; border-color:var(--laranja); box-shadow:0 0 0 3px rgba(255,120,45,.14); }
+  .mg-inp.alterada { background:var(--laranja-20); border-color:var(--laranja); font-weight:700; }
+  .pag { display:flex; align-items:center; justify-content:flex-end; gap:8px; padding:12px 22px; font-size:12.5px; color:var(--texto-2); border-top:1px solid var(--borda-2); }
+  .vazio { padding:48px 18px; text-align:center !important; color:var(--texto-3); }
+
+  /* Modal: memória de cálculo */
+  #modal { position:fixed; inset:0; z-index:500; background:rgba(20,24,38,.5); display:flex; align-items:flex-start; justify-content:center; padding:32px 16px; overflow-y:auto; }
+  .modal-caixa { background:var(--branco); border-radius:18px; width:100%; max-width:1000px; box-shadow:0 20px 50px rgba(16,24,40,.25); overflow:hidden; }
+  .modal-cab { padding:20px 24px; border-bottom:1px solid var(--borda-2); display:flex; justify-content:space-between; gap:16px; align-items:flex-start; }
+  .modal-cab .sobre { font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--laranja); }
+  .modal-cab .t { font-size:18px; font-weight:700; margin-top:4px; }
+  .modal-cab .s { font-size:13px; color:var(--texto-2); margin-top:4px; }
+  .fechar { border:none; background:var(--fundo); width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:15px; color:var(--texto-2); flex-shrink:0; }
+  .modal-ref { display:flex; gap:24px; flex-wrap:wrap; padding:12px 24px; background:var(--fundo-2); border-bottom:1px solid var(--borda-2); font-size:12.5px; color:var(--texto-2); }
+  .modal-ref b { color:var(--texto); }
+  .modelos { display:grid; grid-template-columns:1fr 1fr; }
+  .modelo { padding:18px 24px 22px; }
+  .modelo + .modelo { border-left:1px solid var(--borda-2); }
+  .modelo h3 { font-size:12.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#4a5162; margin-bottom:12px; text-align:center; padding:8px; background:#f3f4f7; border-bottom:2px solid #7d8496; border-radius:8px 8px 0 0; }
+  .modelo + .modelo h3 { color:var(--laranja-escuro); background:var(--laranja-10); border-bottom-color:var(--laranja); }
+  .modelo table { width:100%; border-collapse:collapse; font-size:13px; }
+  .modelo td { padding:5px 4px; border-bottom:1px solid var(--borda-2); font-variant-numeric:tabular-nums; }
+  .modelo td:nth-child(2), .modelo td:nth-child(3) { text-align:right; }
+  .modelo td:nth-child(3) { color:var(--texto-3); width:90px; font-size:12px; }
+  .modelo td.vr { color:var(--texto); font-size:13px; }
+  .modelo tr.destaque td { font-weight:700; background:var(--fundo-2); }
+  .modelo tr.esp td { border:none; height:8px; padding:0; }
+  .modelo input { width:96px; height:30px; text-align:right; border:1px solid #d9dce2; border-radius:7px; padding:0 8px; font-size:13px; background:#fffaf6; }
+  .modelo input:focus { outline:none; border-color:var(--laranja); }
+  .modal-rod { padding:14px 24px; border-top:1px solid var(--borda-2); display:flex; gap:10px; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+  .comparativo { display:flex; gap:22px; flex-wrap:wrap; font-size:13px; color:var(--texto-2); }
+  .comparativo b { font-size:15px; color:var(--texto); }
+  .comparativo b.pos { color:var(--vermelho); } .comparativo b.neg { color:var(--verde); }
+
+  #carregando { position:fixed; inset:0; z-index:2000; background:rgba(245,246,248,.88); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; color:var(--texto-2); font-size:13.5px; }
+  .spinner { width:36px; height:36px; border:3px solid var(--laranja-20); border-top-color:var(--laranja); border-radius:50%; animation:girar .8s linear infinite; }
+  @keyframes girar { to { transform:rotate(360deg); } }
+
+  @media (max-width:900px) {
+    #tela-login { grid-template-columns:1fr; }
+    .login-foto { display:none; }
+    #app { grid-template-columns:1fr; }
+    .lateral { position:fixed; left:0; right:0; bottom:0; top:auto; height:auto; width:auto; z-index:900; border-right:none; border-top:1px solid var(--borda); }
+    .lateral .lat-topo, .lateral .lat-rodape { display:none; }
+    .lateral .menu { flex-direction:row; padding:6px 10px; }
+    .lateral .menu a { flex:1; justify-content:center; height:42px; font-size:13.5px; }
+    main { padding-bottom:72px !important; }
+    .topo { padding:0 16px; } .topo h1 { font-size:15px; overflow:hidden; text-overflow:ellipsis; min-width:0; }
+    .btn-sair { margin-left:0; } .avatar { display:none; }
+    .usuario .nome-u { display:none; }
+    main { padding:16px; }
+    .modelos { grid-template-columns:1fr; } .modelo + .modelo { border-left:none; border-top:1px solid var(--borda-2); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═════════ LOGIN ═════════ -->
+<div id="tela-login">
+  <section class="login-foto">
+    <img class="logo" src="assets/logo_branco.png" alt="Br Supply" />
+    <div class="meio">
+      <h1>Simulador de Preço</h1>
+      <p class="sub-tit">Impacto da Reforma Tributária</p>
+    </div>
+    <div class="rodape">© 2026 Br Supply · Uso interno</div>
+  </section>
+  <section class="login-lado">
+    <form class="login-caixa" id="form-login" autocomplete="on">
+      <h2 style="margin-bottom:28px">Bem-vindo</h2>
+      <div class="campo"><label for="l-login">Login</label>
+        <div class="caixa-inp">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <input id="l-login" name="username" autocomplete="off" placeholder="Digite para pesquisar seu nome" required />
+          <div class="login-lista" id="login-lista"></div>
+        </div></div>
+      <div class="campo"><label for="l-senha">Senha</label>
+        <div class="caixa-inp">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <input id="l-senha" name="password" type="password" inputmode="numeric" autocomplete="current-password" required />
+          <button type="button" class="olho" id="btn-olho" aria-label="Mostrar senha"><svg class="ic" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div></div>
+      <div id="login-erro" class="login-erro oculto"></div>
+      <button class="btn-entrar" id="btn-entrar" type="submit">Entrar <svg class="ic" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      <div class="login-nota"><svg class="ic" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>Acesso restrito a colaboradores autorizados.</div>
+    </form>
+  </section>
+</div>
+
+<div id="carregando" class="oculto"><div class="spinner"></div><div id="carregando-txt">Carregando…</div></div>
+
+<!-- ═════════ APP ═════════ -->
+<div id="app" class="oculto">
+  <aside class="lateral">
+    <div class="lat-topo">
+      <img class="logo-longo" src="assets/logo.png" alt="Br Supply" />
+      <img class="ico-curto" src="assets/icone.png" alt="Br Supply" />
+      <button class="btn-recolher" id="btn-recolher" type="button" title="Recolher menu"><svg class="ic" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    </div>
+    <nav class="menu">
+      <a href="#" class="ativo" data-pag="simulador" title="Simulador"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="18"/><line x1="8" y1="18" x2="12" y2="18"/></svg><span>Simulador</span></a>
+      <a href="#" data-pag="memoria" title="Memória de cálculo"><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg><span>Memória de cálculo</span></a>
+    </nav>
+    <div class="lat-rodape"><span>© 2026 Br Supply · Uso interno</span></div>
+  </aside>
+
+  <div class="principal">
+    <header class="topo">
+      <h1 id="titulo-pag">Simulador de Preço · Reforma Tributária</h1>
+      <div class="usuario">
+        <div class="avatar"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c0-4.4 3.8-7.5 8.5-7.5s8.5 3.1 8.5 7.5z"/></svg></div>
+        <div class="nome-u"><b id="u-nome"></b><small id="u-perfil"></small></div>
+        <button class="btn-sair" id="btn-sair" type="button"><svg class="ic" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sair</button>
+      </div>
+    </header>
+
+    <main>
+     <div id="pag-simulador">
+      <div class="saudacao">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/><line x1="23" y1="22" x2="1" y2="22"/></svg>
+        <div><h2 id="saudacao"></h2><p id="hero-sub"></p></div>
+      </div>
+
+      <div class="cartao filtros">
+        <div class="cartao-cab">
+          <svg class="ic" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+          <div class="t">Filtros e parâmetros</div>
+          <div class="q">Médias de <b id="i-periodo"></b> · atualizado em <b id="i-gerado"></b></div>
+        </div>
+        <div class="cartao-corpo">
+          <div class="linha-f">
+            <div class="grp" id="grp-exec"><span>Executivo</span><div class="cb f-exec" data-f="exec"></div></div>
+            <div class="grp" id="grp-grupo"><span>Cliente (grupo econômico)</span><div class="cb f-grupo" data-f="grupo"></div></div>
+            <div class="grp"><span>CD Origem</span><div class="cb f-cd" data-f="cd"></div></div>
+            <div class="grp"><span>UF Destino</span><div class="cb f-uf" data-f="uf"></div></div>
+            <div class="grp"><span>Contribuinte</span><div class="cb f-ct" data-f="ct"></div></div>
+            <div class="grp"><span>Família comercial</span><div class="cb f-fam" data-f="fam"></div></div>
+            <div class="grp"><span>Item (código ou descrição)</span><div class="cb f-item" data-f="item"></div></div>
+            <button class="btn-sec" id="btn-limpar" type="button">Limpar filtros</button>
+          </div>
+          <div class="linha-f">
+            <label class="grp"><span>ICMS após reforma %</span><input class="inp pct" style="width:88px" id="p-icms" type="number" step="0.01" min="0" max="50" placeholder="tabela" title="Altera só o cenário após a reforma. Em branco: ICMS da tabela fiscal de cada item." /></label>
+            <div class="sep"></div>
+            <label class="grp"><span>CBS %</span><input class="inp pct" id="p-cbs" type="number" step="0.01" min="0" /></label>
+            <label class="grp"><span>IBS Est. %</span><input class="inp pct" id="p-ibse" type="number" step="0.01" min="0" /></label>
+            <label class="grp"><span>IBS Mun. %</span><input class="inp pct" id="p-ibsm" type="number" step="0.01" min="0" /></label>
+            <label class="grp"><span>Margem geral %</span><input class="inp pct" id="p-mg" type="number" step="0.01" placeholder="hist." title="Vale para os dois modelos. Em branco: margem histórica (6 meses) de cada cliente × item. A margem digitada na linha tem prioridade." /></label>
+            <div class="espaco"></div>
+            <button class="btn-sec oculto" id="btn-limpar-mg" type="button" title="Apaga as margens digitadas nas linhas">Limpar margens digitadas</button>
+            <button class="btn-sec" id="btn-reset" type="button" title="Volta ICMS, CBS, IBS e margem geral ao padrão">Restaurar parâmetros</button>
+            <button class="btn oculto" id="btn-excel" type="button">
+              <svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Exportar Excel</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpis" id="kpis"></div>
+
+      <div class="cartao bloco">
+        <div class="cartao-cab">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <div class="t">Simulação</div>
+          <div class="q" id="t-qtd"></div>
+          <div class="espaco"></div>
+          <div class="nota-ipi">IPI ainda não contemplado no modelo após a reforma.</div>
+        </div>
+        <div class="tab-wrap"><table class="dados" id="tabela"><thead></thead><tbody></tbody></table></div>
+        <div class="pag" id="paginacao"></div>
+      </div>
+     </div>
+
+     <div id="pag-memoria" class="oculto">
+      <div class="cartao"><div class="cartao-cab"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><div class="t">Premissas e fontes</div></div>
+        <div class="cartao-corpo" id="mem-premissas"></div></div>
+      <p class="mem-ex" id="mem-ex"></p>
+      <div class="cartao"><div class="cartao-cab"><span class="mem-tag atual">Modelo atual</span><div class="t">Não contribuinte</div></div>
+        <div class="cartao-corpo" id="mem-nc"></div></div>
+      <div class="cartao"><div class="cartao-cab"><span class="mem-tag atual">Modelo atual</span><div class="t">Contribuinte</div><div class="q">Sem DIFAL e FCP</div></div>
+        <div class="cartao-corpo" id="mem-c"></div></div>
+      <div class="cartao"><div class="cartao-cab"><span class="mem-tag ref">Após a reforma</span><div class="t">Não contribuinte</div><div class="q">Sem PIS/COFINS · ICMS, DIFAL e FCP por dentro · CBS e IBS por fora</div></div>
+        <div class="cartao-corpo" id="mem-ref"></div></div>
+      <div class="cartao"><div class="cartao-cab"><span class="mem-tag ref">Após a reforma</span><div class="t">Contribuinte</div><div class="q">Sem PIS/COFINS · ICMS por dentro · ST, FCP, CBS e IBS por fora</div></div>
+        <div class="cartao-corpo" id="mem-ref-c"></div>
+        <div class="nota-ipi" style="margin:0 22px 18px">O IPI ainda não está contemplado no modelo após a reforma, pois ainda não se sabe qual será a alíquota nem quais itens terão IPI.</div></div>
+     </div>
+    </main>
+  </div>
+</div>
+
+<!-- ═════════ MODAL DO ITEM ═════════ -->
+<div id="modal" class="oculto">
+  <div class="modal-caixa">
+    <div class="modal-cab">
+      <div><div class="sobre">Memória de cálculo</div><div class="t" id="m-titulo"></div><div class="s" id="m-sub"></div></div>
+      <button class="fechar" id="m-fechar" type="button" aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-ref" id="m-ref"></div>
+    <div class="modelos">
+      <div class="modelo"><h3>Modelo atual</h3><table id="m-atual"></table></div>
+      <div class="modelo"><h3>Após a reforma</h3><table id="m-reforma"></table></div>
+    </div>
+    <div class="modal-rod">
+      <div class="comparativo" id="m-comp"></div>
+      <button class="btn-sec" id="m-reset" type="button">Voltar aos valores iniciais</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ═════════════ UTILITÁRIOS ═════════════ */
+const $ = s => document.querySelector(s);
+const SAL_INDICE = 'brsupply-simulador-cbs-v1';
+const fmtR = new Intl.NumberFormat('pt-BR', { style:'currency', currency:'BRL' });
+const fmtN = new Intl.NumberFormat('pt-BR', { maximumFractionDigits:0 });
+const fmtN2 = new Intl.NumberFormat('pt-BR', { minimumFractionDigits:2, maximumFractionDigits:2 });
+const fmtP = new Intl.NumberFormat('pt-BR', { style:'percent', minimumFractionDigits:1, maximumFractionDigits:1 });
+const fmtP2 = new Intl.NumberFormat('pt-BR', { style:'percent', minimumFractionDigits:2, maximumFractionDigits:2 });
+const ok = x => Number.isFinite(x);
+const R = x => ok(x) ? fmtR.format(x) : '—';
+const P = x => ok(x) ? fmtP.format(x) : '—';
+const P2 = x => ok(x) ? fmtP2.format(x) : '—';
+const VAR = x => ok(x) ? (x > 0 ? '+' : '') + fmtP2.format(x) : '—';
+const clsVar = x => !ok(x) || Math.abs(x) < 1e-6 ? '' : (x > 0 ? 'pos' : 'neg');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const mesAno = iso => { const [a,m] = iso.split('-'); return ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'][+m-1] + '/' + a.slice(2); };
+
+function normalizar(t) {
+  return String(t || '').normalize('NFKD').replace(/[^\x00-\x7f]/g, '').toLowerCase().split(/\s+/).filter(Boolean).join(' ');
+}
+const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function sha256hex(t) {
+  const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t));
+  return [...new Uint8Array(h)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+const armazenar = { // sessão do navegador (some ao fechar a aba)
+  get(k) { try { return JSON.parse(sessionStorage.getItem(k)); } catch (e) { return null; } },
+  set(k, v) { try { sessionStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { sessionStorage.removeItem(k); } catch (e) {} },
+};
+function carregando(on, txt) { $('#carregando').classList.toggle('oculto', !on); if (txt) $('#carregando-txt').textContent = txt; }
+
+/* ═════════════ LOGIN E DECRIPTAÇÃO ═════════════ */
+let INDICE = null, NOMES = [];
+/* login: pesquisa de nomes */
+(() => {
+  const inp = $('#l-login'), lista = $('#login-lista'); let vis = [], foco = 0;
+  const desenhar = () => {
+    const t = normalizar(inp.value).split(' ').filter(Boolean);
+    vis = NOMES.filter(n => { const x = normalizar(n); return t.every(p => x.includes(p)); }).slice(0, 80);
+    foco = Math.min(foco, Math.max(vis.length - 1, 0));
+    lista.innerHTML = vis.length ? vis.map((n, i) => `<div data-i="${i}" class="${i === foco ? 'foco' : ''}">${esc(n)}</div>`).join('') : '<div class="nada">Nenhum nome encontrado.</div>';
+    lista.classList.add('on');
+  };
+  const escolher = i => { if (vis[i]) { inp.value = vis[i]; lista.classList.remove('on'); $('#l-senha').focus(); } };
+  inp.addEventListener('focus', () => { foco = 0; desenhar(); });
+  inp.addEventListener('input', () => { foco = 0; desenhar(); });
+  inp.addEventListener('blur', () => setTimeout(() => lista.classList.remove('on'), 150));
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { foco = Math.min(foco + 1, vis.length - 1); desenhar(); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { foco = Math.max(foco - 1, 0); desenhar(); e.preventDefault(); }
+    else if (e.key === 'Enter' && lista.classList.contains('on')) { e.preventDefault(); escolher(foco); }
+    else if (e.key === 'Escape') lista.classList.remove('on');
+  });
+  lista.addEventListener('mousedown', e => { const d = e.target.closest('div[data-i]'); if (d) { e.preventDefault(); escolher(+d.dataset.i); } });
+})();
+async function lerIndice() {
+  if (!INDICE) INDICE = await (await fetch('usuarios.json', { cache:'no-store' })).json();
+  return INDICE;
+}
+(async () => {
+  try {
+    const idx = await lerIndice();
+    NOMES = idx.nomes || [];
+  } catch (e) { $('#l-login').placeholder = 'Não foi possível carregar os logins'; }
+})();
+
+async function entrar(login, senha) {
+  if (!window.crypto || !crypto.subtle) throw new Error('Este navegador não permite abrir o portal (é preciso HTTPS).');
+  const idx = await lerIndice();
+  const u = idx.u[await sha256hex(SAL_INDICE + '|' + normalizar(login))];
+  if (!u) throw new Error('Login ou senha inválidos.');
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(String(senha).trim()), 'PBKDF2', false, ['deriveKey']);
+  const kek = await crypto.subtle.deriveKey({ name:'PBKDF2', salt:b64d(u.s), iterations:idx.iter, hash:'SHA-256' }, base, { name:'AES-GCM', length:256 }, false, ['decrypt']);
+  let conteudo;
+  try { conteudo = await crypto.subtle.decrypt({ name:'AES-GCM', iv:b64d(u.iv) }, kek, b64d(u.c)); }
+  catch (e) { throw new Error('Login ou senha inválidos.'); }
+  return JSON.parse(new TextDecoder().decode(conteudo));
+}
+
+async function abrirPacote(sessao) {
+  const buf = new Uint8Array(await (await fetch('dados/' + sessao.pacote, { cache:'no-store' })).arrayBuffer());
+  const chave = await crypto.subtle.importKey('raw', b64d(sessao.k), 'AES-GCM', false, ['decrypt']);
+  const gz = await crypto.subtle.decrypt({ name:'AES-GCM', iv:buf.slice(0, 12) }, chave, buf.slice(12));
+  const bin = await new Response(new Blob([gz]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+  // [4 bytes: tamanho do cabeçalho][cabeçalho JSON][colunas: e u16, g u16, i u16, c u8, mg i16 x 10.000, pr u32 centavos]
+  const tam = new DataView(bin).getUint32(0, true);
+  const pac = JSON.parse(new TextDecoder().decode(new Uint8Array(bin, 4, tam)));
+  const n = pac.n; let pos = 4 + tam;
+  const ler = (Tipo) => { const a = new Tipo(bin.slice(pos, pos + n * Tipo.BYTES_PER_ELEMENT)); pos += Math.ceil(n * Tipo.BYTES_PER_ELEMENT / 4) * 4; return a; };
+  const e = ler(Uint16Array), g = ler(Uint16Array), i = ler(Uint16Array), c = ler(Uint8Array), mgI = ler(Int16Array), prC = ler(Uint32Array);
+  pac.pares = { e, g:Int32Array.from(g), i, c, mg:Float32Array.from(mgI, x => x === -32767 ? NaN : x / 10000), pr:Float32Array.from(prC) };
+  return pac;
+}
+
+$('#form-login').addEventListener('submit', async ev => {
+  ev.preventDefault();
+  const erro = $('#login-erro'); erro.classList.add('oculto');
+  const nomeOk = NOMES.find(n => normalizar(n) === normalizar($('#l-login').value));
+  if (!nomeOk) { erro.textContent = 'Selecione o seu nome na lista.'; erro.classList.remove('oculto'); return; }
+  $('#l-login').value = nomeOk;
+  const btn = $('#btn-entrar'), htmlBtn = btn.innerHTML; btn.disabled = true; btn.textContent = 'Verificando…';
+  try {
+    const sessao = await entrar($('#l-login').value, $('#l-senha').value);
+    armazenar.set('sim_sessao', sessao);
+    await iniciar(sessao);
+  } catch (e) {
+    erro.textContent = e.message || 'Não foi possível entrar.'; erro.classList.remove('oculto');
+  } finally { btn.disabled = false; btn.innerHTML = htmlBtn; }
+});
+$('#btn-sair').addEventListener('click', () => { if (S) armazenar.del('sim_estado_' + S.pacote); armazenar.del('sim_sessao'); location.reload(); });
+
+
+
+/* ═════════════ DADOS ═════════════ */
+let S = null;   // sessão
+let D = null;   // pacote
+const PADRAO = { icms:null, cbs:0.093, ibse:0.001, ibsm:0, mg:null };
+let PRM = { ...PADRAO };
+const OVR = new Map();   // margem digitada: chave "cliente|item" (cliente -1 = visão sem cliente)
+const FILTROS = ['exec', 'grupo', 'cd', 'uf', 'ct', 'fam', 'item'];
+const F_PAR = ['exec', 'grupo', 'ct', 'fam', 'item'];          // filtros no nível cliente × item
+const SEL = {}; FILTROS.forEach(f => SEL[f] = new Set());     // vazio = todos
+const EST = { imp1:false, imp2:false, ord:'grupo', dir:1, pag:0, pagina:'simulador' };
+const POR_PAG = 50, MAX_ORDENAR = 600000, MAX_EXCEL = 500000;
+
+async function iniciar(sessao) {
+  S = sessao;
+  carregando(true, 'Abrindo os dados da sua carteira…');
+  try { D = await abrirPacote(sessao); }
+  catch (e) { carregando(false); armazenar.del('sim_sessao'); throw new Error('Não foi possível abrir os dados. Tente novamente.'); }
+  prepararBase();
+  const p = D.meta.parametros || {};
+  PADRAO.cbs = p.cbs ?? PADRAO.cbs; PADRAO.ibse = p.ibs_est ?? PADRAO.ibse; PADRAO.ibsm = p.ibs_mun ?? PADRAO.ibsm;
+  PRM = { ...PADRAO };
+  restaurarEstado();
+  montarTela();
+  $('#tela-login').classList.add('oculto');
+  $('#app').classList.remove('oculto');
+  carregando(false);
+  PR = D.pares;
+  $('#grp-exec').classList.toggle('oculto', D.execs.length <= 1);
+  calcularFatores(); atualizar(2);
+  if (EST.pagina === 'memoria') irPara('memoria');
+}
+
+function prepararBase() {
+  const nI = D.itens.length;
+  D.itemFam = Int32Array.from(D.itens, it => it[2]);
+  D.itPerfil = Int32Array.from(D.itens, it => it[4]);
+  D.PF = Int32Array.from(D.perfis.flat());                          // perfil × 108 + CD × 54 + UF × 2 + contribuinte -> regra
+  D.custo = new Float64Array(nI * 2);
+  for (let i = 0; i < nI; i++) for (let s = 0; s < 2; s++) { const c = D.itens[i][5][s]; D.custo[i * 2 + s] = c === null || c === undefined ? NaN : c; }
+  // ordem alfabética das descrições (ordenação por item)
+  const ordem = D.itens.map((_, i) => i).sort((a, b) => D.itens[a][1].localeCompare(D.itens[b][1], 'pt-BR'));
+  D.itemRank = new Int32Array(nI); ordem.forEach((i, k) => D.itemRank[i] = k);
+}
+let PR = null;   // pares (cliente × item × contribuinte) da visão atual
+
+/* ═════════════ CÁLCULO ═════════════
+   regra = [icms, difal, fcp, pis+cofins, ipi, fator CBS, fator IBS, sem_regra] */
+const PIS_PARTE = 0.0165 / 0.0925, COF_PARTE = 0.076 / 0.0925;
+const idRegra = (i, s, u, c) => D.PF[D.itPerfil[i] * 108 + s * 54 + u * 2 + c];
+
+// MODELO ATUAL — markup de impostos
+function modeloAtual(pl, custo, g, contrib) {
+  const [icms, dif0, fcp0, pc, ipi] = g;
+  const dif = contrib ? 0 : dif0, fcp = contrib ? 0 : fcp0;      // DIFAL e FCP: só não contribuinte
+  const f1 = ipi * icms;                                          // fator 1: IPI na base do ICMS
+  const f2 = ipi * (icms + dif);                                  // fator 2: IPI na base do ICMS e do DIFAL
+  const fator = contrib
+    ? (1 - icms - pc - f1) + (icms + f1) * pc
+    : (1 - icms - pc - dif - fcp - f2) + (icms + f1) * pc;
+  const bruto = pl / fator;                                       // preço de mercadoria / preço bruto
+  const vipi = bruto * ipi;
+  const rob = bruto + vipi;                                       // ROB = preço bruto + IPI
+  const vicms = rob * icms, vdif = rob * dif, vfcp = rob * fcp;   // % sobre a ROB
+  const vpc = (bruto - vicms) * pc;                               // PIS/COFINS sobre (preço bruto − ICMS)
+  const imp = vicms + vdif + vfcp + vpc + vipi;
+  return { pl, f1, f2, fator, bruto, vipi, rob, vicms, vdif, vfcp, vpis:vpc * PIS_PARTE, vcof:vpc * COF_PARTE,
+           imp, aliq:rob ? imp / rob : NaN, mg:pl ? 1 - custo / pl : NaN, lb:pl - custo, dif, fcp };
+}
+// APÓS A REFORMA — markup de impostos; sem PIS/COFINS (IPI ainda não contemplado); CBS e IBS por fora
+//   não contribuinte: preço bruto = preço líquido ÷ (1 − %ICMS − %DIFAL − %FCP)
+//   contribuinte:     preço bruto = preço líquido ÷ (1 − %ICMS); ST e FCP por fora
+//   ICMS, DIFAL/ST e FCP = preço bruto × %; CBS e IBS = preço líquido × %
+//   ROB = preço líquido + ICMS + DIFAL/ST + FCP + CBS + IBS
+function modeloReforma(pl, custo, g, contrib, icmsAjuste) {
+  const [icms0, dif, fcp, , , fcbs, fibs] = g;
+  const icms = icmsAjuste === null ? icms0 : icmsAjuste;
+  const fator = contrib ? 1 - icms : 1 - icms - dif - fcp;
+  const bruto = pl / fator;
+  const vicms = bruto * icms, vdif = bruto * dif, vfcp = bruto * fcp;
+  const acbs = PRM.cbs * fcbs, aibs = (PRM.ibse + PRM.ibsm) * fibs;
+  const vcbs = pl * acbs, vibs = pl * aibs;
+  const imp = vicms + vdif + vfcp + vcbs + vibs;
+  const rob = pl + imp;
+  return { pl, icms, dif, fcp, fator, acbs, aibs, bruto, vicms, vdif, vfcp, vcbs, vibs, rob, imp,
+           aliq:rob ? imp / rob : NaN, mg:pl ? 1 - custo / pl : NaN, lb:pl - custo };
+}
+// Os dois modelos são proporcionais ao preço líquido: fatores por regra × contribuinte (rápido para os totais)
+let FAT = null;
+function calcularFatores() {
+  const nr = D.regras.length; FAT = new Float64Array(nr * 8);
+  for (let r = 0; r < nr; r++) for (let c = 0; c < 2; c++) {
+    const g = D.regras[r], a = modeloAtual(1, 0, g, c), n = modeloReforma(1, 0, g, c, PRM.icms), o = (r * 2 + c) * 4;
+    FAT[o] = a.rob; FAT[o + 1] = a.imp; FAT[o + 2] = n.rob; FAT[o + 3] = n.imp;
+  }
+}
+// Margem: digitada no cliente × item > margem geral (parâmetro) > margem média histórica
+const chaveMg = p => PR.g[p] + '|' + PR.i[p];
+function origemMg(p) { return OVR.has(chaveMg(p)) ? 'linha' : (PRM.mg !== null ? 'geral' : 'historica'); }
+function margemPar(p) {
+  const k = chaveMg(p);
+  if (OVR.has(k)) return OVR.get(k);
+  if (PRM.mg !== null) return PRM.mg;
+  const m = PR.mg[p]; return ok(m) ? m : NaN;
+}
+// Linha completa (cliente × item × CD × UF)
+function detalhe(p, s, u) {
+  const i = PR.i[p], c = PR.c[p], cu = D.custo[i * 2 + s], mg = margemPar(p);
+  const g = D.regras[idRegra(i, s, u, c)];
+  const pl = mg < 1 ? cu / (1 - mg) : NaN;
+  const a = modeloAtual(pl, cu, g, c), n = modeloReforma(pl, cu, g, c, PRM.icms);
+  return { p, s, u, i, c, cu, mg, g, pl, a, n, dif:n.rob - a.rob, var:a.rob ? n.rob / a.rob - 1 : NaN };
+}
+
+/* ═════════════ FILTROS (seleção múltipla, em cascata, pesquisáveis) ═════════════ */
+function valorPar(f, p) {
+  switch (f) { case 'exec': return PR.e[p]; case 'grupo': return PR.g[p]; case 'ct': return PR.c[p]; case 'fam': return D.itemFam[PR.i[p]]; case 'item': return PR.i[p]; }
+}
+function rotuloFiltro(f, v) {
+  switch (f) {
+    case 'exec': return D.execs[v];
+    case 'grupo': return D.grupos[v];
+    case 'cd': return D.cds[v];
+    case 'uf': return D.ufs[v];
+    case 'ct': return v ? 'Contribuinte' : 'Não contribuinte';
+    case 'fam': return D.fams[v] || '(sem família)';
+    case 'item': return D.itens[v][0] + ' · ' + D.itens[v][1];
+  }
+}
+const filtrosAtivos = () => F_PAR.filter(f => SEL[f].size);
+function filtrarPares() {
+  const ativos = filtrosAtivos(), disp = {}; F_PAR.forEach(f => disp[f] = new Set());
+  const n = PR.i.length, fp = [];
+  for (let p = 0; p < n; p++) {
+    let falhou = null, nf = 0;
+    for (const f of ativos) if (!SEL[f].has(valorPar(f, p))) { falhou = f; if (++nf > 1) break; }
+    if (nf === 0) { fp.push(p); for (const f of F_PAR) disp[f].add(valorPar(f, p)); }
+    else if (nf === 1) disp[falhou].add(valorPar(falhou, p));
+  }
+  return { fp, disp };
+}
+
+let V = null;   // linhas virtuais: pares filtrados × CDs × UFs
+function montarLinhas() {
+  let res = filtrarPares(), podou = false;
+  for (const f of filtrosAtivos()) for (const v of [...SEL[f]]) if (!res.disp[f].has(v)) { SEL[f].delete(v); podou = true; }
+  if (podou) res = filtrarPares();
+  const cds = SEL.cd.size ? [...SEL.cd].sort() : D.cds.map((_, k) => k);
+  const ufs = SEL.uf.size ? [...SEL.uf].sort((a, b) => a - b) : D.ufs.map((_, k) => k);
+  V = { fp:Uint32Array.from(res.fp), cds, ufs, nU:ufs.length, nCU:cds.length * ufs.length, ord:null, aviso:false };
+  V.total = V.fp.length * V.nCU;
+  res.disp.cd = new Set(D.cds.map((_, k) => k)); res.disp.uf = new Set(D.ufs.map((_, k) => k));
+  atualizarCombos(res.disp);
+}
+function linhaDe(k) {
+  const id = V.ord ? V.ord[k] : k;
+  const q = (id / V.nCU) | 0, rem = id - q * V.nCU;
+  return { p:V.fp[q], s:V.cds[(rem / V.nU) | 0], u:V.ufs[rem % V.nU] };
+}
+
+/* ═════════════ ORDENAÇÃO ═════════════ */
+function ordenar() {
+  const k = EST.ord, d = EST.dir;
+  V.ord = null; V.aviso = false;
+  const fp = V.fp;
+  if (k === 'grupo' || k === 'item') {
+    // ordena os pares (cliente / item); CDs e UFs seguem a ordem natural dentro de cada par
+    const kg = p => PR.g[p], ki = p => D.itemRank[PR.i[p]];
+    fp.sort(k === 'grupo'
+      ? (a, b) => d * (kg(a) - kg(b)) || ki(a) - ki(b) || PR.c[a] - PR.c[b]
+      : (a, b) => d * (ki(a) - ki(b)) || kg(a) - kg(b) || PR.c[a] - PR.c[b]);
+    return;
+  }
+  if (V.total > MAX_ORDENAR) { V.aviso = true; return; }
+  const chave = new Float64Array(V.total), ids = new Uint32Array(V.total);
+  for (let id = 0; id < V.total; id++) {
+    ids[id] = id;
+    const q = (id / V.nCU) | 0, rem = id - q * V.nCU, s = V.cds[(rem / V.nU) | 0], u = V.ufs[rem % V.nU];
+    const x = k === 'rota' ? s * 100 + u : valorCol(detalhe(fp[q], s, u), k);
+    chave[id] = ok(x) ? x : -Infinity;
+  }
+  ids.sort((a, b) => d * (chave[a] - chave[b]) || a - b);
+  V.ord = ids;
+}
+
+/* ═════════════ ESTADO DA SESSÃO (margens, parâmetros e filtros) ═════════════ */
+const chaveEstado = () => 'sim_estado_' + (S && S.pacote);
+function salvarEstado() {
+  armazenar.set(chaveEstado(), { prm:PRM, ovr:[...OVR], sel:Object.fromEntries(FILTROS.map(f => [f, [...SEL[f]]])), est:EST });
+}
+function restaurarEstado() {
+  const e = armazenar.get(chaveEstado()); if (!e) return;
+  try {
+    if (e.prm) PRM = { ...PADRAO, ...e.prm };
+    OVR.clear(); (e.ovr || []).forEach(([k, v]) => OVR.set(k, v));
+    FILTROS.forEach(f => { SEL[f].clear(); ((e.sel || {})[f] || []).forEach(v => SEL[f].add(v)); });
+    Object.assign(EST, e.est || {}); EST.pag = EST.pag || 0;
+  } catch (x) {}
+}
+
+/* ═════════════ COMBOS DE SELEÇÃO MÚLTIPLA ═════════════ */
+const COMBOS = {};
+function criarCombo(el) {
+  const f = el.dataset.f;
+  const todos = f === 'fam' ? 'Todas' : 'Todos';
+  el.innerHTML = `<input class="inp" placeholder="${todos}" autocomplete="off" /><button type="button" class="cb-x" title="Limpar seleção">✕</button>
+    <div class="cb-lista"><div class="cb-acoes"><button type="button" data-a="marcar">Marcar exibidos</button><button type="button" data-a="limpar">Limpar</button><span class="cb-n"></span></div><div class="cb-ops"></div></div>`;
+  const inp = el.querySelector('input'), ops = el.querySelector('.cb-ops');
+  const cb = { f, ops:[], foco:-1, visiveis:[], todosVis:[], topo:new Set() };
+  COMBOS[f] = cb;
+  const MAX = 300;
+  function resumo() {
+    const sel = SEL[f]; if (!sel.size) return '';
+    const v = [...sel][0], t = f === 'item' ? D.itens[v][0] : rotuloFiltro(f, v);
+    return sel.size === 1 ? rotuloFiltro(f, v) : `${t} +${sel.size - 1}`;
+  }
+  function desenhar() {
+    const termos = normalizar(inp.value).split(' ').filter(Boolean);
+    let vis = termos.length ? cb.ops.filter(o => termos.every(t => o.n.includes(t))) : cb.ops;
+    if (!termos.length && cb.topo.size) vis = [...vis.filter(o => cb.topo.has(o.v)), ...vis.filter(o => !cb.topo.has(o.v))];   // marcados (ao abrir) primeiro
+    cb.todosVis = vis; cb.visiveis = vis.slice(0, MAX);
+    cb.foco = Math.min(cb.foco, cb.visiveis.length - 1);
+    ops.innerHTML = cb.visiveis.map((o, j) => `<div class="cb-op ${j === cb.foco ? 'foco' : ''} ${SEL[f].has(o.v) ? 'marcado' : ''}" data-v="${o.v}" title="${esc(o.t)}"><span class="ck"></span>${f === 'item' ? `<span class="cod">${esc(D.itens[o.v][0])}</span>${esc(D.itens[o.v][1])}` : esc(o.t)}</div>`).join('') +
+      (vis.length > MAX ? `<div class="cb-info">Mostrando ${MAX} de ${fmtN.format(vis.length)}. Continue digitando para refinar.</div>` : '') +
+      (!vis.length ? '<div class="cb-info">Nenhum resultado.</div>' : '');
+    el.querySelector('.cb-n').textContent = SEL[f].size ? `${fmtN.format(SEL[f].size)} marcado${SEL[f].size > 1 ? 's' : ''}` : '';
+  }
+  function mudou() { EST.pag = 0; atualizar(); if (el.classList.contains('aberto')) desenhar(); }
+  function alternar(v) { if (SEL[f].has(v)) SEL[f].delete(v); else SEL[f].add(v); mudou(); }
+  cb.sincronizar = () => {
+    if (document.activeElement !== inp) inp.value = resumo();
+    inp.placeholder = document.activeElement === inp ? (resumo() || 'Pesquisar…') : todos;
+    el.classList.toggle('sel-on', SEL[f].size > 0);
+    if (el.classList.contains('aberto')) desenhar();
+  };
+  inp.addEventListener('focus', () => { cb.topo = new Set(SEL[f]); inp.value = ''; inp.placeholder = resumo() || 'Pesquisar…'; cb.foco = -1; el.classList.add('aberto'); desenhar(); });
+  inp.addEventListener('input', () => { cb.foco = 0; desenhar(); });
+  inp.addEventListener('blur', () => setTimeout(() => { if (document.activeElement === inp) return; el.classList.remove('aberto'); inp.value = resumo(); inp.placeholder = todos; }, 150));
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { cb.foco = Math.min(cb.foco + 1, cb.visiveis.length - 1); desenhar(); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { cb.foco = Math.max(cb.foco - 1, 0); desenhar(); e.preventDefault(); }
+    else if (e.key === 'Enter') { e.preventDefault(); if (cb.visiveis[cb.foco]) alternar(cb.visiveis[cb.foco].v); }
+    else if (e.key === 'Escape') { inp.blur(); }
+  });
+  el.querySelector('.cb-lista').addEventListener('mousedown', e => {
+    e.preventDefault();
+    const a = e.target.closest('button[data-a]');
+    if (a) { if (a.dataset.a === 'limpar') SEL[f].clear(); else cb.todosVis.forEach(o => SEL[f].add(o.v)); mudou(); return; }
+    const op = e.target.closest('.cb-op'); if (op) { cb.foco = cb.visiveis.findIndex(o => o.v === +op.dataset.v); alternar(+op.dataset.v); }
+  });
+  el.querySelector('.cb-x').addEventListener('click', () => { SEL[f].clear(); mudou(); });
+}
+function atualizarCombos(disp) {
+  for (const f of FILTROS) {
+    const cb = COMBOS[f]; if (!cb) continue;
+    cb.ops = [...disp[f]].map(v => ({ v, t:rotuloFiltro(f, v) }));
+    if (f !== 'uf' && f !== 'cd') cb.ops.sort((a, b) => a.t.localeCompare(b.t, 'pt-BR'));
+    cb.ops.forEach(o => o.n = normalizar(o.t));
+    cb.sincronizar();
+  }
+}
+
+/* ═════════════ TELA ═════════════ */
+function montarTela() {
+  $('#u-nome').textContent = S.nome;
+  $('#u-perfil').textContent = S.perfil === 'master' ? 'Master · acesso total' : (S.perfil === 'geral' ? 'Acesso geral' : 'Carteira própria');
+  const h = new Date().getHours();
+  $('#saudacao').textContent = `${h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite'}, ${S.nome.split(' ')[0]}!`;
+  const m = D.meta;
+  $('#i-periodo').textContent = mesAno(m.periodo_ini) + ' a ' + mesAno(m.periodo_fim);
+  $('#i-gerado').textContent = m.gerado_em.split(' ')[0];
+  $('#hero-sub').textContent = new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long', year:'numeric' }) + ` · clientes da carteira do último mês · itens comprados nos últimos ${m.meses} meses, simulados para os 2 CDs e as 27 UFs`;
+  $('#btn-excel').classList.toggle('oculto', !S.exportar);
+  document.querySelectorAll('.cb').forEach(criarCombo);
+  escreverParametros();
+}
+
+const pctTxt = v => v === null ? '' : +(v * 100).toFixed(4);
+function escreverParametros() {
+  $('#p-icms').value = pctTxt(PRM.icms);
+  $('#p-cbs').value = pctTxt(PRM.cbs); $('#p-ibse').value = pctTxt(PRM.ibse); $('#p-ibsm').value = pctTxt(PRM.ibsm);
+  $('#p-mg').value = pctTxt(PRM.mg);
+  $('#p-icms').classList.toggle('ativo-filtro', PRM.icms !== null);
+  $('#p-mg').classList.toggle('ativo-filtro', PRM.mg !== null);
+}
+function lerPct(id, vazio) {
+  const t = String($(id).value).trim(); if (t === '' && vazio !== undefined) return vazio;
+  const v = parseFloat(t.replace(',', '.')); return ok(v) ? v / 100 : (vazio === undefined ? 0 : vazio);
+}
+['#p-cbs', '#p-ibse', '#p-ibsm'].forEach(id => $(id).addEventListener('change', () => {
+  PRM.cbs = Math.max(lerPct('#p-cbs'), 0); PRM.ibse = Math.max(lerPct('#p-ibse'), 0); PRM.ibsm = Math.max(lerPct('#p-ibsm'), 0);
+  escreverParametros(); recalcular();
+}));
+$('#p-icms').addEventListener('change', () => { const v = lerPct('#p-icms', null); PRM.icms = v === null ? null : Math.min(Math.max(v, 0), 0.5); escreverParametros(); recalcular(); });
+$('#p-mg').addEventListener('change', () => { const v = lerPct('#p-mg', null); PRM.mg = v === null ? null : Math.min(v, 0.99); escreverParametros(); recalcular(false); });
+$('#btn-reset').addEventListener('click', () => { PRM = { ...PADRAO }; escreverParametros(); recalcular(); });
+$('#btn-limpar-mg').addEventListener('click', () => { OVR.clear(); recalcular(false); });
+$('#btn-limpar').addEventListener('click', () => { FILTROS.forEach(f => SEL[f].clear()); EST.pag = 0; atualizar(); });
+
+/* Colunas: 4 blocos */
+function colunas() { return COLUNAS().filter(c => !c.gi || EST['imp' + c.gi]); }
+function COLUNAS() {
+  return [
+    { k:'item', t:'Item', txt:1, w:190, fixa:1, bl:0 },
+    { k:'grupo', t:'Cliente', txt:1, w:150, bl:0 },
+    { k:'rota', t:'CD → UF', txt:1, bl:0 },
+    { k:'custo', t:'Custo aquisição', f:R, bl:1, ini:1 },
+    { k:'mg', t:'Margem', bl:1, input:1 },
+    { k:'pl1', t:'Preço líquido', f:R, bl:1 },
+    { k:'vicms1', gi:1, t:'ICMS', f:R, sub:x => P2(x.g[0]), bl:1 },
+    { k:'vdif1', gi:1, t:'DIFAL', f:R, sub:x => P2(x.a.dif), bl:1 },
+    { k:'vfcp1', gi:1, t:'FCP', f:R, sub:x => P2(x.a.fcp), bl:1 },
+    { k:'vpis', gi:1, t:'PIS', f:R, sub:x => P2(x.g[3] * PIS_PARTE), bl:1 },
+    { k:'vcof', gi:1, t:'COFINS', f:R, sub:x => P2(x.g[3] * COF_PARTE), bl:1 },
+    { k:'vipi', gi:1, t:'IPI', f:R, sub:x => P2(x.g[4]), bl:1 },
+    { k:'imp1', tg:1, t:'Total impostos', f:R, sub:x => P2(x.a.aliq), bl:1 },
+    { k:'pv1', t:'Preço bruto', f:R, bl:1 },
+    { k:'nf1', t:'ROB', f:R, bl:1, forte:1 },
+    { k:'custo2', t:'Custo aquisição', f:R, bl:2, ini:1, ref:1 },
+    { k:'mg2', t:'Margem', f:P, bl:2, ref:1 },
+    { k:'pl2', t:'Preço líquido', f:R, bl:2, ref:1 },
+    { k:'vicms2', gi:2, t:'ICMS', f:R, sub:x => P2(x.n.icms), bl:2, ref:1 },
+    { k:'vdif2', gi:2, t:'DIFAL / ST', f:R, sub:x => P2(x.n.dif), bl:2, ref:1 },
+    { k:'vfcp2', gi:2, t:'FCP', f:R, sub:x => P2(x.n.fcp), bl:2, ref:1 },
+    { k:'vcbs', gi:2, t:'CBS', f:R, sub:x => P2(x.n.acbs), bl:2, ref:1 },
+    { k:'vibs', gi:2, t:'IBS', f:R, sub:x => P2(x.n.aibs), bl:2, ref:1 },
+    { k:'imp2', tg:2, t:'Total impostos', f:R, sub:x => P2(x.n.aliq), bl:2, ref:1 },
+    { k:'plv2', t:'Preço líquido de venda', f:R, bl:2, ref:1 },
+    { k:'nf2', t:'ROB', f:R, bl:2, ref:1, forte:1 },
+    { k:'dif', t:'Var. R$', f:x => ok(x) ? (x > 0 ? '+' : '') + fmtR.format(x) : '—', cls:clsVar, bl:3, ini:1 },
+    { k:'var', t:'Var. %', f:VAR, cls:clsVar, bl:3 },
+  ];
+}
+function valorCol(x, k) {
+  switch (k) {
+    case 'custo': case 'custo2': return x.cu;
+    case 'mg': case 'mg2': return x.mg;
+    case 'pl1': case 'pl2': case 'plv2': return x.pl;
+    case 'vicms1': return x.a.vicms; case 'vdif1': return x.a.vdif; case 'vfcp1': return x.a.vfcp;
+    case 'vpis': return x.a.vpis; case 'vcof': return x.a.vcof; case 'vipi': return x.a.vipi;
+    case 'imp1': return x.a.imp; case 'pv1': return x.a.bruto; case 'nf1': return x.a.rob;
+    case 'vicms2': return x.n.vicms; case 'vdif2': return x.n.vdif; case 'vfcp2': return x.n.vfcp;
+    case 'vcbs': return x.n.vcbs; case 'vibs': return x.n.vibs; case 'imp2': return x.n.imp; case 'nf2': return x.n.rob;
+    case 'dif': return x.dif; case 'var': return x.var;
+  }
+  return NaN;
+}
+function textoCol(x, k) {
+  switch (k) {
+    case 'item': return D.itens[x.i][1];
+    case 'grupo': return D.grupos[PR.g[x.p]];
+    case 'rota': return D.cds[x.s] + ' → ' + D.ufs[x.u];
+  }
+}
+
+/* ═════════════ ATUALIZAÇÃO ═════════════ */
+// nível 2: filtros mudaram · 1: valores mudaram (reordena) · 0: só redesenha (mantém a ordem)
+function atualizar(nivel = 2) {
+  if (nivel >= 2 || !V) montarLinhas();
+  if (nivel >= 1) ordenar();
+  desenharKpis();
+  desenharTabela();
+  salvarEstado();
+}
+function recalcular(reordenar = true) { calcularFatores(); atualizar(reordenar ? 1 : 0); }
+
+function desenharKpis() {
+  let rob1 = 0, rob2 = 0, imp1 = 0, imp2 = 0, pl = 0, lb = 0, sobe = 0, n = 0;
+  for (const p of V.fp) {
+    const i = PR.i[p], c = PR.c[p], mg = margemPar(p);
+    if (!(mg < 1)) continue;
+    const base = D.itPerfil[i] * 108 + c;
+    for (const s of V.cds) {
+      const cu = D.custo[i * 2 + s]; if (!ok(cu)) continue;
+      const plv = cu / (1 - mg), b = base + s * 54;
+      for (const u of V.ufs) {
+        const o = (D.PF[b + u * 2] * 2 + c) * 4;
+        rob1 += plv * FAT[o]; imp1 += plv * FAT[o + 1]; rob2 += plv * FAT[o + 2]; imp2 += plv * FAT[o + 3];
+        if (FAT[o + 2] > FAT[o] + 1e-9) sobe++;
+      }
+      n += V.nU; pl += plv * V.nU; lb += (plv - cu) * V.nU;
+    }
+  }
+  const v = rob1 ? rob2 / rob1 - 1 : NaN;
+  $('#kpis').innerHTML = [
+    ['Variação média de preço (ROB)', `<span class="${clsVar(v)}">${VAR(v)}</span>`, 'Após a reforma × modelo atual'],
+    ['Carga tributária média', `${P(rob1 ? imp1 / rob1 : NaN)} → ${P(rob2 ? imp2 / rob2 : NaN)}`, 'Impostos sobre a ROB'],
+    ['Margem média', P(pl ? lb / pl : NaN), 'Mesma margem nos dois modelos'],
+    ['Linhas com aumento de preço', `${fmtN.format(sobe)} de ${fmtN.format(n)}`, n ? P(sobe / n) + ' das linhas filtradas' : ''],
+  ].map(([k, val, s], i) => `<div class="kpi"><div class="ico">${ICONES_KPI[i]}</div><div><div class="k">${k}</div><div class="v">${val}</div><div class="s">${esc(s)}</div></div></div>`).join('');
+}
+
+function desenharTabela() {
+  const cols = colunas();
+  const nb = [0, 1, 2, 3].map(b => cols.filter(c => c.bl === b).length);
+  const btnTg = c => `<button type="button" class="grp-tg" data-tg="${c.tg}" title="${EST['imp' + c.tg] ? 'Recolher' : 'Abrir'} impostos">${EST['imp' + c.tg] ? '−' : '+'}</button>`;
+  const seta = c => EST.ord === c.k ? (EST.dir < 0 ? ' ↓' : ' ↑') : '';
+  $('#tabela thead').innerHTML =
+    `<tr class="blocos"><th colspan="${nb[0]}" class="b-info"></th><th colspan="${nb[1]}" class="b-atual b1">MODELO ATUAL</th><th colspan="${nb[2]}" class="b-ref b2">APÓS A REFORMA</th><th colspan="${nb[3]}" class="b-imp b3">IMPACTO</th></tr>` +
+    '<tr>' + cols.map(c => `<th data-k="${c.k}" class="h${c.bl} ${c.txt ? 'txt' : ''} ${c.ini ? 'b' + c.bl : ''} ${c.gi ? 'det' : ''} ${c.fixa ? 'fixa' : ''} ${EST.ord === c.k ? 'ord' : ''}">${c.tg ? btnTg(c) : ''}${c.t}${seta(c)}</th>`).join('') + '</tr>';
+  { const hb = document.querySelector('#tabela tr.blocos'); if (hb) document.querySelectorAll('#tabela thead tr:not(.blocos) th').forEach(th => th.style.top = hb.offsetHeight + 'px'); }
+
+  const tot = Math.max(1, Math.ceil(V.total / POR_PAG));
+  if (EST.pag > tot - 1) EST.pag = tot - 1;
+  const ini = EST.pag * POR_PAG, fim = Math.min(ini + POR_PAG, V.total);
+  let html = '';
+  for (let k = ini; k < fim; k++) {
+    const { p, s, u } = linhaDe(k), x = detalhe(p, s, u);
+    html += `<tr data-p="${p}" data-s="${s}" data-u="${u}">` + cols.map(c => {
+      const cls = [c.ini ? 'b' + c.bl : '', c.ref ? 'ref' : '', c.fixa ? 'fixa' : '', c.gi ? 'det' : ''];
+      if (c.txt) {
+        const val = textoCol(x, c.k);
+        let h = esc(val);
+        if (c.k === 'item') h = `<span class="cod">${esc(D.itens[x.i][0])}</span>${esc(val)}`;
+        if (c.k === 'rota') h += `<span class="sub">${x.c ? 'Contrib.' : 'Não contrib.'}${x.g[7] ? ' · histórico' : ''}</span>`;
+        return `<td class="txt ${cls.join(' ')}" title="${esc(val)}"${c.w ? ` style="max-width:${c.w}px"` : ''}>${h}</td>`;
+      }
+      if (c.input) {
+        const o = origemMg(p);
+        return `<td class="${cls.join(' ')}"><input class="mg-inp ${o !== 'historica' ? 'alterada' : ''}" data-k="${chaveMg(p)}" value="${ok(x.mg) ? fmtN2.format(x.mg * 100) : ''}" title="${o === 'linha' ? 'Margem digitada (vale para este cliente × item em todos os CDs e UFs)' : o === 'geral' ? 'Margem geral (parâmetro)' : 'Margem histórica (6 meses). Digite para ajustar.'}" /></td>`;
+      }
+      const val = valorCol(x, c.k);
+      if (c.cls) cls.push(c.cls(val));
+      return `<td class="${cls.join(' ')}"${c.forte ? ' style="font-weight:700"' : ''}>${c.f(val)}${c.sub ? `<span class="sub">${c.sub(x)}</span>` : ''}</td>`;
+    }).join('') + '</tr>';
+  }
+  $('#tabela tbody').innerHTML = html || `<tr><td class="vazio" colspan="${cols.length}">Nenhuma linha para os filtros escolhidos.</td></tr>`;
+  const nPar = V.fp.length;
+  $('#t-qtd').innerHTML = `${fmtN.format(V.total)} linhas <span class="q2">(${fmtN.format(nPar)} cliente × item · ${V.cds.length} CD · ${V.nU} UF)</span>` +
+    (OVR.size ? ` · <b>${fmtN.format(OVR.size)} margem${OVR.size > 1 ? 's' : ''} digitada${OVR.size > 1 ? 's' : ''}</b>` : '') +
+    (V.aviso ? ` · <span class="aviso">ordenação por esta coluna disponível até ${fmtN.format(MAX_ORDENAR)} linhas — refine os filtros</span>` : '');
+  $('#btn-limpar-mg').classList.toggle('oculto', !OVR.size);
+  $('#paginacao').innerHTML = `<span>Página ${fmtN.format(EST.pag + 1)} de ${fmtN.format(tot)}</span>
+    <button class="btn-sec" data-p="-1" ${EST.pag === 0 ? 'disabled' : ''}>Anterior</button>
+    <button class="btn-sec" data-p="1" ${EST.pag >= tot - 1 ? 'disabled' : ''}>Próxima</button>`;
+}
+
+$('#tabela thead').addEventListener('click', e => {
+  const tg = e.target.closest('.grp-tg');
+  if (tg) { const k = 'imp' + tg.dataset.tg; EST[k] = !EST[k]; atualizar(0); return; }
+  const th = e.target.closest('th[data-k]'); if (!th) return;
+  const k = th.dataset.k;
+  if (EST.ord === k) EST.dir *= -1; else { EST.ord = k; EST.dir = COLUNAS().find(c => c.k === k)?.txt ? 1 : -1; }
+  EST.pag = 0; carregando(true, 'Ordenando…'); setTimeout(() => { atualizar(1); carregando(false); }, 20);
+});
+$('#paginacao').addEventListener('click', e => { const b = e.target.closest('button[data-p]'); if (!b) return; EST.pag += +b.dataset.p; atualizar(0); window.scrollTo({ top:$('.bloco').offsetTop - 90 }); });
+$('#tabela tbody').addEventListener('click', e => {
+  if (e.target.closest('input')) return;
+  const tr = e.target.closest('tr[data-p]'); if (!tr) return;
+  abrirModal(+tr.dataset.p, +tr.dataset.s, +tr.dataset.u);
+});
+// margem digitada na linha: vale para o cliente × item (todos os CDs e UFs) e para os dois modelos
+$('#tabela tbody').addEventListener('change', e => {
+  const inp = e.target.closest('.mg-inp'); if (!inp) return;
+  const x = lerNum(inp.value);
+  if (String(inp.value).trim() === '' || !ok(x)) OVR.delete(inp.dataset.k); else OVR.set(inp.dataset.k, Math.min(x / 100, 0.99));
+  const y = window.scrollY; atualizar(0); window.scrollTo(0, y);
+});
+$('#tabela tbody').addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.closest('.mg-inp')) e.target.blur(); });
+
+/* ═════════════ MODAL: cálculo da linha ═════════════ */
+let M = null;
+function abrirModal(p, s, u) {
+  const x = detalhe(p, s, u), it = D.itens[x.i];
+  M = { p, s, u, base:{ custo:x.cu, mg:x.mg }, v:{ custo:x.cu, mg:x.mg }, mudouMg:false };
+  $('#m-titulo').innerHTML = `<span style="color:var(--texto-3);font-weight:500">${esc(it[0])}</span> · ${esc(it[1])}`;
+  const cli = `${D.grupos[PR.g[p]]} · ${D.execs[PR.e[p]]}`;
+  $('#m-sub').textContent = `${cli} · CD ${D.cds[s]} → UF ${D.ufs[u]} · ${x.c ? 'Contribuinte' : 'Não contribuinte'}`;
+  const o = origemMg(p);
+  $('#m-ref').innerHTML = `<span>Unidade <b>${esc(it[3] || '—')}</b></span>
+    ${ok(PR.pr[p]) ? `<span>Preço médio praticado (NF, 6 meses) <b>${R(PR.pr[p] / 100)}</b></span>` : ''}
+    <span>Margem histórica (6 meses) <b>${P(PR.mg[p])}</b></span>
+    ${o !== 'historica' ? `<span>Margem em uso <b>${P(x.mg)}</b> (${o === 'linha' ? 'digitada' : 'parâmetro geral'})</span>` : ''}
+    <span>Regra fiscal <b>${x.g[7] ? 'sem cadastro na tabela (alíquotas do histórico)' : 'Tabela Base Tributária'}</b></span>`;
+  desenharModal();
+  $('#modal').classList.remove('oculto');
+}
+function linhaInp(rot, campo, pct, valorR) {
+  const v = M.v[campo];
+  return `<tr><td>${rot}</td><td><input data-c="${campo}" data-pct="${pct ? 1 : 0}" value="${ok(v) ? (pct ? fmtN2.format(v * 100) : fmtN2.format(v)) : ''}" />${pct ? ' %' : ''}</td><td class="vr">${valorR === undefined ? '' : R(valorR)}</td></tr>`;
+}
+const linhaAliq = (rot, pct, valorR, cls) => `<tr class="${cls || ''}"><td>${rot}</td><td>${P2(pct)}</td><td class="vr">${R(valorR)}</td></tr>`;
+const linha = (rot, v, pct, cls) => `<tr class="${cls || ''}"><td>${rot}</td><td>${R(v)}</td><td>${pct === undefined ? '' : P2(pct)}</td></tr>`;
+const linhaTxt = (rot, txt, cls) => `<tr class="${cls || ''}"><td>${rot}</td><td>${txt}</td><td></td></tr>`;
+const esp = '<tr class="esp"><td colspan="3"></td></tr>';
+function desenharModal() {
+  const v = M.v, ct = PR.c[M.p], g = D.regras[idRegra(PR.i[M.p], M.s, M.u, ct)];
+  const pl = v.custo / (1 - v.mg);
+  const a = modeloAtual(pl, v.custo, g, ct);
+  $('#m-atual').innerHTML =
+    linhaInp('Custo de aquisição', 'custo') + linhaInp('Margem', 'mg', 1) + linha('Preço líquido (custo + margem)', pl, undefined, 'destaque') + esp +
+    linhaTxt('Fator 1 (IPI × ICMS)', P2(a.f1)) + (ct ? '' : linhaTxt('Fator 2 (IPI × (ICMS + DIFAL))', P2(a.f2))) +
+    linhaTxt('Fator geral', fmtN2.format(a.fator * 100) + ' %', 'destaque') +
+    linha('Preço bruto (preço líquido ÷ fator)', a.bruto) + linha('IPI (preço bruto × %IPI)', a.vipi, g[4]) +
+    linha('ROB (preço bruto + IPI)', a.rob, undefined, 'destaque') + esp +
+    linhaAliq('ICMS (sobre a ROB)', g[0], a.vicms) +
+    (ct ? '' : linhaAliq('DIFAL (sobre a ROB)', a.dif, a.vdif) + linhaAliq('FCP (sobre a ROB)', a.fcp, a.vfcp)) +
+    linhaAliq('PIS ((bruto − ICMS) × %)', g[3] * PIS_PARTE, a.vpis) + linhaAliq('COFINS ((bruto − ICMS) × %)', g[3] * COF_PARTE, a.vcof) +
+    linhaAliq('IPI', g[4], a.vipi) + linhaAliq('Total impostos (% da ROB)', a.aliq, a.imp, 'destaque') + esp +
+    linha('CMV', v.custo) + linha('Lucro bruto', a.lb, a.mg, 'destaque');
+  const n = modeloReforma(pl, v.custo, g, ct, PRM.icms);
+  $('#m-reforma').innerHTML =
+    linha('Custo de aquisição', v.custo) + linhaTxt('Margem (a mesma do modelo atual)', P2(v.mg)) + linha('Preço líquido (custo + margem)', pl, undefined, 'destaque') + esp +
+    linhaTxt('Fator 1 (1 − ICMS' + (ct ? ')' : ' − DIFAL − FCP)'), fmtN2.format(n.fator * 100) + ' %', 'destaque') +
+    linha('Preço bruto (preço líquido ÷ fator 1)', n.bruto) + esp +
+    linhaAliq('ICMS (sobre o preço bruto)', n.icms, n.vicms) + linhaAliq((ct ? 'ST' : 'DIFAL') + ' (sobre o preço bruto)', n.dif, n.vdif) + linhaAliq('FCP (sobre o preço bruto)', n.fcp, n.vfcp) +
+    linhaAliq('CBS (sobre o preço líquido)', n.acbs, n.vcbs) + linhaAliq('IBS (sobre o preço líquido)', n.aibs, n.vibs) +
+    linha('ROB (preço líquido + impostos)', n.rob, undefined, 'destaque') +
+    linhaAliq('Total impostos (% da ROB)', n.aliq, n.imp, 'destaque') + esp +
+    linha('CMV', v.custo) + linha('Lucro bruto', n.lb, n.mg, 'destaque') +
+    '<tr><td colspan="3" class="nota-ipi">O IPI ainda não está contemplado no modelo após a reforma (alíquotas e itens ainda não definidos).</td></tr>';
+  const dv = a.rob ? n.rob / a.rob - 1 : NaN;
+  $('#m-comp').innerHTML = `<span>ROB <b>${R(a.rob)}</b> → <b>${R(n.rob)}</b> <b class="${clsVar(dv)}">(${VAR(dv)})</b></span>
+    <span>Impostos <b>${R(a.imp)}</b> → <b>${R(n.imp)}</b></span>
+    <span>Margem <b>${P(a.mg)}</b></span>`;
+}
+function lerNum(s) { s = String(s).trim(); if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.'); return parseFloat(s); }
+document.querySelector('.modelos').addEventListener('change', e => {
+  const inp = e.target.closest('input[data-c]'); if (!inp) return;
+  let x = lerNum(inp.value); if (!ok(x)) x = 0;
+  const c = inp.dataset.c;
+  M.v[c] = inp.dataset.pct === '1' ? x / 100 : x;
+  if (c === 'mg') { M.mudouMg = true; if (M.v.mg >= 0.99) M.v.mg = 0.99; }
+  desenharModal();
+});
+$('#m-reset').addEventListener('click', () => { M.v = { ...M.base }; M.mudouMg = false; desenharModal(); });
+function fecharModal() {
+  if ($('#modal').classList.contains('oculto')) return;
+  $('#modal').classList.add('oculto');
+  if (M && M.mudouMg) { OVR.set(chaveMg(M.p), M.v.mg); const y = window.scrollY; atualizar(0); window.scrollTo(0, y); }
+}
+$('#m-fechar').addEventListener('click', fecharModal);
+$('#modal').addEventListener('click', e => { if (e.target.id === 'modal') fecharModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
+
+/* ═════════════ PÁGINA: MEMÓRIA DE CÁLCULO ═════════════ */
+function desenharMemoria() {
+  const ex = { pl:100, icms:0.12, dif:0.075, fcp:0.01, pc:0.0925, ipi:0.0325 };
+  const gNC = [ex.icms, ex.dif, ex.fcp, ex.pc, ex.ipi, 1, 1, 0];
+  const a = modeloAtual(ex.pl, 70, gNC, 0), c = modeloAtual(ex.pl, 70, gNC, 1);
+  const rn = modeloReforma(ex.pl, 70, gNC, 0, null), rc = modeloReforma(ex.pl, 70, gNC, 1, null);
+  const lin = (etapa, formula, valor) => `<tr><td>${etapa}</td><td><code>${formula}</code></td><td class="num">${valor}</td></tr>`;
+  const tab = linhas => `<table class="mem-tab"><thead><tr><th>Etapa</th><th>Fórmula</th><th class="num">Exemplo</th></tr></thead><tbody>${linhas}</tbody></table>`;
+  const m = D.meta;
+  $('#mem-premissas').innerHTML = `
+    <ul class="mem-lista">
+      <li><b>Período:</b> médias dos últimos ${m.meses} meses da base contábil (${mesAno(m.periodo_ini)} a ${mesAno(m.periodo_fim)}).</li>
+      <li><b>Clientes:</b> somente os que compraram no último mês da base, na carteira do executivo desse mês. Fora do simulador: CD ES e os canais Acordos, Oceano, BRS OFF, Televendas e HP+.</li>
+      <li><b>Itens, CDs e UFs:</b> cada cliente × item comprado nos últimos ${m.meses} meses é simulado para os 2 CDs de origem (RS: 1100 e 1600 · SP: 1200 e 9200) e as 27 UFs de destino, mesmo sem venda histórica para o estado.</li>
+      <li><b>Custo de aquisição:</b> custo unitário médio do último dia em que o item foi vendido no CD; vale para todos os clientes do CD.</li>
+      <li><b>Margem:</b> margem média dos ${m.meses} meses do cliente × item (lucro bruto ÷ ROL), a mesma para qualquer CD e UF e para os dois modelos. Pode ser alterada na linha (vale para o cliente × item) ou no parâmetro geral.</li>
+      <li><b>Contribuinte:</b> pelo histórico do cliente — DIFAL partilha em 10% ou mais das vendas = não contribuinte; demais = contribuinte.</li>
+      <li><b>Alíquotas:</b> Tabelas Fiscais (Base Tributária) por item × CD de origem × UF de destino × contribuinte. ICMS pela carga efetiva (base reduzida). Itens sem cadastro na tabela usam as alíquotas efetivas do histórico do item no CD.</li>
+      <li><b>Valores digitados</b> (margens e parâmetros) e filtros ficam gravados enquanto a sessão estiver aberta e saem no Excel.</li>
+    </ul>`;
+  $('#mem-nc').innerHTML = tab(
+    lin('Preço líquido', 'Custo ÷ (1 − Margem)', R(ex.pl)) +
+    lin('Fator 1', '%IPI × %ICMS', P2(a.f1)) +
+    lin('Fator 2', '%IPI × (%ICMS + %DIFAL)', P2(a.f2)) +
+    lin('Fator geral', '(1 − %ICMS − %PIS − %COFINS − %DIFAL − %FCP − Fator 2) + (%ICMS + Fator 1) × (%PIS + %COFINS)', fmtN2.format(a.fator * 100) + ' %') +
+    lin('Preço bruto (mercadoria)', 'Preço líquido ÷ Fator geral', R(a.bruto)) +
+    lin('IPI', 'Preço bruto × %IPI', R(a.vipi)) +
+    lin('ROB', 'Preço bruto + IPI', R(a.rob)) +
+    lin('ICMS', 'ROB × %ICMS', R(a.vicms)) +
+    lin('DIFAL', 'ROB × %DIFAL', R(a.vdif)) +
+    lin('FCP', 'ROB × %FCP', R(a.vfcp)) +
+    lin('PIS + COFINS', '(Preço bruto − ICMS) × (%PIS + %COFINS)', R(a.vpis + a.vcof)));
+  $('#mem-c').innerHTML = tab(
+    lin('Preço líquido', 'Custo ÷ (1 − Margem)', R(ex.pl)) +
+    lin('Fator 1', '%IPI × %ICMS', P2(c.f1)) +
+    lin('Fator geral', '(1 − %ICMS − %PIS − %COFINS − Fator 1) + (%ICMS + Fator 1) × (%PIS + %COFINS)', fmtN2.format(c.fator * 100) + ' %') +
+    lin('Preço bruto (mercadoria)', 'Preço líquido ÷ Fator geral', R(c.bruto)) +
+    lin('IPI', 'Preço bruto × %IPI', R(c.vipi)) +
+    lin('ROB', 'Preço bruto + IPI', R(c.rob)) +
+    lin('ICMS', 'ROB × %ICMS', R(c.vicms)) +
+    lin('PIS + COFINS', '(Preço bruto − ICMS) × (%PIS + %COFINS)', R(c.vpis + c.vcof)));
+  const cbsTxt = `Preço líquido × %CBS × fator de redução do item (${P2(PRM.cbs)} na tela)`, ibsTxt = `Preço líquido × %IBS × fator de redução do item (${P2(PRM.ibse + PRM.ibsm)} na tela)`;
+  $('#mem-ref').innerHTML = tab(
+    lin('Preço líquido', 'Custo ÷ (1 − Margem) — mesma margem do modelo atual', R(ex.pl)) +
+    lin('Fator 1', '1 − %ICMS − %DIFAL − %FCP', fmtN2.format(rn.fator * 100) + ' %') +
+    lin('Preço bruto', 'Preço líquido ÷ Fator 1', R(rn.bruto)) +
+    lin('ICMS', 'Preço bruto × %ICMS', R(rn.vicms)) +
+    lin('DIFAL', 'Preço bruto × %DIFAL', R(rn.vdif)) +
+    lin('FCP', 'Preço bruto × %FCP', R(rn.vfcp)) +
+    lin('CBS', cbsTxt, R(rn.vcbs)) + lin('IBS', ibsTxt, R(rn.vibs)) +
+    lin('ROB', 'Preço líquido + ICMS + DIFAL + FCP + CBS + IBS', R(rn.rob)));
+  $('#mem-ref-c').innerHTML = tab(
+    lin('Preço líquido', 'Custo ÷ (1 − Margem) — mesma margem do modelo atual', R(ex.pl)) +
+    lin('Fator 1', '1 − %ICMS', fmtN2.format(rc.fator * 100) + ' %') +
+    lin('Preço bruto', 'Preço líquido ÷ Fator 1', R(rc.bruto)) +
+    lin('ICMS', 'Preço bruto × %ICMS', R(rc.vicms)) +
+    lin('ST', 'Preço bruto × %ST', R(rc.vdif)) +
+    lin('FCP', 'Preço bruto × %FCP', R(rc.vfcp)) +
+    lin('CBS', cbsTxt, R(rc.vcbs)) + lin('IBS', ibsTxt, R(rc.vibs)) +
+    lin('ROB', 'Preço líquido + ICMS + ST + FCP + CBS + IBS', R(rc.rob)));
+  $('#mem-ex').textContent = `Exemplo: preço líquido R$ 100,00 · ICMS 12% · DIFAL/ST 7,5% · FCP 1% · PIS/COFINS 9,25% · IPI 3,25% · CBS ${P2(PRM.cbs)} · IBS ${P2(PRM.ibse + PRM.ibsm)}.`;
+}
+function irPara(pag) {
+  EST.pagina = pag;
+  document.querySelectorAll('.menu a').forEach(a => a.classList.toggle('ativo', a.dataset.pag === pag));
+  $('#pag-simulador').classList.toggle('oculto', pag !== 'simulador');
+  $('#pag-memoria').classList.toggle('oculto', pag !== 'memoria');
+  $('#titulo-pag').textContent = pag === 'memoria' ? 'Memória de cálculo' : 'Simulador de Preço · Reforma Tributária';
+  if (pag === 'memoria') desenharMemoria();
+  salvarEstado();
+  window.scrollTo({ top:0 });
+}
+document.querySelectorAll('.menu a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); irPara(a.dataset.pag); }));
+
+/* ═════════════ EXPORTAR (somente master) ═════════════ */
+// Gerador .xlsx enxuto: XML em blocos + compressão nativa do navegador (deflate) + ZIP.
+const CRC_T = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(crc, b) { crc = ~crc; for (let i = 0; i < b.length; i++) crc = CRC_T[(crc ^ b[i]) & 255] ^ (crc >>> 8); return ~crc >>> 0; }
+const xesc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])).replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g, '');
+
+async function arquivoZip(nome, geradorTexto) {
+  // geradorTexto: função geradora que produz pedaços de texto
+  const enc = new TextEncoder(), cs = new CompressionStream('deflate-raw');
+  const w = cs.writable.getWriter(), saida = new Response(cs.readable).arrayBuffer();
+  let crc = 0, tam = 0;
+  for (const pedaco of geradorTexto()) { const b = enc.encode(pedaco); crc = crc32(crc, b); tam += b.length; await w.write(b); }
+  await w.close();
+  return { nome:enc.encode(nome), crc, tam, dados:new Uint8Array(await saida) };
+}
+function montarZip(arqs) {
+  const partes = [], central = []; let pos = 0;
+  const u16 = v => [v & 255, (v >>> 8) & 255], u32 = v => [v & 255, (v >>> 8) & 255, (v >>> 16) & 255, (v >>> 24) & 255];
+  for (const a of arqs) {
+    const loc = new Uint8Array([...u32(0x04034b50), ...u16(20), ...u16(0x0800), ...u16(8), ...u16(0), ...u16(0x21), ...u32(a.crc), ...u32(a.dados.length), ...u32(a.tam), ...u16(a.nome.length), ...u16(0)]);
+    central.push(new Uint8Array([...u32(0x02014b50), ...u16(20), ...u16(20), ...u16(0x0800), ...u16(8), ...u16(0), ...u16(0x21), ...u32(a.crc), ...u32(a.dados.length), ...u32(a.tam), ...u16(a.nome.length), ...u16(0), ...u16(0), ...u16(0), ...u16(0), ...u32(0), ...u32(pos)]), a.nome);
+    partes.push(loc, a.nome, a.dados); pos += loc.length + a.nome.length + a.dados.length;
+  }
+  const tamC = central.reduce((s, b) => s + b.length, 0);
+  const fim = new Uint8Array([...u32(0x06054b50), ...u16(0), ...u16(0), ...u16(arqs.length), ...u16(arqs.length), ...u32(tamC), ...u32(pos), ...u16(0)]);
+  return new Blob([...partes, ...central, fim], { type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+}
+const colLetra = n => { let s = ''; n++; while (n) { const m = (n - 1) % 26; s = String.fromCharCode(65 + m) + s; n = Math.floor((n - 1) / 26); } return s; };
+
+async function gerarXlsx(planilhas) {
+  // planilhas: [{ nome, cab:[...], estilos:[...] (0 texto/geral, 1 #,##0.00, 2 0.00%, 3 #,##0), linhas: iterável de arrays, larguras }]
+  const sst = new Map(), sstLista = [];
+  const idx = s => { s = String(s ?? ''); let i = sst.get(s); if (i === undefined) { i = sstLista.length; sst.set(s, i); sstLista.push(s); } return i; };
+  const arqs = [];
+  for (let p = 0; p < planilhas.length; p++) {
+    const pl = planilhas[p];
+    arqs.push(await arquivoZip(`xl/worksheets/sheet${p + 1}.xml`, function* () {
+      yield '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">';
+      const hr = pl.grupos ? 2 : 1;   // linha do cabeçalho das colunas
+      if (pl.congelar) yield `<sheetViews><sheetView workbookViewId="0"><pane ySplit="${hr}" topLeftCell="A${hr + 1}" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>`;
+      yield '<cols>' + pl.cab.map((_, i) => `<col min="${i + 1}" max="${i + 1}" width="${(pl.larguras || [])[i] || 14}" customWidth="1"/>`).join('') + '</cols><sheetData>';
+      if (pl.grupos) {
+        const cel = pl.cab.map(() => '<c/>');
+        for (const g of pl.grupos) for (let c = g.ini; c <= g.fim; c++) cel[c] = c === g.ini ? `<c t="s" s="${g.estilo}"><v>${idx(g.t)}</v></c>` : `<c s="${g.estilo}"/>`;
+        yield '<row ht="20" customHeight="1">' + cel.join('') + '</row>';
+      }
+      yield '<row ht="30" customHeight="1">' + pl.cab.map(h => `<c t="s" s="4"><v>${idx(h)}</v></c>`).join('') + '</row>';
+      let buf = [], n = hr;
+      for (const lin of pl.linhas) {
+        let x = '<row>';
+        for (let c = 0; c < lin.length; c++) {
+          const v = lin[c];
+          if (v === null || v === undefined || (typeof v === 'number' && !ok(v))) x += '<c/>';
+          else if (typeof v === 'number') x += pl.estilos[c] ? `<c s="${pl.estilos[c]}"><v>${v}</v></c>` : `<c><v>${v}</v></c>`;
+          else x += `<c t="s"><v>${idx(v)}</v></c>`;
+        }
+        buf.push(x + '</row>'); n++;
+        if (buf.length >= 2000) { yield buf.join(''); buf = []; }
+      }
+      if (buf.length) yield buf.join('');
+      yield '</sheetData>' + (pl.filtro ? `<autoFilter ref="A${hr}:${colLetra(pl.cab.length - 1)}${n}"/>` : '') +
+        (pl.grupos ? `<mergeCells count="${pl.grupos.length}">` + pl.grupos.map(g => `<mergeCell ref="${colLetra(g.ini)}1:${colLetra(g.fim)}1"/>`).join('') + '</mergeCells>' : '') + '</worksheet>';
+    }));
+  }
+  arqs.push(await arquivoZip('xl/sharedStrings.xml', function* () {
+    yield `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="${sstLista.length}" uniqueCount="${sstLista.length}">`;
+    for (let i = 0; i < sstLista.length; i += 5000) yield sstLista.slice(i, i + 5000).map(s => `<si><t xml:space="preserve">${xesc(s)}</t></si>`).join('');
+    yield '</sst>';
+  }));
+  const fixo = {
+    '[Content_Types].xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/><Override PartName="/xl/sharedStrings.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"/>${planilhas.map((_, i) => `<Override PartName="/xl/worksheets/sheet${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`,
+    '_rels/.rels': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`,
+    'xl/workbook.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${planilhas.map((p, i) => `<sheet name="${xesc(p.nome)}" sheetId="${i + 1}" r:id="rId${i + 1}"/>`).join('')}</sheets>${planilhas.map((p, i) => p.filtro ? `<definedNames><definedName name="_xlnm._FilterDatabase" localSheetId="${i}" hidden="1">'${xesc(p.nome)}'!$A$${p.grupos ? 2 : 1}:$${colLetra(p.cab.length - 1)}$${p.total + (p.grupos ? 2 : 1)}</definedName></definedNames>` : '').join('')}</workbook>`,
+    'xl/_rels/workbook.xml.rels': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${planilhas.map((_, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i + 1}.xml"/>`).join('')}<Relationship Id="rId${planilhas.length + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId${planilhas.length + 2}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Target="sharedStrings.xml"/></Relationships>`,
+    'xl/styles.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="3"><font><sz val="10"/><name val="Arial"/></font><font><b/><sz val="10"/><color rgb="FFFFFFFF"/><name val="Arial"/></font><font><b/><sz val="10"/><color rgb="FF1F2430"/><name val="Arial"/></font></fonts><fills count="6"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFFF782D"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FF4A5162"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FF1B2030"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFF3F4F6"/></patternFill></fill></fills><borders count="2"><border/><border><bottom style="thin"><color rgb="FFC9CCD3"/></bottom></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="8"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="4" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="10" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="3" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="0" fontId="2" fillId="5" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment wrapText="1" vertical="center"/></xf><xf numFmtId="0" fontId="1" fillId="3" borderId="0" xfId="0" applyFont="1" applyFill="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="1" fillId="4" borderId="0" xfId="0" applyFont="1" applyFill="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`,
+  };
+  for (const [nome, txt] of Object.entries(fixo)) arqs.push(await arquivoZip(nome, function* () { yield txt; }));
+  return montarZip(arqs);
+}
+
+
+
+$('#btn-excel').addEventListener('click', async () => {
+  if (!S.exportar) return;
+  if (V.total > MAX_EXCEL) {
+    carregando(true, `O Excel está limitado a ${fmtN.format(MAX_EXCEL)} linhas e a seleção tem ${fmtN.format(V.total)}. Refine os filtros (cliente, item, CD ou UF).`);
+    await new Promise(r => setTimeout(r, 3500)); carregando(false); return;
+  }
+  carregando(true, 'Gerando o Excel…');
+  await new Promise(r => setTimeout(r, 30));
+  try {
+    const cab = ['Executivo', 'Cliente (grupo econômico)', 'CD Origem', 'UF Destino', 'Contribuinte', 'Regra fiscal', 'Cód. item', 'Item', 'Família comercial', 'Un.',
+      'Custo aquisição', 'Margem histórica %', 'Margem utilizada %', 'Origem da margem', 'Preço líquido', 'Fator geral %', 'ICMS %', 'ICMS R$', 'DIFAL %', 'DIFAL R$', 'FCP %', 'FCP R$', 'PIS/COFINS %', 'PIS R$', 'COFINS R$', 'IPI %', 'IPI R$', 'Total impostos %', 'Total impostos R$', 'Preço bruto', 'ROB',
+      'Custo aquisição', 'Margem %', 'Preço líquido', 'Fator 1 %', 'Preço bruto', 'ICMS %', 'ICMS R$', 'DIFAL/ST %', 'DIFAL/ST R$', 'FCP %', 'FCP R$', 'CBS %', 'CBS R$', 'IBS %', 'IBS R$', 'Total impostos %', 'Total impostos R$', 'Preço líquido de venda', 'ROB',
+      'Var. preço R$', 'Var. preço %'];
+    const fimAtual = cab.indexOf('ROB'), iniRef = fimAtual + 1, fimRef = cab.lastIndexOf('ROB');
+    const grupos = [{ t:'MODELO ATUAL', ini:10, fim:fimAtual, estilo:5 }, { t:'APÓS A REFORMA', ini:iniRef, fim:fimRef, estilo:6 }, { t:'IMPACTO', ini:fimRef + 1, fim:fimRef + 2, estilo:7 }];
+    const est = cab.map((h, i) => i < 10 || h === 'Origem da margem' ? 0 : (h.endsWith('%') ? 2 : 1));
+    const u = x => ok(x) ? Math.round(x * 10000) / 10000 : null, pc = x => ok(x) ? Math.round(x * 1e6) / 1e6 : null;
+    const ORIGEM = { linha:'Digitada', geral:'Parâmetro geral', historica:'Histórica' };
+    function* linhas() {
+      for (let k = 0; k < V.total; k++) {
+        const { p, s, u: uf } = linhaDe(k), x = detalhe(p, s, uf), it = D.itens[x.i], g = x.g, a = x.a, n = x.n;
+        yield [D.execs[PR.e[p]], textoCol(x, 'grupo'), D.cds[s], D.ufs[uf], x.c ? 'Sim' : 'Não', g[7] ? 'Histórico' : 'Tabela', it[0], it[1], D.fams[it[2]], it[3],
+          u(x.cu), pc(PR.mg[p]), pc(x.mg), ORIGEM[origemMg(p)], u(x.pl), pc(a.fator), pc(g[0]), u(a.vicms), pc(a.dif), u(a.vdif), pc(a.fcp), u(a.vfcp), pc(g[3]), u(a.vpis), u(a.vcof), pc(g[4]), u(a.vipi), pc(a.aliq), u(a.imp), u(a.bruto), u(a.rob),
+          u(x.cu), pc(x.mg), u(x.pl), pc(n.fator), u(n.bruto), pc(n.icms), u(n.vicms), pc(n.dif), u(n.vdif), pc(n.fcp), u(n.vfcp), pc(n.acbs), u(n.vcbs), pc(n.aibs), u(n.vibs), pc(n.aliq), u(n.imp), u(x.pl), u(n.rob),
+          u(x.dif), pc(x.var)];
+      }
+    }
+    const filtrosTxt = f => SEL[f].size ? [...SEL[f]].map(v => rotuloFiltro(f, v)).join('; ').slice(0, 30000) : 'Todos';
+    const par = [['ICMS após a reforma', PRM.icms === null ? 'Tabela fiscal' : PRM.icms],
+      ['CBS', PRM.cbs], ['IBS Estadual', PRM.ibse], ['IBS Municipal', PRM.ibsm],
+      ['Margem geral', PRM.mg === null ? 'Margem histórica de cada cliente × item' : PRM.mg], ['Margens digitadas (cliente × item)', OVR.size],
+      ...FILTROS.map(f => ['Filtro · ' + { exec:'Executivo', grupo:'Cliente', cd:'CD Origem', uf:'UF Destino', ct:'Contribuinte', fam:'Família comercial', item:'Item' }[f], filtrosTxt(f)]),
+      ['Observação', 'IPI ainda não contemplado no modelo após a reforma'],
+      ['Período das médias', mesAno(D.meta.periodo_ini) + ' a ' + mesAno(D.meta.periodo_fim)], ['Linhas exportadas', V.total],
+      ['Exportado por', S.nome], ['Exportado em', new Date().toLocaleString('pt-BR')]];
+    const digitadas = [...OVR].map(([k, v]) => { const [g, i] = k.split('|').map(Number); return [D.grupos[g], D.itens[i][0], D.itens[i][1], pc(v)]; });
+    const planilhas = [
+      { nome:'Simulação', cab, grupos, estilos:est, linhas:linhas(), total:V.total, filtro:true, congelar:true, larguras:[26, 26, 8, 8, 10, 10, 11, 46, 22, 6, 12, 12, 12, 14, ...Array(cab.length - 14).fill(12)] },
+      { nome:'Parâmetros', cab:['Parâmetro', 'Valor'], estilos:[0, 0], linhas:par, larguras:[34, 60] },
+    ];
+    if (digitadas.length) planilhas.push({ nome:'Margens digitadas', cab:['Cliente (grupo econômico)', 'Cód. item', 'Item', 'Margem %'], estilos:[0, 0, 0, 2], linhas:digitadas, larguras:[34, 11, 46, 12] });
+    const blob = await gerarXlsx(planilhas);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = `Simulador_CBS_${new Date().toISOString().slice(0, 10)}.xlsx`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+  } catch (e) { console.error(e); carregando(true, 'Não foi possível gerar o Excel.'); await new Promise(r => setTimeout(r, 2000)); }
+  finally { carregando(false); }
+});
+
+/* ═════════ INTERFACE: menu lateral, senha, ícones ═════════ */
+const ICONES_KPI = [
+  '<svg class="ic" viewBox="0 0 24 24"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>',
+  '<svg class="ic" viewBox="0 0 24 24"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>',
+  '<svg class="ic" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+  '<svg class="ic" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>',
+];
+$('#btn-olho').addEventListener('click', () => { const i = $('#l-senha'); i.type = i.type === 'password' ? 'text' : 'password'; });
+$('#btn-recolher').addEventListener('click', () => {
+  $('#app').classList.toggle('recolhido');
+  try { localStorage.setItem('sim_menu', $('#app').classList.contains('recolhido') ? '1' : '0'); } catch (e) {}
+});
+{ let pref = null; try { pref = localStorage.getItem('sim_menu'); } catch (e) {}
+  if (pref === '1' || (pref === null && window.innerWidth < 1700)) $('#app').classList.add('recolhido'); }
+
+
+/* ═════════════ RETOMA SESSÃO ═════════════ */
+(async () => {
+  const s = armazenar.get('sim_sessao');
+  if (s && s.pacote && s.k) { try { await iniciar(s); } catch (e) { armazenar.del('sim_sessao'); } }
+})();
+</script>
+</body>
+</html>
