@@ -215,6 +215,14 @@
   .g-tab .cod { color:var(--texto-3); font-size:11.5px; margin-right:6px; } .g-tab .un { color:var(--texto-3); font-size:11px; }
   #g-cli tbody tr { cursor:pointer; } #g-cli tbody tr:hover td { background:var(--laranja-10); }
   .g-tab .link { color:var(--laranja-escuro); font-size:12px; font-weight:600; }
+  .g-tab .cen { text-align:center; }
+  .g-tab { font-size:12.5px; } .g-tab th { padding:8px 8px; font-size:10.5px; white-space:normal; line-height:1.2; vertical-align:bottom; } .g-tab td { padding:7px 8px; }
+  .g-tab .txt { max-width:260px; }
+  .rep-tg { display:inline-block; min-width:44px; padding:3px 8px; border-radius:20px; font-size:11.5px; font-weight:700; cursor:pointer; border:1px solid; }
+  .rep-tg.sim { color:var(--verde); background:var(--verde-10); border-color:#bfe3cd; }
+  .rep-tg.nao { color:var(--vermelho); background:var(--vermelho-10); border-color:var(--vermelho-20); }
+  .rep-tg.escolhido { box-shadow:0 0 0 2px rgba(255,120,45,.35); }
+  .g-escopo a { color:var(--laranja-escuro); }
   @media (max-width:1100px) { .g-grade { grid-template-columns:1fr; } }
   .cb-info { padding:8px 10px; font-size:11.5px; color:var(--texto-3); }
   .f-exec { width:160px; } .f-grupo { width:170px; } .f-cd { width:84px; } .f-uf { width:84px; } .f-var { width:150px; } .f-fam { width:150px; } .f-item { width:220px; }
@@ -241,9 +249,14 @@
   .neg { color:var(--verde); }
 
   /* Tabela com 4 blocos */
-  .tab-wrap { overflow:auto; max-height:calc(100vh - 150px); min-height:320px; }
-  .tab-wrap thead tr:not(.blocos) th { position:sticky; top:34px; z-index:4; }
-  .tab-wrap thead tr.blocos th { position:sticky; top:0; z-index:5; }
+  .tab-wrap { overflow:auto; max-height:calc(100vh - 160px); min-height:320px; }
+  .tab-wrap thead { position:sticky; top:0; z-index:5; }
+  .tab-wrap thead th { background-clip:padding-box; }
+  table.dados td, table.dados th { font-size:12px; }
+  table.dados th { min-width:44px !important; padding:6px 4px !important; font-size:10px !important; }
+  table.dados td .sub { font-size:10px; }
+  table.dados td.txt { overflow:hidden; text-overflow:ellipsis; }
+  @media (max-width:1500px) { table.dados td, table.dados th { font-size:11.5px; } table.dados td { padding:4px 3px; } main { padding-left:14px !important; padding-right:14px !important; } }
   .tab-wrap thead th.fixa { z-index:6 !important; left:0; }
   table.dados { width:100%; border-collapse:separate; border-spacing:0; font-size:11.5px; }
   table.dados th { background:var(--fundo-2); text-align:right; font-weight:600; font-size:11px; letter-spacing:.02em; text-transform:uppercase; color:var(--texto-2); padding:8px 5px; border-bottom:1px solid var(--borda); cursor:pointer; user-select:none; white-space:normal; line-height:1.2; vertical-align:bottom; min-width:52px; font-size:10.5px; }
@@ -251,7 +264,7 @@
   table.dados th.txt { min-width:0; }
   table.dados th:hover { color:var(--laranja); }
   table.dados th.ord { color:var(--laranja); }
-  table.dados td { padding:6px 5px; border-bottom:1px solid var(--borda-2); text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  table.dados td { padding:5px 4px; border-bottom:1px solid var(--borda-2); text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
   table.dados td.txt { overflow:hidden; text-overflow:ellipsis; }
   table.dados td .cod { color:var(--texto-3); font-size:11px; margin-right:6px; }
   table.dados td .sub { display:block; font-size:10.5px; color:var(--texto-3); margin-top:1px; }
@@ -262,6 +275,18 @@
   table.dados thead tr.blocos th.b-ref { color:var(--laranja-escuro); background:var(--laranja-10); border-bottom-color:var(--laranja); }
   table.dados thead tr.blocos th.b-imp { color:var(--texto); background:#eef0f3; border-bottom-color:var(--escuro-1); }
   table.dados thead tr.blocos th.b-info { border-bottom-color:var(--borda); }
+  table.dados tr.agrupa { cursor:pointer; } table.dados tr.agrupa td { font-weight:500; }
+  table.dados tr.agrupa.aberto td { background:#fbfbfc; border-bottom-color:#e6e8ec; }
+  table.dados tr.agrupa .seta { display:inline-block; width:14px; color:var(--laranja); font-size:11px; }
+  table.dados tr.filho td { background:#fcfcfd; font-size:12.5px; color:var(--texto-2); padding-top:5px; padding-bottom:5px; }
+  table.dados tr.filho td.ref { background:#fffcf9; }
+  table.dados tr.filho .ramo { color:#c3c7cf; margin:0 6px 0 4px; }
+  table.dados tr.filho .nm-filho { color:var(--texto-3); }
+  table.dados tr.filho:not(.com-venda) td { color:var(--texto-3); }
+  .btn-pq { height:30px; font-size:12px; padding:0 10px; }
+  table.dados thead tr.blocos th.b-fixo { color:#1f2430; background:#eef6f1; border-bottom-color:#5c9a76; }
+  table.dados thead tr:not(.blocos) th.h4 { background:#f7fbf8; }
+  table.dados th.b4, table.dados td.b4 { border-left:1px solid #b9d6c4; }
   table.dados thead tr:not(.blocos) th.h1 { background:#fafbfc; }
   table.dados thead tr:not(.blocos) th.h2 { background:#fffaf6; }
   table.dados thead tr:not(.blocos) th.h3 { background:#f7f8fa; }
@@ -277,7 +302,7 @@
   table.dados td.fixa, table.dados th.fixa { position:sticky; left:0; z-index:2; background:var(--branco); }
   table.dados thead th.fixa { z-index:3; background:var(--fundo-2); }
   table.dados tbody tr:hover td.fixa { background:var(--laranja-10); }
-  .mg-inp { width:60px; height:28px; text-align:right; border:1px solid var(--laranja-40); border-radius:7px; padding:0 6px; font-size:12.5px; background:#fff; font-variant-numeric:tabular-nums; }
+  .mg-inp { width:52px; height:26px; text-align:right; border:1px solid var(--laranja-40); border-radius:7px; padding:0 6px; font-size:12.5px; background:#fff; font-variant-numeric:tabular-nums; }
   .mg-inp:focus { outline:none; border-color:var(--laranja); box-shadow:0 0 0 3px rgba(255,120,45,.14); }
   .mg-inp.alterada { background:var(--laranja-20); border-color:var(--laranja); font-weight:700; }
   .pag { display:flex; align-items:center; justify-content:flex-end; gap:8px; padding:12px 22px; font-size:12.5px; color:var(--texto-2); border-top:1px solid var(--borda-2); }
@@ -448,6 +473,8 @@
           <div class="t">Simulação</div>
           <div class="q" id="t-qtd"></div>
           <div class="espaco"></div>
+          <button class="btn-sec btn-pq" id="btn-abrir-todos" type="button" title="Abre as rotas de todos os itens desta página">Abrir rotas da página</button>
+          <button class="btn-sec btn-pq" id="btn-fechar-todos" type="button">Recolher</button>
           <div class="nota-ipi">IPI ainda não contemplado no modelo após a reforma.</div>
         </div>
         <div class="tab-wrap"><table class="dados" id="tabela"><thead></thead><tbody></tbody></table></div>
@@ -464,7 +491,7 @@
             <div class="grp"><span>Família comercial</span><div class="cb f-fam" data-ctx="ger" data-f="fam"></div></div>
             <button class="btn-sec" id="g-limpar" type="button">Limpar</button>
             <div class="espaco"></div>
-            <div class="grp"><span>Leitura do impacto</span>
+            <div class="grp"><span>Repasse padrão (cada cliente pode ser alterado na lista)</span>
               <div class="segm g-segm" id="g-leitura"><button type="button" data-v="repasse" title="A margem é mantida e o preço (ROB) muda">Com repasse no preço</button><button type="button" data-v="sem" title="O preço atual é mantido e o lucro muda">Sem repasse (preço mantido)</button></div></div>
           </div>
           <div class="g-escopo"><span id="g-escopo"></span> · valores mensais · parâmetros e margens do Simulador · contribuinte conforme Cadastro Fiscal</div>
@@ -477,7 +504,7 @@
           <div class="cartao-corpo"><table class="g-dre" id="g-dre"></table><p class="g-nota" id="g-dre-nota"></p></div>
         </div>
         <div class="cartao">
-          <div class="cartao-cab"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><div class="t">Onde está o impacto</div></div>
+          <div class="cartao-cab"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><div class="t">Impacto</div></div>
           <div class="cartao-corpo g-impacto" id="g-impacto"></div>
         </div>
       </div>
@@ -662,6 +689,7 @@ const F_PAR = ['exec', 'grupo', 'fam', 'item'];          // filtros no nível cl
 const SEL = {}; FILTROS.forEach(f => SEL[f] = new Set());     // vazio = todos
 const EST = { imp1:false, imp2:false, ord:'grupo', dir:1, pag:0, pagina:'simulador', filtrosAbertos:false };
 const POR_PAG = 50, MAX_ORDENAR = 600000, MAX_EXCEL = 500000;
+const ABERTOS = new Set();   // cliente × item abertos (rotas visíveis)
 
 async function iniciar(sessao) {
   S = sessao;
@@ -681,7 +709,7 @@ async function iniciar(sessao) {
   $('#grp-exec').classList.toggle('oculto', D.execs.length <= 1);
   $('#g-grp-exec').classList.toggle('oculto', D.execs.length <= 1);
   calcularFatores(); atualizar(2);
-  if (EST.pagina === 'memoria') irPara('memoria');
+  if (EST.pagina === 'memoria' || EST.pagina === 'gerencial') irPara(EST.pagina);
 }
 
 function prepararBase() {
@@ -883,40 +911,67 @@ function linhaDe(k) {
   return { p:V.fp[q], s:V.cds[(rem / V.nU) | 0], u:V.ufs[rem % V.nU] };
 }
 
+/* ═════════════ AGRUPADOR: cliente × item, com as rotas CD → UF abaixo ═════════════ */
+// rotas visíveis do par (CDs/UFs filtrados e filtro de variação), com a venda do histórico; as que venderam vêm primeiro
+function rotasDoPar(p) {
+  const i = PR.i[p], c = PR.c[p], H = D.hist, out = [];
+  for (const s of V.cds) for (const u of V.ufs) {
+    const r = idRegra(i, s, u, c);
+    if (SEL.var.size && !SEL.var.has(classeVar(r, c))) continue;
+    out.push({ s, u, r, q:0, v:0 });
+  }
+  for (let h = D.hIni[p]; h >= 0 && h < D.hFim[p]; h++) {
+    const o = out.find(x => x.s === H.s[h] && x.u === H.u[h]); if (o) { o.q = H.q[h]; o.v = H.v[h]; }
+  }
+  return out.sort((a, b) => b.v - a.v);
+}
+// linha agrupadora: soma das rotas (valores unitários ponderados pela quantidade vendida em cada rota;
+// sem venda nas rotas visíveis, média simples das rotas)
+const CAMPOS_A = ['vicms', 'vdif', 'vst', 'vfcp', 'vpis', 'vcof', 'vipi', 'imp', 'bruto', 'rob'], CAMPOS_N = ['vicms', 'vdif', 'vst', 'vfcp', 'vcbs', 'vibs', 'imp', 'rob'];
+function resumoPar(p, rot) {
+  rot = rot || rotasDoPar(p); if (!rot.length) return null;
+  const i = PR.i[p], c = PR.c[p], mg = margemPar(p), comQ = rot.some(r => r.q > 0);
+  const a = {}, n = {}; CAMPOS_A.forEach(k => a[k] = 0); CAMPOS_N.forEach(k => n[k] = 0);
+  let W = 0, cu = 0, pl = 0, qm = 0, venda = 0, nVenda = 0;
+  for (const r of rot) {
+    qm += r.q; venda += r.v; if (r.q > 0) nVenda++;
+    const w = comQ ? r.q : 1; if (!(w > 0)) continue;
+    const cuR = D.custo[i * 2 + r.s], plR = mg < 1 ? cuR / (1 - mg) : NaN, m = FATD[r.r * 2 + c];
+    W += w; cu += w * cuR; pl += w * plR;
+    for (const k of CAMPOS_A) a[k] += w * plR * m.a[k];
+    for (const k of CAMPOS_N) n[k] += w * plR * m.n[k];
+  }
+  if (W) { cu /= W; pl /= W; CAMPOS_A.forEach(k => a[k] /= W); CAMPOS_N.forEach(k => n[k] /= W); }
+  a.aliq = a.rob ? a.imp / a.rob : NaN; n.aliq = n.rob ? n.imp / n.rob : NaN;
+  return { resumo:true, p, i, c, cu, mg, pl, a, n, dif:n.rob - a.rob, var:a.rob ? n.rob / a.rob - 1 : NaN,
+           qm, venda, comVenda:qm > 0, nRotas:rot.length, nVenda, rot };
+}
+
 /* ═════════════ ORDENAÇÃO ═════════════ */
 function ordenar() {
   const k = EST.ord, d = EST.dir;
   V.ord = null; V.aviso = false;
   const fp = V.fp;
-  if (k === 'grupo' || k === 'item' || k === 'venda') {
-    // ordena os pares; CDs e UFs seguem a ordem natural dentro de cada par
-    const vg = p => D.vendaGrupo[PR.g[p]], vp = p => D.venda[p], ki = p => D.itemRank[PR.i[p]];
-    fp.sort(k === 'grupo'        // cliente: maior venda do cliente primeiro; dentro dele, itens mais vendidos
-      ? (a, b) => d * (vg(b) - vg(a)) || PR.g[a] - PR.g[b] || vp(b) - vp(a)
-      : k === 'venda' ? (a, b) => vg(b) - vg(a) || PR.g[a] - PR.g[b] || vp(b) - vp(a)
-      : (a, b) => d * (ki(a) - ki(b)) || vg(b) - vg(a));
-    aplicarFiltroVar();
-    if (k === 'venda') ordemPorVenda(d); else ordemRotasComVenda();
-    return;
+  const vg = p => D.vendaGrupo[PR.g[p]], vp = p => D.venda[p], ki = p => D.itemRank[PR.i[p]];
+  if (k === 'item') fp.sort((a, b) => d * (ki(a) - ki(b)) || vg(b) - vg(a));
+  else if (k === 'grupo' || k === 'rota' || !COLUNAS().some(c => c.k === k))   // cliente: maior venda primeiro; dentro dele, itens mais vendidos
+    fp.sort((a, b) => d * (vg(b) - vg(a)) || PR.g[a] - PR.g[b] || vp(b) - vp(a));
+  else {                                              // demais colunas: valor da linha agrupadora
+    const chave = new Map();
+    for (const p of fp) { const x = resumoPar(p); const v = x ? valorCol(x, k) : NaN; chave.set(p, ok(v) ? v : -Infinity); }
+    fp.sort((a, b) => d * (chave.get(a) - chave.get(b)) || vg(b) - vg(a));
   }
   aplicarFiltroVar();
-  if (V.total > MAX_ORDENAR) { V.aviso = true; return; }
-  const chave = new Float64Array(V.total), ids = new Uint32Array(V.total);
-  for (let k2 = 0; k2 < V.total; k2++) {
-    const id = V.ids ? V.ids[k2] : k2; ids[k2] = id;
-    const q = (id / V.nCU) | 0, rem = id - q * V.nCU, s = V.cds[(rem / V.nU) | 0], u = V.ufs[rem % V.nU];
-    const x = k === 'rota' ? s * 100 + u : valorCol(detalhe(fp[q], s, u), k);
-    chave[k2] = ok(x) ? x : -Infinity;
-  }
-  const pos = new Uint32Array(V.total).map((_, j) => j);
-  pos.sort((a, b) => d * (chave[a] - chave[b]) || a - b);
-  V.ord = pos.map(j => ids[j]);
+  ordemRotasComVenda();                               // ordem das rotas (exportação)
+  // pares com ao menos uma rota visível
+  if (SEL.var.size) { const tem = new Uint8Array(fp.length); for (const id of V.ids) tem[(id / V.nCU) | 0] = 1; V.pv = Array.from(fp).filter((_, q) => tem[q]); }
+  else V.pv = fp;
 }
 
 /* ═════════════ ESTADO DA SESSÃO (margens, parâmetros e filtros) ═════════════ */
 const chaveEstado = () => 'sim_estado_' + (S && S.pacote);
 function salvarEstado() {
-  armazenar.set(chaveEstado(), { prm:PRM, ovr:[...OVR], sel:Object.fromEntries(FILTROS.map(f => [f, [...SEL[f]]])), est:EST, gsel:Object.fromEntries(Object.keys(GSEL).map(f => [f, [...GSEL[f]]])), g:{ leitura:G.leitura, aba:G.aba, ordCli:G.ordCli } });
+  armazenar.set(chaveEstado(), { prm:PRM, ovr:[...OVR], sel:Object.fromEntries(FILTROS.map(f => [f, [...SEL[f]]])), est:EST, gsel:Object.fromEntries(Object.keys(GSEL).map(f => [f, [...GSEL[f]]])), g:{ leitura:G.leitura, aba:G.aba, ordCli:G.ordCli, ordIt:G.ordIt }, rep:[...REP] });
 }
 function restaurarEstado() {
   const e = armazenar.get(chaveEstado()); if (!e) return;
@@ -926,7 +981,8 @@ function restaurarEstado() {
     FILTROS.forEach(f => { SEL[f].clear(); ((e.sel || {})[f] || []).forEach(v => SEL[f].add(v)); });
     Object.assign(EST, e.est || {}); EST.pag = EST.pag || 0;
     Object.keys(GSEL).forEach(f => { GSEL[f].clear(); ((e.gsel || {})[f] || []).forEach(v => GSEL[f].add(v)); });
-    Object.assign(G, e.g || {});
+    Object.assign(G, e.g || {}); if (typeof G.ordCli !== 'object') G.ordCli = { k:'aum', d:-1 }; if (typeof G.ordIt !== 'object') G.ordIt = { k:'dimp', d:-1 };
+    REP.clear(); (e.rep || []).forEach(([k, v]) => REP.set(k, v));
   } catch (x) {}
 }
 
@@ -1031,16 +1087,20 @@ $('#btn-limpar-mg').addEventListener('click', () => { OVR.clear(); recalcular(fa
 $('#btn-limpar').addEventListener('click', () => { FILTROS.forEach(f => SEL[f].clear()); EST.pag = 0; atualizar(); });
 
 /* Colunas: 4 blocos */
-function colunas() { return COLUNAS().filter(c => !c.gi || EST['imp' + c.gi]); }
+function colunas() {
+  const cols = COLUNAS().filter(c => !c.gi || EST['imp' + c.gi]);
+  let ant = null; cols.forEach(c => { c.ini = c.bl !== 0 && c.bl !== ant ? 1 : 0; ant = c.bl; });
+  return cols;
+}
 function COLUNAS() {
   return [
-    { k:'item', t:'Item', txt:1, w:190, fixa:1, bl:0 },
-    { k:'grupo', t:'Cliente', txt:1, w:150, bl:0, dica:'Ordena pela venda do cliente e, dentro dele, pelos itens mais vendidos' },
+    { k:'item', t:'Item', txt:1, w:170, fixa:1, bl:0 },
+    { k:'grupo', t:'Cliente', txt:1, w:110, bl:0, dica:'Ordena pela venda do cliente e, dentro dele, pelos itens mais vendidos' },
     { k:'rota', t:'CD → UF', txt:1, bl:0 },
-    { k:'venda', t:'Venda média/mês', f:x => x > 0 ? R(x) : '—', sub:x => x.comVenda ? fmtN.format(x.qm) + ' ' + (D.itens[x.i][3] || 'un') + '/mês' : 'sem venda nesta rota', bl:0 },
-    { k:'custo', t:'Custo aquisição', f:R, bl:1, ini:1 },
-    { k:'mg', t:'Margem', bl:1, input:1 },
-    { k:'pl1', t:'Preço líquido', f:R, bl:1 },
+    { k:'venda', t:'Venda/mês', f:x => x > 0 ? R(x) : '—', sub:x => x.comVenda ? fmtN.format(x.qm) + ' ' + (D.itens[x.i][3] || 'un') + '/mês' : 'sem venda nesta rota', bl:0 },
+    { k:'custo', t:'Custo', f:R, bl:0 },
+    { k:'mg', t:'Margem', bl:0, input:1 },
+    { k:'pl', t:'Preço líquido', f:R, bl:0 },
     { k:'vicms1', gi:1, t:'ICMS', f:R, sub:x => P2(x.g[0]), bl:1 },
     { k:'vdif1', gi:1, t:'DIFAL', f:R, sub:x => P2(x.a.dif), bl:1 },
     { k:'vst1', gi:1, t:'ST', f:R, sub:x => P2(x.a.st), bl:1 },
@@ -1051,9 +1111,6 @@ function COLUNAS() {
     { k:'imp1', tg:1, t:'Total impostos', f:R, sub:x => P2(x.a.aliq), bl:1 },
     { k:'pv1', t:'Preço bruto', f:R, bl:1 },
     { k:'nf1', t:'ROB', f:R, bl:1, forte:1 },
-    { k:'custo2', t:'Custo aquisição', f:R, bl:2, ini:1, ref:1 },
-    { k:'mg2', t:'Margem', f:P, bl:2, ref:1 },
-    { k:'pl2', t:'Preço líquido', f:R, bl:2, ref:1 },
     { k:'vicms2', gi:2, t:'ICMS', f:R, sub:x => P2(x.n.icms), bl:2, ref:1 },
     { k:'vdif2', gi:2, t:'DIFAL', f:R, sub:x => P2(x.n.dif), bl:2, ref:1 },
     { k:'vst2', gi:2, t:'ST', f:R, sub:x => P2(x.n.st), bl:2, ref:1 },
@@ -1061,7 +1118,6 @@ function COLUNAS() {
     { k:'vcbs', gi:2, t:'CBS', f:R, sub:x => P2(x.n.acbs), bl:2, ref:1 },
     { k:'vibs', gi:2, t:'IBS', f:R, sub:x => P2(x.n.aibs), bl:2, ref:1 },
     { k:'imp2', tg:2, t:'Total impostos', f:R, sub:x => P2(x.n.aliq), bl:2, ref:1 },
-    { k:'plv2', t:'Preço líquido de venda', f:R, bl:2, ref:1 },
     { k:'nf2', t:'ROB', f:R, bl:2, ref:1, forte:1 },
     { k:'dif', t:'Var. R$', f:x => ok(x) ? (x > 0 ? '+' : '') + fmtR.format(x) : '—', cls:clsVar, bl:3, ini:1 },
     { k:'var', t:'Var. %', f:VAR, cls:clsVar, bl:3 },
@@ -1071,7 +1127,7 @@ function valorCol(x, k) {
   switch (k) {
     case 'custo': case 'custo2': return x.cu;
     case 'mg': case 'mg2': return x.mg;
-    case 'pl1': case 'pl2': case 'plv2': return x.pl;
+    case 'pl': case 'pl1': case 'pl2': case 'plv2': return x.pl;
     case 'vicms1': return x.a.vicms; case 'vdif1': return x.a.vdif; case 'vst1': return x.a.vst; case 'vfcp1': return x.a.vfcp;
     case 'vpis': return x.a.vpis; case 'vcof': return x.a.vcof; case 'vipi': return x.a.vipi;
     case 'imp1': return x.a.imp; case 'pv1': return x.a.bruto; case 'nf1': return x.a.rob;
@@ -1131,43 +1187,59 @@ function desenharKpis() {
 
 function desenharTabela() {
   const cols = colunas();
-  const nb = [0, 1, 2, 3].map(b => cols.filter(c => c.bl === b).length);
+  const ROT_BL = { 0:['', 'b-info'], 4:['VALORES FIXOS', 'b-fixo'], 1:['MODELO ATUAL', 'b-atual'], 2:['APÓS A REFORMA', 'b-ref'], 3:['IMPACTO', 'b-imp'] };
+  const grupos = []; cols.forEach(c => { const g = grupos[grupos.length - 1]; if (g && g.bl === c.bl) g.n++; else grupos.push({ bl:c.bl, n:1 }); });
   const btnTg = c => `<button type="button" class="grp-tg" data-tg="${c.tg}" title="${EST['imp' + c.tg] ? 'Recolher' : 'Abrir'} impostos">${EST['imp' + c.tg] ? '−' : '+'}</button>`;
   const seta = c => EST.ord === c.k ? (c.k === 'grupo' ? (EST.dir > 0 ? ' ↓' : ' ↑') : (EST.dir < 0 ? ' ↓' : ' ↑')) : '';
   $('#tabela thead').innerHTML =
-    `<tr class="blocos"><th colspan="${nb[0]}" class="b-info"></th><th colspan="${nb[1]}" class="b-atual b1">MODELO ATUAL</th><th colspan="${nb[2]}" class="b-ref b2">APÓS A REFORMA</th><th colspan="${nb[3]}" class="b-imp b3">IMPACTO</th></tr>` +
+    '<tr class="blocos">' + grupos.map(g => `<th colspan="${g.n}" class="${ROT_BL[g.bl][1]} ${g.bl ? 'b' + g.bl : ''}">${ROT_BL[g.bl][0]}</th>`).join('') + '</tr>' +
     '<tr>' + cols.map(c => `<th data-k="${c.k}" class="h${c.bl} ${c.txt ? 'txt' : ''} ${c.ini ? 'b' + c.bl : ''} ${c.gi ? 'det' : ''} ${c.fixa ? 'fixa' : ''} ${EST.ord === c.k ? 'ord' : ''}">${c.tg ? btnTg(c) : ''}${c.t}${seta(c)}</th>`).join('') + '</tr>';
-  { const hb = document.querySelector('#tabela tr.blocos'); if (hb) document.querySelectorAll('#tabela thead tr:not(.blocos) th').forEach(th => th.style.top = hb.offsetHeight + 'px'); }
 
-  const tot = Math.max(1, Math.ceil(V.total / POR_PAG));
+  const pv = V.pv || V.fp, tot = Math.max(1, Math.ceil(pv.length / POR_PAG));
   if (EST.pag > tot - 1) EST.pag = tot - 1;
-  const ini = EST.pag * POR_PAG, fim = Math.min(ini + POR_PAG, V.total);
+  const ini = EST.pag * POR_PAG, fim = Math.min(ini + POR_PAG, pv.length);
+  const celula = (x, c, filho) => {
+    const p = x.p, cls = [c.ini ? 'b' + c.bl : '', c.ref ? 'ref' : '', c.fixa ? 'fixa' : '', c.gi ? 'det' : ''];
+    if (c.txt) {
+      let val = textoCol(x, c.k), h = esc(val);
+      if (c.k === 'item') {
+        if (filho) h = `<span class="ramo">└</span><span class="cod">${esc(D.itens[x.i][0])}</span><span class="nm-filho">${esc(val)}</span>`;
+        else h = `<span class="seta">${ABERTOS.has(p) ? '▾' : '▸'}</span><span class="cod">${esc(D.itens[x.i][0])}</span>${esc(val)}`;
+      }
+      if (c.k === 'grupo' && filho) h = `<span class="nm-filho">${esc(val)}</span>`;
+      if (c.k === 'rota') {
+        if (x.resumo) { val = x.nVenda ? `${x.nVenda} rota${x.nVenda > 1 ? 's' : ''} c/ venda` : 'sem venda'; h = `${val}<span class="sub">${x.c ? 'Contrib.' : 'Não contrib.'}</span>`; }
+        else h += `<span class="sub">${x.comVenda ? 'com venda' : 'sem venda'}${x.g[7] ? ' · histórico' : ''}</span>`;
+      }
+      return `<td class="txt ${cls.join(' ')}" title="${esc(val)}"${c.w ? ` style="max-width:${c.w}px"` : ''}>${h}</td>`;
+    }
+    if (c.input) {
+      if (filho) return `<td class="${cls.join(' ')}">${P(x.mg)}</td>`;
+      const o = origemMg(p);
+      return `<td class="${cls.join(' ')}"><input class="mg-inp ${o !== 'historica' ? 'alterada' : ''}" data-k="${chaveMg(p)}" value="${ok(x.mg) ? fmtN2.format(x.mg * 100) : ''}" title="${o === 'linha' ? 'Margem digitada (vale para este cliente × item em todos os CDs e UFs)' : o === 'geral' ? 'Margem geral (parâmetro)' : 'Margem histórica (6 meses). Digite para ajustar.'}" /></td>`;
+    }
+    const val = valorCol(x, c.k);
+    if (c.cls) cls.push(c.cls(val));
+    let sub = '';
+    if (c.sub) {
+      if (!x.resumo || c.k === 'venda') sub = c.sub(x);
+      else if (c.bl === 1 || c.bl === 2) { const rob = c.bl === 1 ? x.a.rob : x.n.rob; sub = c.k === 'pv1' ? '' : P2(rob ? val / rob : NaN); }
+    }
+    return `<td class="${cls.join(' ')}"${c.forte ? ' style="font-weight:700"' : ''}>${c.f(val)}${sub ? `<span class="sub">${sub}</span>` : ''}</td>`;
+  };
   let html = '';
   for (let k = ini; k < fim; k++) {
-    const { p, s, u } = linhaDe(k), x = detalhe(p, s, u);
-    html += `<tr data-p="${p}" data-s="${s}" data-u="${u}"${x.comVenda ? ' class="com-venda"' : ''}>` + cols.map(c => {
-      const cls = [c.ini ? 'b' + c.bl : '', c.ref ? 'ref' : '', c.fixa ? 'fixa' : '', c.gi ? 'det' : ''];
-      if (c.txt) {
-        const val = textoCol(x, c.k);
-        let h = esc(val);
-        if (c.k === 'item') h = `<span class="cod">${esc(D.itens[x.i][0])}</span>${esc(val)}`;
-        if (c.k === 'rota') h += `<span class="sub">${x.c ? 'Contrib.' : 'Não contrib.'}${x.g[7] ? ' · histórico' : ''}</span>`;
-        return `<td class="txt ${cls.join(' ')}" title="${esc(val)}"${c.w ? ` style="max-width:${c.w}px"` : ''}>${h}</td>`;
-      }
-      if (c.input) {
-        const o = origemMg(p);
-        return `<td class="${cls.join(' ')}"><input class="mg-inp ${o !== 'historica' ? 'alterada' : ''}" data-k="${chaveMg(p)}" value="${ok(x.mg) ? fmtN2.format(x.mg * 100) : ''}" title="${o === 'linha' ? 'Margem digitada (vale para este cliente × item em todos os CDs e UFs)' : o === 'geral' ? 'Margem geral (parâmetro)' : 'Margem histórica (6 meses). Digite para ajustar.'}" /></td>`;
-      }
-      const val = valorCol(x, c.k);
-      if (c.cls) cls.push(c.cls(val));
-      return `<td class="${cls.join(' ')}"${c.forte ? ' style="font-weight:700"' : ''}>${c.f(val)}${c.sub ? `<span class="sub">${c.sub(x)}</span>` : ''}</td>`;
-    }).join('') + '</tr>';
+    const p = pv[k], x = resumoPar(p); if (!x) continue;
+    const aberto = ABERTOS.has(p);
+    html += `<tr class="agrupa${aberto ? ' aberto' : ''}" data-par="${p}" title="Clique para ${aberto ? 'recolher' : 'abrir'} as rotas CD → UF">` + cols.map(c => celula(x, c, false)).join('') + '</tr>';
+    if (aberto) for (const r of x.rot) {
+      const y = detalhe(p, r.s, r.u);
+      html += `<tr class="filho${y.comVenda ? ' com-venda' : ''}" data-p="${p}" data-s="${r.s}" data-u="${r.u}">` + cols.map(c => celula(y, c, true)).join('') + '</tr>';
+    }
   }
   $('#tabela tbody').innerHTML = html || `<tr><td class="vazio" colspan="${cols.length}">Nenhuma linha para os filtros escolhidos.</td></tr>`;
-  const nPar = V.fp.length;
-  $('#t-qtd').innerHTML = `${fmtN.format(V.total)} linhas <span class="q2">(${fmtN.format(nPar)} cliente × item · ${V.cds.length} CD · ${V.nU} UF${SEL.var.size ? ' · filtro de variação' : ''})</span>` +
-    (OVR.size ? ` · <b>${fmtN.format(OVR.size)} margem${OVR.size > 1 ? 's' : ''} digitada${OVR.size > 1 ? 's' : ''}</b>` : '') +
-    (V.aviso ? ` · <span class="aviso">ordenação por esta coluna disponível até ${fmtN.format(MAX_ORDENAR)} linhas — refine os filtros</span>` : '');
+  $('#t-qtd').innerHTML = `${fmtN.format(pv.length)} cliente × item <span class="q2">(${fmtN.format(V.total)} rotas CD → UF${SEL.var.size ? ' · filtro de variação' : ''}) · clique na linha para abrir as rotas</span>` +
+    (OVR.size ? ` · <b>${fmtN.format(OVR.size)} margem${OVR.size > 1 ? 's' : ''} digitada${OVR.size > 1 ? 's' : ''}</b>` : '');
   $('#btn-limpar-mg').classList.toggle('oculto', !OVR.size);
   $('#paginacao').innerHTML = `<span>Página ${fmtN.format(EST.pag + 1)} de ${fmtN.format(tot)}</span>
     <button class="btn-sec" data-p="-1" ${EST.pag === 0 ? 'disabled' : ''}>Anterior</button>
@@ -1178,13 +1250,15 @@ $('#tabela thead').addEventListener('click', e => {
   const tg = e.target.closest('.grp-tg');
   if (tg) { const k = 'imp' + tg.dataset.tg; EST[k] = !EST[k]; atualizar(0); return; }
   const th = e.target.closest('th[data-k]'); if (!th) return;
-  const k = th.dataset.k;
+  const k = th.dataset.k; if (k === 'rota') return;
   if (EST.ord === k) EST.dir *= -1; else { EST.ord = k; EST.dir = k === 'grupo' || COLUNAS().find(c => c.k === k)?.txt ? 1 : -1; }
   EST.pag = 0; carregando(true, 'Ordenando…'); setTimeout(() => { atualizar(1); carregando(false); }, 20);
 });
 $('#paginacao').addEventListener('click', e => { const b = e.target.closest('button[data-p]'); if (!b) return; EST.pag += +b.dataset.p; atualizar(0); window.scrollTo({ top:$('.bloco').offsetTop - 90 }); });
 $('#tabela tbody').addEventListener('click', e => {
   if (e.target.closest('input')) return;
+  const ag = e.target.closest('tr[data-par]');
+  if (ag) { const p = +ag.dataset.par; if (ABERTOS.has(p)) ABERTOS.delete(p); else ABERTOS.add(p); desenharTabela(); return; }
   const tr = e.target.closest('tr[data-p]'); if (!tr) return;
   abrirModal(+tr.dataset.p, +tr.dataset.s, +tr.dataset.u);
 });
@@ -1292,6 +1366,7 @@ function desenharMemoria() {
       <li><b>Margem:</b> margem média dos ${m.meses} meses do cliente × item (lucro bruto ÷ ROL), a mesma para qualquer CD e UF e para os dois modelos. Pode ser alterada na linha (vale para o cliente × item) ou no parâmetro geral.</li>
       <li><b>Contribuinte:</b> Cadastro Fiscal (Contribuinte ICMS 1 = contribuinte, 9 = não contribuinte), pelo código do cliente. No grupo econômico vale a classificação com mais códigos (empate = não contribuinte). Contribuinte usa as Tabelas Fiscais de contribuinte; não contribuinte, as de não contribuinte.</li>
       <li><b>Alíquotas:</b> Tabelas Fiscais (Base Tributária) por item × CD de origem × UF de destino × contribuinte. ICMS pela carga efetiva (base reduzida). Itens sem cadastro na tabela usam as alíquotas efetivas do histórico do item no CD.</li>
+      <li><b>CBS e IBS:</b> alíquotas da tela × fator do item. Itens da planilha RT - Exceção: "0" = sem CBS e IBS; "60%" = alíquota reduzida em 60% (ex.: CBS 9,3% → 3,72%). Demais itens: alíquota cheia.</li>
       <li><b>Gerencial:</b> quantidade média mensal de cada cliente × item × CD × UF de destino (UF do Cadastro de Clientes) × valores unitários do simulador. Com repasse: margem mantida, muda a ROB. Sem repasse: ROB atual mantida, mudam impostos e lucro.</li>
       <li><b>Valores digitados</b> (margens e parâmetros) e filtros ficam gravados enquanto a sessão estiver aberta e saem no Excel.</li>
     </ul>`;
@@ -1355,58 +1430,56 @@ document.querySelectorAll('.menu a').forEach(a => a.addEventListener('click', e 
 
 /* ═════════════ PÁGINA: GERENCIAL (DRE mensal) ═════════════
    Para cada cliente × item × CD × UF do histórico: quantidade média mensal × valores unitários dos dois modelos.
-   Leitura "repasse": preço muda para manter a margem (ROB muda, lucro igual).
-   Leitura "sem repasse": preço atual mantido (ROB igual, impostos da reforma mudam o lucro). */
+   Com repasse: o preço muda para manter a margem (ROB muda, lucro igual).
+   Sem repasse: o preço atual é mantido (ROB igual, a variação de imposto vai para o lucro).
+   O repasse pode ser escolhido por cliente; a variação de imposto é a medida comum de impacto. */
 const GSEL = { exec:new Set(), grupo:new Set(), fam:new Set() };
-const G = { leitura:'repasse', aba:'mais', ordCli:'dif', pagItens:0, pagCli:0 };
+const G = { leitura:'repasse', aba:'mais', pagItens:0, pagCli:0, ordCli:{ k:'aum', d:-1 }, ordIt:{ k:'dimp', d:-1 } };
+const REP = new Map();      // repasse escolhido por cliente (grupo -> true/false); sem escolha = padrão geral
 const G_POR_PAG = 25;
-let GR = null;   // último resultado
+let GR = null;
+const repasseDe = g => REP.has(g) ? REP.get(g) : G.leitura !== 'sem';
 
 function calcularGerencial() {
-  const H = D.hist, nh = H.p.length, nP = PR.i.length;
+  const H = D.hist, nh = H.p.length;
   const fEx = GSEL.exec.size ? GSEL.exec : null, fGr = GSEL.grupo.size ? GSEL.grupo : null, fFa = GSEL.fam.size ? GSEL.fam : null;
   const disp = { exec:new Set(), grupo:new Set(), fam:new Set() };
-  const T = { a:{ rob:0, imp:0, icms:0, dif:0, st:0, fcp:0, pc:0, ipi:0, cbs:0, ibs:0, rol:0 }, n:{ rob:0, imp:0, icms:0, dif:0, st:0, fcp:0, pc:0, ipi:0, cbs:0, ibs:0, rol:0 }, cmv:0, real:0, fora:0 };
-  const par = new Map();                 // p -> { q, rob1, rob2, rol1, rol2, cmv }
-  const semRep = G.leitura === 'sem';
-  let ultP = -1, mg = NaN;
+  const z = () => ({ rob:0, imp:0, icms:0, dif:0, st:0, fcp:0, pc:0, ipi:0, cbs:0, ibs:0, rol:0 });
+  const T = { a:z(), n:z(), cmv:0, fora:0 };
+  const par = new Map();
+  let ultP = -1, mg = NaN, rep = true;
   for (let h = 0; h < nh; h++) {
     const p = H.p[h], i = PR.i[p], e = PR.e[p], g = PR.g[p], fa = D.itemFam[i];
-    // cascata dos filtros
     const okE = !fEx || fEx.has(e), okG = !fGr || fGr.has(g), okF = !fFa || fFa.has(fa);
     if (okG && okF) disp.exec.add(e); if (okE && okF) disp.grupo.add(g); if (okE && okG) disp.fam.add(fa);
     if (!(okE && okG && okF)) continue;
     const q = H.q[h], s = H.s[h], u = H.u[h], c = PR.c[p];
-    if (p !== ultP) { ultP = p; mg = margemPar(p); }
+    if (p !== ultP) { ultP = p; mg = margemPar(p); rep = repasseDe(g); }
     const cu = D.custo[i * 2 + s];
-    if (!(mg < 1) || !ok(cu) || !(q > 0)) { T.fora += q * (PR.pr[p] / 100 || 0); continue; }
+    if (!(mg < 1) || !ok(cu) || !(q > 0)) { T.fora += H.v[h] || 0; continue; }
     const pl = cu / (1 - mg), r = idRegra(i, s, u, c), m = FATD[r * 2 + c], a = m.a, n = m.n;
-    // atual (por unidade de preço líquido)
-    const kq = pl * q;
-    let rob2, rol2, k2 = kq;                       // k2: preço líquido × qtd no cenário após a reforma
-    if (semRep) { k2 = kq * a.rob / n.rob; }       // mantém a ROB atual: preço líquido após = ROB atual ÷ markup da reforma
-    rob2 = k2 * n.rob; rol2 = k2;
-    const rob1 = kq * a.rob, cmv = cu * q;
+    const kq = pl * q, k2 = rep ? kq : kq * a.rob / n.rob;   // sem repasse: mantém a ROB atual
+    const rob1 = kq * a.rob, rob2 = k2 * n.rob, imp1 = kq * a.imp, imp2 = k2 * n.imp, cmv = cu * q;
     T.a.rob += rob1; T.a.icms += kq * a.vicms; T.a.dif += kq * a.vdif; T.a.st += kq * a.vst; T.a.fcp += kq * a.vfcp; T.a.pc += kq * (a.vpis + a.vcof); T.a.ipi += kq * a.vipi; T.a.rol += kq;
-    T.n.rob += rob2; T.n.icms += k2 * n.vicms; T.n.dif += k2 * n.vdif; T.n.st += k2 * n.vst; T.n.fcp += k2 * n.vfcp; T.n.cbs += k2 * n.vcbs; T.n.ibs += k2 * n.vibs; T.n.rol += rol2;
+    T.n.rob += rob2; T.n.icms += k2 * n.vicms; T.n.dif += k2 * n.vdif; T.n.st += k2 * n.vst; T.n.fcp += k2 * n.vfcp; T.n.cbs += k2 * n.vcbs; T.n.ibs += k2 * n.vibs; T.n.rol += k2;
     T.cmv += cmv;
-    let x = par.get(p); if (!x) { x = { q:0, rob1:0, rob2:0, rol1:0, rol2:0, cmv:0 }; par.set(p, x); }
-    x.q += q; x.rob1 += rob1; x.rob2 += rob2; x.rol1 += kq; x.rol2 += rol2; x.cmv += cmv;
+    let x = par.get(p); if (!x) { x = { q:0, rob1:0, rob2:0, rol1:0, rol2:0, imp1:0, imp2:0, cmv:0, rep }; par.set(p, x); }
+    x.q += q; x.rob1 += rob1; x.rob2 += rob2; x.rol1 += kq; x.rol2 += k2; x.imp1 += imp1; x.imp2 += imp2; x.cmv += cmv;
   }
   T.a.imp = T.a.icms + T.a.dif + T.a.st + T.a.fcp + T.a.pc + T.a.ipi;
   T.n.imp = T.n.icms + T.n.dif + T.n.st + T.n.fcp + T.n.cbs + T.n.ibs;
-  // impacto por cliente × item e por cliente
   const itens = [], cli = new Map();
-  let aum = 0, red = 0, nAum = 0, nRed = 0;
+  const R = { aum:0, red:0, nAum:0, nRed:0, itAum:new Set(), itRed:new Set(), cliAum:new Set(), cliRed:new Set() };
   for (const [p, x] of par) {
-    const d = semRep ? x.rol2 - x.rol1 : x.rob2 - x.rob1;
-    itens.push({ p, ...x, d, dp:semRep ? (x.rol1 - x.cmv ? (x.rol2 - x.cmv) / (x.rol1 - x.cmv) - 1 : NaN) : (x.rob1 ? x.rob2 / x.rob1 - 1 : NaN) });
-    let k = cli.get(PR.g[p]); if (!k) { k = { g:PR.g[p], e:PR.e[p], rob1:0, rob2:0, rol1:0, rol2:0, cmv:0, aum:0, red:0, nAum:0, nRed:0 }; cli.set(PR.g[p], k); }
-    k.rob1 += x.rob1; k.rob2 += x.rob2; k.rol1 += x.rol1; k.rol2 += x.rol2; k.cmv += x.cmv;
-    if (d > 0.005) { aum += d; nAum++; k.aum += d; k.nAum++; } else if (d < -0.005) { red += d; nRed++; k.red += d; k.nRed++; }
+    const g = PR.g[p], it = { p, ...x, u1:x.rob1 / x.q, u2:x.rob2 / x.q, dimp:x.imp2 - x.imp1, drob:x.rob2 - x.rob1, dluc:x.rol2 - x.rol1, pct:x.rob1 ? x.rob2 / x.rob1 - 1 : NaN };
+    itens.push(it);
+    let k = cli.get(g); if (!k) { k = { g, e:PR.e[p], rob1:0, rob2:0, rol1:0, rol2:0, imp1:0, imp2:0, cmv:0, aum:0, red:0, nAum:0, nRed:0 }; cli.set(g, k); }
+    k.rob1 += x.rob1; k.rob2 += x.rob2; k.rol1 += x.rol1; k.rol2 += x.rol2; k.imp1 += x.imp1; k.imp2 += x.imp2; k.cmv += x.cmv;
+    if (it.dimp > 0.005) { R.aum += it.dimp; R.nAum++; R.itAum.add(PR.i[p]); R.cliAum.add(g); k.aum += it.dimp; k.nAum++; }
+    else if (it.dimp < -0.005) { R.red += it.dimp; R.nRed++; R.itRed.add(PR.i[p]); R.cliRed.add(g); k.red += it.dimp; k.nRed++; }
   }
-  for (const k of cli.values()) k.d = semRep ? k.rol2 - k.rol1 : k.rob2 - k.rob1;
-  GR = { T, itens, clientes:[...cli.values()], aum, red, nAum, nRed, disp };
+  for (const k of cli.values()) { k.dimp = k.imp2 - k.imp1; k.drob = k.rob2 - k.rob1; k.dluc = k.rol2 - k.rol1; k.pct = k.rob1 ? k.rob2 / k.rob1 - 1 : NaN; k.rep = repasseDe(k.g); }
+  GR = { T, itens, clientes:[...cli.values()], R, disp };
 }
 
 function atualizarGerencial() {
@@ -1425,27 +1498,25 @@ function atualizarGerencial() {
 const RM = x => ok(x) ? fmtR.format(x) : '—';
 const RK = x => { if (!ok(x)) return '—'; const a = Math.abs(x), sn = x < 0 ? '-' : ''; return a >= 1e6 ? sn + 'R$ ' + fmtN2.format(a / 1e6) + ' mi' : a >= 1e4 ? sn + 'R$ ' + fmtN.format(a / 1e3) + ' mil' : fmtR.format(x); };
 const SINAL = (x, f = RM) => ok(x) ? (x > 0.005 ? '+' : '') + f(x) : '—';
-// cor: na leitura com repasse, aumento de preço = vermelho; sem repasse, perda de lucro = vermelho
-const clsImp = x => !ok(x) || Math.abs(x) < 0.005 ? '' : (G.leitura === 'sem' ? (x < 0 ? 'pos' : 'neg') : (x > 0 ? 'pos' : 'neg'));
+const corImp = x => !ok(x) || Math.abs(x) < 0.005 ? '' : (x > 0 ? 'pos' : 'neg');      // mais imposto = vermelho
+const corLuc = x => !ok(x) || Math.abs(x) < 0.005 ? '' : (x < 0 ? 'pos' : 'neg');      // menos lucro = vermelho
+const plural = (n, s, p) => `${fmtN.format(n)} ${n === 1 ? s : p}`;
 
 function desenharGerencial() {
-  const { T } = GR, semRep = G.leitura === 'sem';
-  const lucro1 = T.a.rol - T.cmv, lucro2 = T.n.rol - T.cmv;
-  const mg1 = T.a.rol ? lucro1 / T.a.rol : NaN, mg2 = T.n.rol ? lucro2 / T.n.rol : NaN;
+  const { T, R } = GR;
+  const l1 = T.a.rol - T.cmv, l2 = T.n.rol - T.cmv, mg1 = T.a.rol ? l1 / T.a.rol : NaN, mg2 = T.n.rol ? l2 / T.n.rol : NaN;
   const vr = (a, b) => a ? b / a - 1 : NaN;
-  // escopo
-  const nCli = GR.clientes.length;
-  $('#g-escopo').innerHTML = GSEL.grupo.size === 1
-    ? `Cliente <b>${esc(D.grupos[[...GSEL.grupo][0]])}</b>`
-    : `${fmtN.format(nCli)} cliente${nCli !== 1 ? 's' : ''} · ${fmtN.format(GR.itens.length)} cliente × item`;
-  // KPIs
-  const dRob = T.n.rob - T.a.rob, dLuc = lucro2 - lucro1;
-  const cliAum = GR.clientes.filter(k => clsImp(k.d) === 'pos').length;
+  const nCli = GR.clientes.length, nSem = GR.clientes.filter(k => !k.rep).length;
+  $('#g-escopo').innerHTML = (GSEL.grupo.size === 1 ? `Cliente <b>${esc(D.grupos[[...GSEL.grupo][0]])}</b>` : `${plural(nCli, 'cliente', 'clientes')} · ${plural(GR.itens.length, 'cliente × item', 'cliente × item')}`) +
+    ` · repasse: <b>${nSem === 0 ? 'todos com repasse' : nSem === nCli ? 'todos sem repasse' : `${plural(nCli - nSem, 'cliente', 'clientes')} com e ${plural(nSem, 'cliente', 'clientes')} sem`}</b>` +
+    (REP.size ? ` · <a href="#" id="g-limpar-rep">voltar todos ao padrão</a>` : '');
+  const dRob = T.n.rob - T.a.rob, dImp = T.n.imp - T.a.imp, dLuc = l2 - l1;
+  const cliAum = GR.clientes.filter(k => k.dimp > 0.005).length;
   $('#g-kpis').innerHTML = [
-    ['ROB mensal', `${RK(T.a.rob)} → ${RK(T.n.rob)}`, `<span class="${clsImp(semRep ? 0 : dRob)}">${SINAL(dRob, RK)} (${VAR(vr(T.a.rob, T.n.rob))})</span>`],
-    ['Impostos mensais', `${RK(T.a.imp)} → ${RK(T.n.imp)}`, `${P(T.a.rob ? T.a.imp / T.a.rob : NaN)} → ${P(T.n.rob ? T.n.imp / T.n.rob : NaN)} da ROB`],
-    ['Lucro bruto mensal', `${RK(lucro1)} → ${RK(lucro2)}`, `<span class="${clsImp(semRep ? dLuc : 0)}">${SINAL(dLuc, RK)} · margem ${P(mg1)} → ${P(mg2)}</span>`],
-    [semRep ? 'Clientes que perdem lucro' : 'Clientes com aumento de preço', `${fmtN.format(cliAum)} de ${fmtN.format(nCli)}`, nCli ? P(cliAum / nCli) + ' dos clientes' : ''],
+    ['ROB mensal', `${RK(T.a.rob)} → ${RK(T.n.rob)}`, `${SINAL(dRob, RK)} (${VAR(vr(T.a.rob, T.n.rob))})`],
+    ['Impostos mensais', `${RK(T.a.imp)} → ${RK(T.n.imp)}`, `<span class="${corImp(dImp)}">${SINAL(dImp, RK)}</span> · ${P(T.a.rob ? T.a.imp / T.a.rob : NaN)} → ${P(T.n.rob ? T.n.imp / T.n.rob : NaN)} da ROB`],
+    ['Lucro bruto mensal', `${RK(l1)} → ${RK(l2)}`, `<span class="${corLuc(dLuc)}">${SINAL(dLuc, RK)}</span> · margem ${P(mg1)} → ${P(mg2)}`],
+    ['Clientes com aumento de imposto', `${fmtN.format(cliAum)} de ${fmtN.format(nCli)}`, nCli ? P(cliAum / nCli) + ' dos clientes' : ''],
   ].map(([k, v, s], i) => `<div class="kpi"><div class="ico">${ICONES_KPI[i]}</div><div><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div></div>`).join('');
 
   // DRE
@@ -1455,90 +1526,83 @@ function desenharGerencial() {
     return `<tr class="${cls || ''}" ${opt.tg ? 'data-tg="imp"' : ''}><td>${opt.tg ? `<button type="button" class="grp-tg">${G.impAberto ? '−' : '+'}</button>` : ''}${rot}</td><td>${RM(a)}</td><td>${RM(b)}</td><td class="${cor}">${SINAL(d)}</td><td class="${cor}">${VAR(vr(a, b))}</td></tr>`;
   };
   const sub = (rot, a, b) => G.impAberto ? `<tr class="det"><td>${rot}</td><td>${RM(a)}</td><td>${RM(b)}</td><td>${SINAL(b - a)}</td><td></td></tr>` : '';
-  const corRob = d => semRep ? '' : clsImp(d), corLuc = d => semRep ? clsImp(d) : '';
   $('#g-dre').innerHTML = `<thead><tr><th></th><th>Modelo atual</th><th>Após a reforma</th><th>Variação</th><th>Var. %</th></tr></thead><tbody>
-    ${linhaD('ROB', T.a.rob, T.n.rob, 'forte', { cor:corRob })}
-    ${linhaD('(−) Impostos', T.a.imp, T.n.imp, '', { tg:1 })}
+    ${linhaD('ROB', T.a.rob, T.n.rob, 'forte')}
+    ${linhaD('(−) Impostos', T.a.imp, T.n.imp, '', { tg:1, cor:corImp })}
     ${sub('ICMS', T.a.icms, T.n.icms)}${sub('DIFAL', T.a.dif, T.n.dif)}${sub('ST', T.a.st, T.n.st)}${sub('FCP', T.a.fcp, T.n.fcp)}
     ${sub('PIS/COFINS', T.a.pc, 0)}${sub('IPI', T.a.ipi, 0)}${sub('CBS', 0, T.n.cbs)}${sub('IBS', 0, T.n.ibs)}
     ${linhaD('(=) ROL', T.a.rol, T.n.rol, 'forte', { cor:corLuc })}
     ${linhaD('(−) CMV', T.cmv, T.cmv, '')}
-    ${linhaD('(=) Lucro bruto', lucro1, lucro2, 'forte', { cor:corLuc })}
-    ${linhaD('Margem bruta', mg1, mg2, '', { pct:1, pp:1 })}
+    ${linhaD('(=) Lucro bruto', l1, l2, 'forte', { cor:corLuc })}
+    ${linhaD('Margem bruta', mg1, mg2, '', { pct:1 })}
   </tbody>`;
   $('#g-dre-nota').innerHTML = `Valores mensais: quantidade média mensal (${D.meta.meses} meses) × valores unitários do simulador, no CD e na UF de destino de cada venda. ` +
-    (semRep ? 'Leitura <b>sem repasse</b>: o preço (ROB) atual é mantido e a reforma altera impostos e lucro.' : 'Leitura <b>com repasse</b>: a margem é mantida e a reforma altera o preço (ROB).') +
+    'Clientes <b>com repasse</b>: margem mantida, a variação de imposto vai para o preço (ROB). Clientes <b>sem repasse</b>: preço atual mantido, a variação de imposto vai para o lucro.' +
     (T.fora > 1 ? ` Ficaram de fora ${RK(T.fora)}/mês de vendas sem custo ou com margem ≥ 100%.` : '');
 
-  // Onde está o impacto
-  const tot = Math.abs(GR.aum) + Math.abs(GR.red) || 1;
-  const rotA = semRep ? 'Perdem lucro' : 'Ficam mais caros', rotR = semRep ? 'Ganham lucro' : 'Ficam mais baratos';
-  const vA = semRep ? GR.red : GR.aum, vR = semRep ? GR.aum : GR.red, nA = semRep ? GR.nRed : GR.nAum, nR = semRep ? GR.nAum : GR.nRed;
-  $('#g-impacto').innerHTML = `
-    <button type="button" class="imp-bloco ${G.aba === 'mais' ? 'ativo' : ''}" data-aba="mais">
-      <div class="imp-t"><span class="pt pos"></span>${rotA}</div><div class="imp-v pos">${SINAL(vA, RK)}<small>/mês</small></div>
-      <div class="imp-barra"><i class="b-pos" style="width:${Math.abs(vA) / tot * 100}%"></i></div>
-      <div class="imp-s">${fmtN.format(nA)} cliente × item · ver lista</div></button>
-    <button type="button" class="imp-bloco ${G.aba === 'menos' ? 'ativo' : ''}" data-aba="menos">
-      <div class="imp-t"><span class="pt neg"></span>${rotR}</div><div class="imp-v neg">${SINAL(vR, RK)}<small>/mês</small></div>
-      <div class="imp-barra"><i class="b-neg" style="width:${Math.abs(vR) / tot * 100}%"></i></div>
-      <div class="imp-s">${fmtN.format(nR)} cliente × item · ver lista</div></button>
-    <div class="imp-saldo">Saldo <b class="${clsImp(GR.aum + GR.red)}">${SINAL(GR.aum + GR.red, RK)}/mês</b> ${semRep ? 'no lucro bruto' : 'na ROB'}</div>`;
+  // Impacto
+  const tot = Math.abs(R.aum) + Math.abs(R.red) || 1;
+  const bloco = (aba, rot, v, cls, nIt, nCli, n) => `
+    <button type="button" class="imp-bloco ${G.aba === aba ? 'ativo' : ''}" data-aba="${aba}">
+      <div class="imp-t"><span class="pt ${cls}"></span>${rot}</div><div class="imp-v ${cls}">${SINAL(v, RK)}<small>/mês em impostos</small></div>
+      <div class="imp-barra"><i class="b-${cls}" style="width:${Math.abs(v) / tot * 100}%"></i></div>
+      <div class="imp-s">${plural(nIt, 'item', 'itens')} em ${plural(nCli, 'cliente', 'clientes')} (${plural(n, 'combinação', 'combinações')} cliente × item) · ver lista</div></button>`;
+  $('#g-impacto').innerHTML = bloco('mais', 'Itens com aumento de imposto', R.aum, 'pos', R.itAum.size, R.cliAum.size, R.nAum) +
+    bloco('menos', 'Itens com redução de imposto', R.red, 'neg', R.itRed.size, R.cliRed.size, R.nRed) +
+    `<div class="imp-saldo">Saldo <b class="${corImp(R.aum + R.red)}">${SINAL(R.aum + R.red, RK)}/mês</b> em impostos · efeito: ROB ${SINAL(dRob, RK)} · lucro ${SINAL(dLuc, RK)}</div>`;
 
   desenharClientesG();
   desenharItensG();
 }
 
+// ordenação genérica das tabelas do Gerencial
+function ordenarLista(lista, o, txt) {
+  const f = txt[o.k];
+  if (f) lista.sort((a, b) => o.d * f(a).localeCompare(f(b), 'pt-BR'));
+  else lista.sort((a, b) => { const x = a[o.k], y = b[o.k]; return o.d * ((ok(x) ? x : -Infinity) - (ok(y) ? y : -Infinity)); });
+  return lista;
+}
+const thO = (o, k, t, cls = '') => `<th data-o="${k}" class="${cls} ${o.k === k ? 'ord' : ''}">${t}${o.k === k ? (o.d < 0 ? ' ↓' : ' ↑') : ''}</th>`;
+
 function desenharClientesG() {
   const unico = GSEL.grupo.size === 1;
   $('#g-card-cli').classList.toggle('oculto', unico);
   if (unico) return;
-  const semRep = G.leitura === 'sem';
-  const lista = GR.clientes.slice();
-  const k = G.ordCli;
-  const val = c => k === 'rob' ? c.rob1 : k === 'pct' ? (semRep ? (c.rol1 ? c.rol2 / c.rol1 - 1 : 0) : (c.rob1 ? c.rob2 / c.rob1 - 1 : 0)) : k === 'aum' ? (semRep ? -c.red : c.aum) : (semRep ? -c.d : c.d);
-  lista.sort((a, b) => val(b) - val(a));
+  const o = G.ordCli;
+  const lista = ordenarLista(GR.clientes.slice(), o, { nome:c => D.grupos[c.g], rep:c => c.rep ? 'b' : 'a' });
   const tot = Math.max(1, Math.ceil(lista.length / G_POR_PAG)); if (G.pagCli >= tot) G.pagCli = tot - 1;
   const pag = lista.slice(G.pagCli * G_POR_PAG, (G.pagCli + 1) * G_POR_PAG);
-  const th = (key, t) => `<th data-o="${key}" class="${k === key ? 'ord' : ''}">${t}${k === key ? ' ↓' : ''}</th>`;
-  $('#g-cli').innerHTML = `<thead><tr><th class="txt">Cliente</th>${th('rob', 'ROB atual/mês')}<th>ROB após/mês</th>${th('dif', semRep ? 'Var. lucro/mês' : 'Var. ROB/mês')}${th('pct', 'Var. %')}${th('aum', semRep ? 'Itens que perdem lucro' : 'Itens mais caros')}<th>${semRep ? 'Itens que ganham lucro' : 'Itens mais baratos'}</th><th></th></tr></thead><tbody>` +
-    pag.map(c => {
-      const d = c.d, pct = semRep ? (c.rol1 ? c.rol2 / c.rol1 - 1 : NaN) : (c.rob1 ? c.rob2 / c.rob1 - 1 : NaN);
-      const [vA, nA, vR, nR] = semRep ? [c.red, c.nRed, c.aum, c.nAum] : [c.aum, c.nAum, c.red, c.nRed];
-      return `<tr data-g="${c.g}"><td class="txt"><b>${esc(D.grupos[c.g])}</b><span class="sub">${esc(D.execs[c.e])}</span></td><td>${RM(c.rob1)}</td><td>${RM(c.rob2)}</td>
-        <td class="${clsImp(d)}"><b>${SINAL(d)}</b></td><td class="${clsImp(d)}">${VAR(pct)}</td>
-        <td class="pos">${nA ? SINAL(vA) + `<span class="sub">${nA} ite${nA > 1 ? 'ns' : 'm'}</span>` : '—'}</td><td class="neg">${nR ? SINAL(vR) + `<span class="sub">${nR} ite${nR > 1 ? 'ns' : 'm'}</span>` : '—'}</td>
-        <td><span class="link">Abrir ›</span></td></tr>`;
-    }).join('') + '</tbody>';
+  $('#g-cli').innerHTML = `<thead><tr>${thO(o, 'nome', 'Cliente', 'txt')}${thO(o, 'rep', 'Repasse', 'cen')}${thO(o, 'rob1', 'ROB atual/mês')}${thO(o, 'rob2', 'ROB após/mês')}${thO(o, 'drob', 'Var. ROB/mês')}${thO(o, 'pct', 'Var. %')}${thO(o, 'dluc', 'Var. lucro/mês')}${thO(o, 'dimp', 'Var. imposto/mês')}${thO(o, 'aum', 'Aumento de imposto')}${thO(o, 'red', 'Redução de imposto')}<th></th></tr></thead><tbody>` +
+    pag.map(c => `<tr data-g="${c.g}"><td class="txt"><b>${esc(D.grupos[c.g])}</b><span class="sub">${esc(D.execs[c.e])}</span></td>
+        <td class="cen"><span class="rep-tg ${c.rep ? 'sim' : 'nao'}${REP.has(c.g) ? ' escolhido' : ''}" data-rep="${c.g}" title="Clique para alternar o repasse deste cliente">${c.rep ? 'Sim' : 'Não'}</span></td>
+        <td>${RM(c.rob1)}</td><td>${RM(c.rob2)}</td><td>${SINAL(c.drob)}</td><td>${VAR(c.pct)}</td>
+        <td class="${corLuc(c.dluc)}">${SINAL(c.dluc)}</td><td class="${corImp(c.dimp)}"><b>${SINAL(c.dimp)}</b></td>
+        <td class="pos">${c.nAum ? SINAL(c.aum) + `<span class="sub">${plural(c.nAum, 'item', 'itens')}</span>` : '—'}</td>
+        <td class="neg">${c.nRed ? SINAL(c.red) + `<span class="sub">${plural(c.nRed, 'item', 'itens')}</span>` : '—'}</td>
+        <td><span class="link">Abrir ›</span></td></tr>`).join('') + '</tbody>';
   $('#g-cli-pag').innerHTML = lista.length > G_POR_PAG ? `<span>Página ${G.pagCli + 1} de ${tot}</span><button class="btn-sec" data-p="-1" ${G.pagCli === 0 ? 'disabled' : ''}>Anterior</button><button class="btn-sec" data-p="1" ${G.pagCli >= tot - 1 ? 'disabled' : ''}>Próxima</button>` : '';
-  $('#g-cli-qtd').textContent = `${fmtN.format(lista.length)} clientes · clique para abrir o cliente`;
+  $('#g-cli-qtd').textContent = `${plural(lista.length, 'cliente', 'clientes')} · clique no cliente para abrir · clique em Sim/Não para mudar o repasse`;
 }
 
-function itensDaAba() {
-  const semRep = G.leitura === 'sem';
-  // "mais": itens que ficam mais caros (repasse) ou que perdem lucro (sem repasse)
-  const alvo = G.aba === 'mais' ? (semRep ? -1 : 1) : (semRep ? 1 : -1);
-  return GR.itens.filter(x => alvo > 0 ? x.d > 0.005 : x.d < -0.005).sort((a, b) => alvo > 0 ? b.d - a.d : a.d - b.d);
-}
+function itensDaAba() { return GR.itens.filter(x => G.aba === 'mais' ? x.dimp > 0.005 : x.dimp < -0.005); }
 function desenharItensG() {
-  const semRep = G.leitura === 'sem', lista = itensDaAba(), multi = GSEL.grupo.size !== 1;
-  const rotA = semRep ? 'Perdem lucro' : 'Ficam mais caros', rotR = semRep ? 'Ganham lucro' : 'Ficam mais baratos';
-  const nA = semRep ? GR.nRed : GR.nAum, nR = semRep ? GR.nAum : GR.nRed;
-  $('#g-abas').innerHTML = `<button type="button" data-aba="mais" class="${G.aba === 'mais' ? 'ativo' : ''}">${rotA} (${fmtN.format(nA)})</button><button type="button" data-aba="menos" class="${G.aba === 'menos' ? 'ativo' : ''}">${rotR} (${fmtN.format(nR)})</button>`;
+  const base = itensDaAba(), multi = GSEL.grupo.size !== 1, o = G.ordIt;
+  const lista = ordenarLista(base.slice(), o, { item:x => D.itens[PR.i[x.p]][1], cli:x => D.grupos[PR.g[x.p]], rep:x => x.rep ? 'b' : 'a' });
+  const R = GR.R;
+  $('#g-abas').innerHTML = `<button type="button" data-aba="mais" class="${G.aba === 'mais' ? 'ativo' : ''}">Aumento de imposto (${fmtN.format(R.nAum)})</button><button type="button" data-aba="menos" class="${G.aba === 'menos' ? 'ativo' : ''}">Redução de imposto (${fmtN.format(R.nRed)})</button>`;
   const tot = Math.max(1, Math.ceil(lista.length / G_POR_PAG)); if (G.pagItens >= tot) G.pagItens = tot - 1;
   const pag = lista.slice(G.pagItens * G_POR_PAG, (G.pagItens + 1) * G_POR_PAG);
-  $('#g-itens').innerHTML = `<thead><tr><th class="txt">Item</th>${multi ? '<th class="txt">Cliente</th>' : ''}<th>Qtd./mês</th><th>Preço atual (ROB/un.)</th><th>Preço após (ROB/un.)</th><th>${semRep ? 'Var. lucro %' : 'Var. preço %'}</th>${semRep ? '<th>Lucro atual/mês</th><th>Lucro após/mês</th>' : '<th>ROB atual/mês</th><th>ROB após/mês</th>'}<th>${semRep ? 'Var. lucro/mês' : 'Impacto/mês'}</th></tr></thead><tbody>` +
+  $('#g-itens').innerHTML = `<thead><tr>${thO(o, 'item', 'Item', 'txt')}${multi ? thO(o, 'cli', 'Cliente', 'txt') : ''}${thO(o, 'rep', 'Repasse', 'cen')}${thO(o, 'q', 'Qtd./mês')}${thO(o, 'u1', 'Preço atual (ROB/un.)')}${thO(o, 'u2', 'Preço após (ROB/un.)')}${thO(o, 'pct', 'Var. preço %')}${thO(o, 'drob', 'Var. ROB/mês')}${thO(o, 'dluc', 'Var. lucro/mês')}${thO(o, 'dimp', 'Var. imposto/mês')}</tr></thead><tbody>` +
     (pag.map(x => {
-      const it = D.itens[PR.i[x.p]], u1 = x.rob1 / x.q, u2 = x.rob2 / x.q;
-      const v1 = semRep ? x.rol1 - x.cmv : x.rob1, v2 = semRep ? x.rol2 - x.cmv : x.rob2;
+      const it = D.itens[PR.i[x.p]];
       return `<tr><td class="txt"><span class="cod">${esc(it[0])}</span>${esc(it[1])}</td>${multi ? `<td class="txt">${esc(D.grupos[PR.g[x.p]])}</td>` : ''}
-        <td>${fmtN.format(x.q)} <span class="un">${esc(it[3] || '')}</span></td><td>${RM(u1)}</td><td>${RM(u2)}</td><td class="${clsImp(x.d)}">${VAR(x.dp)}</td>
-        <td>${RM(v1)}</td><td>${RM(v2)}</td><td class="${clsImp(x.d)}"><b>${SINAL(x.d)}</b></td></tr>`;
-    }).join('') || `<tr><td class="vazio" colspan="9">Nenhum item nesta lista.</td></tr>`) + '</tbody>';
+        <td class="cen">${x.rep ? 'Sim' : 'Não'}</td><td>${fmtN.format(x.q)} <span class="un">${esc(it[3] || '')}</span></td><td>${RM(x.u1)}</td><td>${RM(x.u2)}</td><td>${VAR(x.pct)}</td>
+        <td>${SINAL(x.drob)}</td><td class="${corLuc(x.dluc)}">${SINAL(x.dluc)}</td><td class="${corImp(x.dimp)}"><b>${SINAL(x.dimp)}</b></td></tr>`;
+    }).join('') || `<tr><td class="vazio" colspan="10">Nenhum item nesta lista.</td></tr>`) + '</tbody>';
   $('#g-itens-pag').innerHTML = lista.length > G_POR_PAG ? `<span>Página ${G.pagItens + 1} de ${tot}</span><button class="btn-sec" data-p="-1" ${G.pagItens === 0 ? 'disabled' : ''}>Anterior</button><button class="btn-sec" data-p="1" ${G.pagItens >= tot - 1 ? 'disabled' : ''}>Próxima</button>` : '';
-  const soma = lista.reduce((t, x) => t + x.d, 0);
-  $('#g-itens-qtd').innerHTML = `${fmtN.format(lista.length)} cliente × item · total ${SINAL(soma, RK)}/mês · ordenado do maior para o menor impacto`;
-  $('#g-btn-excel').classList.toggle('oculto', !S.exportar);
+  const soma = lista.reduce((t, x) => t + x.dimp, 0), nIt = new Set(lista.map(x => PR.i[x.p])).size, nCl = new Set(lista.map(x => PR.g[x.p])).size;
+  $('#g-itens-qtd').innerHTML = `${plural(nIt, 'item', 'itens')} em ${plural(nCl, 'cliente', 'clientes')} · total ${SINAL(soma, RK)}/mês em impostos`;
+  $('#g-btn-excel').classList.toggle('oculto', S.exportar_ger === false && !S.exportar);
 }
 
 function criarGerencial() {
@@ -1547,11 +1611,16 @@ function criarGerencial() {
   const trocaAba = e => { const b = e.target.closest('[data-aba]'); if (!b) return; G.aba = b.dataset.aba; G.pagItens = 0; desenharGerencial(); if (e.currentTarget.id === 'g-impacto') $('#g-card-itens').scrollIntoView({ behavior:'smooth', block:'start' }); };
   $('#g-impacto').addEventListener('click', trocaAba); $('#g-abas').addEventListener('click', trocaAba);
   $('#g-dre').addEventListener('click', e => { if (e.target.closest('tr[data-tg]')) { G.impAberto = !G.impAberto; desenharGerencial(); } });
+  const ordem = (o, k) => { if (o.k === k) o.d *= -1; else { o.k = k; o.d = ['nome', 'item', 'cli', 'rep'].includes(k) ? 1 : -1; } };
   $('#g-cli').addEventListener('click', e => {
-    const th = e.target.closest('th[data-o]'); if (th) { G.ordCli = th.dataset.o; G.pagCli = 0; desenharClientesG(); return; }
+    const th = e.target.closest('th[data-o]'); if (th) { ordem(G.ordCli, th.dataset.o); G.pagCli = 0; desenharClientesG(); salvarEstado(); return; }
+    const rp = e.target.closest('[data-rep]');
+    if (rp) { const g = +rp.dataset.rep, novo = !repasseDe(g); if (novo === (G.leitura !== 'sem')) REP.delete(g); else REP.set(g, novo); atualizarGerencial(); return; }
     const tr = e.target.closest('tr[data-g]'); if (!tr) return;
     GSEL.grupo.clear(); GSEL.grupo.add(+tr.dataset.g); G.pagItens = 0; G.aba = 'mais'; atualizarGerencial(); window.scrollTo({ top:0, behavior:'smooth' });
   });
+  $('#g-itens').addEventListener('click', e => { const th = e.target.closest('th[data-o]'); if (th) { ordem(G.ordIt, th.dataset.o); G.pagItens = 0; desenharItensG(); salvarEstado(); } });
+  $('#g-escopo').addEventListener('click', e => { if (e.target.id === 'g-limpar-rep') { e.preventDefault(); REP.clear(); atualizarGerencial(); } });
   $('#g-cli-pag').addEventListener('click', e => { const b = e.target.closest('button[data-p]'); if (b) { G.pagCli += +b.dataset.p; desenharClientesG(); } });
   $('#g-itens-pag').addEventListener('click', e => { const b = e.target.closest('button[data-p]'); if (b) { G.pagItens += +b.dataset.p; desenharItensG(); } });
   $('#g-limpar').addEventListener('click', () => { Object.values(GSEL).forEach(s => s.clear()); G.pagCli = G.pagItens = 0; atualizarGerencial(); });
@@ -1561,26 +1630,26 @@ function criarGerencial() {
 function marcarLeitura() { document.querySelectorAll('#g-leitura button').forEach(b => b.classList.toggle('ativo', b.dataset.v === G.leitura)); }
 
 async function exportarGerencial() {
-  if (!S.exportar) return;
+  if (S.exportar_ger === false && !S.exportar) return;
   carregando(true, 'Gerando o Excel…'); await new Promise(r => setTimeout(r, 30));
   try {
-    const semRep = G.leitura === 'sem', T = GR.T, u = x => ok(x) ? Math.round(x * 100) / 100 : null, pc = x => ok(x) ? Math.round(x * 1e6) / 1e6 : null;
+    const T = GR.T, u = x => ok(x) ? Math.round(x * 100) / 100 : null, pc = x => ok(x) ? Math.round(x * 1e6) / 1e6 : null;
     const l1 = T.a.rol - T.cmv, l2 = T.n.rol - T.cmv;
     const dre = [['ROB', u(T.a.rob), u(T.n.rob), u(T.n.rob - T.a.rob)], ['Impostos', u(T.a.imp), u(T.n.imp), u(T.n.imp - T.a.imp)],
       ['  ICMS', u(T.a.icms), u(T.n.icms), u(T.n.icms - T.a.icms)], ['  DIFAL', u(T.a.dif), u(T.n.dif), u(T.n.dif - T.a.dif)], ['  ST', u(T.a.st), u(T.n.st), u(T.n.st - T.a.st)],
       ['  FCP', u(T.a.fcp), u(T.n.fcp), u(T.n.fcp - T.a.fcp)], ['  PIS/COFINS', u(T.a.pc), 0, u(-T.a.pc)], ['  IPI', u(T.a.ipi), 0, u(-T.a.ipi)], ['  CBS', 0, u(T.n.cbs), u(T.n.cbs)], ['  IBS', 0, u(T.n.ibs), u(T.n.ibs)],
       ['ROL', u(T.a.rol), u(T.n.rol), u(T.n.rol - T.a.rol)], ['CMV', u(T.cmv), u(T.cmv), 0], ['Lucro bruto', u(l1), u(l2), u(l2 - l1)],
       ['Margem bruta', pc(T.a.rol ? l1 / T.a.rol : NaN), pc(T.n.rol ? l2 / T.n.rol : NaN), null],
-      [], ['Leitura', semRep ? 'Sem repasse (preço atual mantido)' : 'Com repasse (margem mantida)'],
+      [], ['Repasse padrão', G.leitura === 'sem' ? 'Sem repasse (preço mantido)' : 'Com repasse (margem mantida)'], ['Clientes com escolha própria de repasse', REP.size],
       ['Clientes', GSEL.grupo.size ? [...GSEL.grupo].map(g => D.grupos[g]).join('; ').slice(0, 30000) : 'Todos'],
       ['Valores', 'Mensais (quantidade média mensal × valores unitários)']];
-    const cli = GR.clientes.slice().sort((a, b) => (semRep ? a.d - b.d : b.d - a.d)).map(c => [D.grupos[c.g], D.execs[c.e], u(c.rob1), u(c.rob2), u(c.rob2 - c.rob1), pc(c.rob1 ? c.rob2 / c.rob1 - 1 : NaN), u(c.rol1 - c.cmv), u(c.rol2 - c.cmv), u(c.aum), c.nAum, u(c.red), c.nRed]);
-    const its = GR.itens.slice().sort((a, b) => (semRep ? a.d - b.d : b.d - a.d)).map(x => { const it = D.itens[PR.i[x.p]];
-      return [D.grupos[PR.g[x.p]], D.execs[PR.e[x.p]], it[0], it[1], D.fams[it[2]], it[3], u(x.q), u(x.rob1 / x.q), u(x.rob2 / x.q), u(x.rob1), u(x.rob2), u(x.rob2 - x.rob1), u(x.rol1 - x.cmv), u(x.rol2 - x.cmv), u(x.rol2 - x.rol1), pc(x.dp)]; });
+    const cli = ordenarLista(GR.clientes.slice(), G.ordCli, { nome:c => D.grupos[c.g], rep:c => c.rep ? 'b' : 'a' }).map(c => [D.grupos[c.g], D.execs[c.e], c.rep ? 'Sim' : 'Não', u(c.rob1), u(c.rob2), u(c.drob), pc(c.pct), u(c.rol1 - c.cmv), u(c.rol2 - c.cmv), u(c.dluc), u(c.dimp), u(c.aum), c.nAum, u(c.red), c.nRed]);
+    const its = ordenarLista(GR.itens.slice(), G.ordIt, { item:x => D.itens[PR.i[x.p]][1], cli:x => D.grupos[PR.g[x.p]], rep:x => x.rep ? 'b' : 'a' }).map(x => { const it = D.itens[PR.i[x.p]];
+      return [D.grupos[PR.g[x.p]], D.execs[PR.e[x.p]], x.rep ? 'Sim' : 'Não', it[0], it[1], D.fams[it[2]], it[3], u(x.q), u(x.u1), u(x.u2), pc(x.pct), u(x.rob1), u(x.rob2), u(x.drob), u(x.rol1 - x.cmv), u(x.rol2 - x.cmv), u(x.dluc), u(x.dimp)]; });
     const blob = await gerarXlsx([
-      { nome:'DRE mensal', cab:['Linha', 'Modelo atual', 'Após a reforma', 'Variação'], estilos:[0, 1, 1, 1], linhas:dre, larguras:[22, 18, 18, 18] },
-      { nome:'Clientes', cab:['Cliente', 'Executivo', 'ROB atual/mês', 'ROB após/mês', 'Var. ROB/mês', 'Var. %', 'Lucro atual/mês', 'Lucro após/mês', 'Aumentos/mês', 'Itens com aumento', 'Reduções/mês', 'Itens com redução'], estilos:[0, 0, 1, 1, 1, 2, 1, 1, 1, 3, 1, 3], linhas:cli, total:cli.length, filtro:true, congelar:true, larguras:[34, 26, 14, 14, 14, 10, 14, 14, 14, 10, 14, 10] },
-      { nome:'Itens', cab:['Cliente', 'Executivo', 'Cód. item', 'Item', 'Família', 'Un.', 'Qtd./mês', 'ROB/un. atual', 'ROB/un. após', 'ROB atual/mês', 'ROB após/mês', 'Var. ROB/mês', 'Lucro atual/mês', 'Lucro após/mês', 'Var. lucro/mês', 'Var. %'], estilos:[0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2], linhas:its, total:its.length, filtro:true, congelar:true, larguras:[30, 24, 11, 46, 22, 6, 10, 12, 12, 14, 14, 14, 14, 14, 14, 10] },
+      { nome:'DRE mensal', cab:['Linha', 'Modelo atual', 'Após a reforma', 'Variação'], estilos:[0, 1, 1, 1], linhas:dre, larguras:[34, 18, 18, 18] },
+      { nome:'Clientes', cab:['Cliente', 'Executivo', 'Repasse', 'ROB atual/mês', 'ROB após/mês', 'Var. ROB/mês', 'Var. %', 'Lucro atual/mês', 'Lucro após/mês', 'Var. lucro/mês', 'Var. imposto/mês', 'Aumento de imposto/mês', 'Itens com aumento', 'Redução de imposto/mês', 'Itens com redução'], estilos:[0, 0, 0, 1, 1, 1, 2, 1, 1, 1, 1, 1, 3, 1, 3], linhas:cli, total:cli.length, filtro:true, congelar:true, larguras:[34, 26, 9, 14, 14, 14, 10, 14, 14, 14, 14, 14, 10, 14, 10] },
+      { nome:'Itens', cab:['Cliente', 'Executivo', 'Repasse', 'Cód. item', 'Item', 'Família', 'Un.', 'Qtd./mês', 'ROB/un. atual', 'ROB/un. após', 'Var. preço %', 'ROB atual/mês', 'ROB após/mês', 'Var. ROB/mês', 'Lucro atual/mês', 'Lucro após/mês', 'Var. lucro/mês', 'Var. imposto/mês'], estilos:[0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1], linhas:its, total:its.length, filtro:true, congelar:true, larguras:[30, 24, 9, 11, 46, 22, 6, 10, 12, 12, 10, 14, 14, 14, 14, 14, 14, 14] },
     ]);
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Gerencial_Reforma_${new Date().toISOString().slice(0, 10)}.xlsx`;
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 60000);
@@ -1678,21 +1747,23 @@ $('#btn-excel').addEventListener('click', async () => {
   carregando(true, 'Gerando o Excel…');
   await new Promise(r => setTimeout(r, 30));
   try {
-    const cab = ['Executivo', 'Cliente (grupo econômico)', 'CD Origem', 'UF Destino', 'Contribuinte', 'Regra fiscal', 'Cód. item', 'Item', 'Família comercial', 'Un.', 'Qtd. média/mês', 'Venda média/mês',
-      'Custo aquisição', 'Margem histórica %', 'Margem utilizada %', 'Origem da margem', 'Preço líquido', 'Fator geral %', 'ICMS %', 'ICMS R$', 'DIFAL %', 'DIFAL R$', 'ST %', 'ST R$', 'FCP %', 'FCP R$', 'PIS/COFINS %', 'PIS R$', 'COFINS R$', 'IPI %', 'IPI R$', 'Total impostos %', 'Total impostos R$', 'Preço bruto', 'ROB',
-      'Custo aquisição', 'Margem %', 'Preço líquido', 'Fator 1 %', 'Preço bruto', 'ICMS %', 'ICMS R$', 'DIFAL %', 'DIFAL R$', 'ST %', 'ST R$', 'FCP %', 'FCP R$', 'CBS %', 'CBS R$', 'IBS %', 'IBS R$', 'Total impostos %', 'Total impostos R$', 'Preço líquido de venda', 'ROB',
+    const cab = ['Executivo', 'Cliente (grupo econômico)', 'CD Origem', 'UF Destino', 'Contribuinte', 'Cód. item', 'Item', 'Família comercial', 'Un.', 'Qtd. média/mês', 'Venda média/mês',
+      'Custo aquisição', 'Margem histórica %', 'Margem utilizada %', 'Preço líquido',
+      'ICMS %', 'ICMS R$', 'DIFAL %', 'DIFAL R$', 'ST %', 'ST R$', 'FCP %', 'FCP R$', 'PIS/COFINS %', 'PIS R$', 'COFINS R$', 'IPI %', 'IPI R$', 'Total impostos %', 'Total impostos R$', 'Preço bruto', 'ROB',
+      'Preço bruto', 'ICMS %', 'ICMS R$', 'DIFAL %', 'DIFAL R$', 'ST %', 'ST R$', 'FCP %', 'FCP R$', 'CBS %', 'CBS R$', 'IBS %', 'IBS R$', 'Total impostos %', 'Total impostos R$', 'ROB',
       'Var. preço R$', 'Var. preço %'];
-    const fimAtual = cab.indexOf('ROB'), iniRef = fimAtual + 1, fimRef = cab.lastIndexOf('ROB');
-    const grupos = [{ t:'MODELO ATUAL', ini:12, fim:fimAtual, estilo:5 }, { t:'APÓS A REFORMA', ini:iniRef, fim:fimRef, estilo:6 }, { t:'IMPACTO', ini:fimRef + 1, fim:fimRef + 2, estilo:7 }];
-    const est = cab.map((h, i) => i < 10 || h === 'Origem da margem' ? 0 : (h.endsWith('%') ? 2 : 1));
+    const iniAtual = cab.indexOf('ICMS %'), fimAtual = cab.indexOf('ROB'), iniRef = fimAtual + 1, fimRef = cab.lastIndexOf('ROB');
+    const grupos = [{ t:'MODELO ATUAL', ini:iniAtual, fim:fimAtual, estilo:5 }, { t:'APÓS A REFORMA', ini:iniRef, fim:fimRef, estilo:6 }, { t:'IMPACTO', ini:fimRef + 1, fim:fimRef + 2, estilo:7 }];
+    const est = cab.map((h, i) => i < 9 ? 0 : (h.endsWith('%') ? 2 : 1));
     const u = x => ok(x) ? Math.round(x * 10000) / 10000 : null, pc = x => ok(x) ? Math.round(x * 1e6) / 1e6 : null;
     const ORIGEM = { linha:'Digitada', geral:'Parâmetro geral', historica:'Histórica' };
     function* linhas() {
       for (let k = 0; k < V.total; k++) {
         const { p, s, u: uf } = linhaDe(k), x = detalhe(p, s, uf), it = D.itens[x.i], g = x.g, a = x.a, n = x.n;
-        yield [D.execs[PR.e[p]], textoCol(x, 'grupo'), D.cds[s], D.ufs[uf], x.c ? 'Sim' : 'Não', g[7] ? 'Histórico' : 'Tabela', it[0], it[1], D.fams[it[2]], it[3], u(x.qm), u(x.venda),
-          u(x.cu), pc(PR.mg[p]), pc(x.mg), ORIGEM[origemMg(p)], u(x.pl), pc(a.fator), pc(g[0]), u(a.vicms), pc(a.dif), u(a.vdif), pc(a.st), u(a.vst), pc(a.fcp), u(a.vfcp), pc(g[3]), u(a.vpis), u(a.vcof), pc(g[4]), u(a.vipi), pc(a.aliq), u(a.imp), u(a.bruto), u(a.rob),
-          u(x.cu), pc(x.mg), u(x.pl), pc(n.fator), u(n.bruto), pc(n.icms), u(n.vicms), pc(n.dif), u(n.vdif), pc(n.st), u(n.vst), pc(n.fcp), u(n.vfcp), pc(n.acbs), u(n.vcbs), pc(n.aibs), u(n.vibs), pc(n.aliq), u(n.imp), u(x.pl), u(n.rob),
+        yield [D.execs[PR.e[p]], textoCol(x, 'grupo'), D.cds[s], D.ufs[uf], x.c ? 'Sim' : 'Não', it[0], it[1], D.fams[it[2]], it[3], u(x.qm), u(x.venda),
+          u(x.cu), pc(PR.mg[p]), pc(x.mg), u(x.pl),
+          pc(g[0]), u(a.vicms), pc(a.dif), u(a.vdif), pc(a.st), u(a.vst), pc(a.fcp), u(a.vfcp), pc(g[3]), u(a.vpis), u(a.vcof), pc(g[4]), u(a.vipi), pc(a.aliq), u(a.imp), u(a.bruto), u(a.rob),
+          u(n.bruto), pc(n.icms), u(n.vicms), pc(n.dif), u(n.vdif), pc(n.st), u(n.vst), pc(n.fcp), u(n.vfcp), pc(n.acbs), u(n.vcbs), pc(n.aibs), u(n.vibs), pc(n.aliq), u(n.imp), u(n.rob),
           u(x.dif), pc(x.var)];
       }
     }
@@ -1706,7 +1777,7 @@ $('#btn-excel').addEventListener('click', async () => {
       ['Exportado por', S.nome], ['Exportado em', new Date().toLocaleString('pt-BR')]];
     const digitadas = [...OVR].map(([k, v]) => { const [g, i] = k.split('|').map(Number); return [D.grupos[g], D.itens[i][0], D.itens[i][1], pc(v)]; });
     const planilhas = [
-      { nome:'Simulação', cab, grupos, estilos:est, linhas:linhas(), total:V.total, filtro:true, congelar:true, larguras:[26, 26, 8, 8, 10, 10, 11, 46, 22, 6, 11, 12, 12, 12, 12, 14, ...Array(cab.length - 16).fill(12)] },
+      { nome:'Simulação', cab, grupos, estilos:est, linhas:linhas(), total:V.total, filtro:true, congelar:true, larguras:[26, 26, 8, 8, 10, 11, 46, 22, 6, 11, 13, 12, 12, 12, 12, ...Array(cab.length - 15).fill(12)] },
       { nome:'Parâmetros', cab:['Parâmetro', 'Valor'], estilos:[0, 0], linhas:par, larguras:[34, 60] },
     ];
     if (digitadas.length) planilhas.push({ nome:'Margens digitadas', cab:['Cliente (grupo econômico)', 'Cód. item', 'Item', 'Margem %'], estilos:[0, 0, 0, 2], linhas:digitadas, larguras:[34, 11, 46, 12] });
@@ -1734,6 +1805,20 @@ $('#btn-recolher').addEventListener('click', () => {
 { let pref = null; try { pref = localStorage.getItem('sim_menu'); } catch (e) {}
   if (pref === '1' || (pref === null && window.innerWidth < 1700)) $('#app').classList.add('recolhido'); }
 
+
+// ao rolar dentro da tabela, alinha a página para o cabeçalho da tabela ficar logo abaixo da barra de filtros
+(() => {
+  const tw = document.querySelector('.tab-wrap'); let ultTop = 0;
+  tw.addEventListener('scroll', () => {
+    if (tw.scrollTop === ultTop) return;            // rolagem só horizontal
+    ultTop = tw.scrollTop;
+    if (!$('#cartao-filtros').classList.contains('compacto')) return;
+    const alvo = $('#cartao-filtros').getBoundingClientRect().bottom + 6, topo = tw.getBoundingClientRect().top;
+    if (topo < alvo - 2) window.scrollBy(0, topo - alvo);   // cabeçalho escondido sob a barra de filtros: desce a página só o necessário
+  }, { passive:true });
+})();
+$('#btn-abrir-todos').addEventListener('click', () => { const pv = V.pv || V.fp; for (let k = EST.pag * POR_PAG; k < Math.min(pv.length, (EST.pag + 1) * POR_PAG); k++) ABERTOS.add(pv[k]); desenharTabela(); });
+$('#btn-fechar-todos').addEventListener('click', () => { ABERTOS.clear(); desenharTabela(); });
 
 /* Filtros: recolhem ao rolar a página; "Mostrar filtros" abre de novo */
 (() => {
