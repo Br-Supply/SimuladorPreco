@@ -619,7 +619,7 @@ async function abrirPacote(sessao) {
   const chave = await crypto.subtle.importKey('raw', b64d(sessao.k), 'AES-GCM', false, ['decrypt']);
   const gz = await crypto.subtle.decrypt({ name:'AES-GCM', iv:buf.slice(0, 12) }, chave, buf.slice(12));
   const bin = await new Response(new Blob([gz]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
-  // [4 bytes: tamanho][cabeçalho JSON][pares: e u16, g u16, i u16, c u8, mg i16 x 10.000, pr u32 centavos, qm f32][histórico: par u32, CD u8, UF u8, qtd f32]
+  // [4 bytes: tamanho][cabeçalho JSON][pares: e u16, g u16, i u16, c u8, mg i16 x 10.000, pr u32 centavos, qm f32][histórico: par u32, CD u8, UF u8, qtd f32, venda f32]
   const tam = new DataView(bin).getUint32(0, true);
   const pac = JSON.parse(new TextDecoder().decode(new Uint8Array(bin, 4, tam)));
   let pos = 4 + tam;
@@ -628,7 +628,7 @@ async function abrirPacote(sessao) {
   pac.pares = { e, g:Int32Array.from(g), i, c, mg:Float32Array.from(mgI, x => x === -32767 ? NaN : x / 10000), pr:Float32Array.from(prC), qm };
   // histórico cliente × item × CD × UF (Gerencial)
   const nh = pac.nh || 0;
-  pac.hist = { p:ler(Uint32Array, nh), s:ler(Uint8Array, nh), u:ler(Uint8Array, nh), q:ler(Float32Array, nh) };
+  pac.hist = { p:ler(Uint32Array, nh), s:ler(Uint8Array, nh), u:ler(Uint8Array, nh), q:ler(Float32Array, nh), v:ler(Float32Array, nh) };
   return pac;
 }
 
@@ -698,6 +698,9 @@ function prepararBase() {
   const P0 = D.pares, nP = P0.i.length;
   D.venda = new Float64Array(nP); D.vendaGrupo = new Float64Array(D.grupos.length);
   for (let p = 0; p < nP; p++) { const v = P0.pr[p] / 100 * P0.qm[p]; D.venda[p] = ok(v) ? v : 0; D.vendaGrupo[P0.g[p]] += D.venda[p]; }
+  // histórico por CD × UF: posição no histórico de cada par (cliente × item)
+  const H = D.hist; D.hIni = new Int32Array(nP).fill(-1); D.hFim = new Int32Array(nP).fill(-1);
+  for (let h = 0; h < H.p.length; h++) { const p = H.p[h]; if (D.hIni[p] < 0) D.hIni[p] = h; D.hFim[p] = h + 1; }
 }
 let PR = null;   // pares (cliente × item × contribuinte) da visão atual
 
@@ -766,12 +769,18 @@ function margemPar(p) {
   const m = PR.mg[p]; return ok(m) ? m : NaN;
 }
 // Linha completa (cliente × item × CD × UF)
+const vendaRota = (p, s, u) => { const h = histDe(p, s, u); return h < 0 ? { qm:0, venda:0, comVenda:false } : { qm:D.hist.q[h], venda:D.hist.v[h], comVenda:true }; };
+function histDe(p, s, u) {            // linha do histórico (CD × UF) do par, ou -1
+  const H = D.hist;
+  for (let h = D.hIni[p]; h >= 0 && h < D.hFim[p]; h++) if (H.s[h] === s && H.u[h] === u) return h;
+  return -1;
+}
 function detalhe(p, s, u) {
   const i = PR.i[p], c = PR.c[p], cu = D.custo[i * 2 + s], mg = margemPar(p);
   const g = D.regras[idRegra(i, s, u, c)];
   const pl = mg < 1 ? cu / (1 - mg) : NaN;
   const a = modeloAtual(pl, cu, g, c), n = modeloReforma(pl, cu, g, c, PRM.icms);
-  return { p, s, u, i, c, cu, mg, g, pl, a, n, dif:n.rob - a.rob, var:a.rob ? n.rob / a.rob - 1 : NaN, qm:PR.qm[p], venda:PR.pr[p] / 100 * PR.qm[p] };
+  return { p, s, u, i, c, cu, mg, g, pl, a, n, dif:n.rob - a.rob, var:a.rob ? n.rob / a.rob - 1 : NaN, ...vendaRota(p, s, u) };
 }
 
 /* ═════════════ FILTROS (seleção múltipla, em cascata, pesquisáveis) ═════════════ */
@@ -828,6 +837,46 @@ function aplicarFiltroVar() {
   V.ids = ids.subarray(0, n); V.total = n;
 }
 const idDe = k => V.ord ? V.ord[k] : (V.ids ? V.ids[k] : k);
+// posição (CD, UF) de cada rota do histórico na grade atual
+function posGrade() {
+  const cdPos = new Int16Array(D.cds.length).fill(-1), ufPos = new Int16Array(D.ufs.length).fill(-1);
+  V.cds.forEach((s, a) => cdPos[s] = a); V.ufs.forEach((u, b) => ufPos[u] = b);
+  let perm = null;
+  if (V.ids) { perm = new Uint8Array(V.fp.length * V.nCU); for (const id of V.ids) perm[id] = 1; }
+  return { cdPos, ufPos, perm };
+}
+// dentro de cada cliente × item: primeiro as rotas (CD → UF) com venda, da maior para a menor; depois as demais
+function ordemRotasComVenda() {
+  const H = D.hist, { cdPos, ufPos, perm } = posGrade(), ord = new Uint32Array(V.total), marca = new Uint8Array(V.nCU);
+  let n = 0;
+  for (let q = 0; q < V.fp.length; q++) {
+    const p = V.fp[q], base = q * V.nCU, hs = [];
+    for (let h = D.hIni[p]; h >= 0 && h < D.hFim[p]; h++) if (cdPos[H.s[h]] >= 0 && ufPos[H.u[h]] >= 0) hs.push(h);
+    if (hs.length > 1) hs.sort((a, b) => H.v[b] - H.v[a]);
+    for (const h of hs) { const loc = cdPos[H.s[h]] * V.nU + ufPos[H.u[h]]; marca[loc] = 1; if (!perm || perm[base + loc]) ord[n++] = base + loc; }
+    for (let loc = 0; loc < V.nCU; loc++) { if (marca[loc]) { marca[loc] = 0; continue; } if (!perm || perm[base + loc]) ord[n++] = base + loc; }
+  }
+  V.ord = ord.subarray(0, n);
+}
+// coluna "Venda média/mês": rotas com venda ordenadas pelo valor; rotas sem venda depois
+function ordemPorVenda(d) {
+  const H = D.hist, { cdPos, ufPos, perm } = posGrade(), com = [], tem = new Uint8Array(V.fp.length * V.nCU);
+  for (let q = 0; q < V.fp.length; q++) {
+    const p = V.fp[q], base = q * V.nCU;
+    for (let h = D.hIni[p]; h >= 0 && h < D.hFim[p]; h++) {
+      if (cdPos[H.s[h]] < 0 || ufPos[H.u[h]] < 0) continue;
+      const id = base + cdPos[H.s[h]] * V.nU + ufPos[H.u[h]];
+      if (!perm || perm[id]) { com.push([id, H.v[h]]); tem[id] = 1; }
+    }
+  }
+  com.sort((a, b) => d * (a[1] - b[1]));
+  const ord = new Uint32Array(V.total); let n = 0;
+  const resto = () => { const ini = n; for (let k = 0; k < (V.ids ? V.ids.length : V.total); k++) { const id = V.ids ? V.ids[k] : k; if (!tem[id]) ord[n++] = id; } };
+  if (d > 0) resto();
+  for (const [id] of com) ord[n++] = id;
+  if (d <= 0) resto();
+  V.ord = ord.subarray(0, n);
+}
 function linhaDe(k) {
   const id = idDe(k);
   const q = (id / V.nCU) | 0, rem = id - q * V.nCU;
@@ -844,9 +893,10 @@ function ordenar() {
     const vg = p => D.vendaGrupo[PR.g[p]], vp = p => D.venda[p], ki = p => D.itemRank[PR.i[p]];
     fp.sort(k === 'grupo'        // cliente: maior venda do cliente primeiro; dentro dele, itens mais vendidos
       ? (a, b) => d * (vg(b) - vg(a)) || PR.g[a] - PR.g[b] || vp(b) - vp(a)
-      : k === 'venda' ? (a, b) => d * (vp(a) - vp(b)) || PR.g[a] - PR.g[b]
+      : k === 'venda' ? (a, b) => vg(b) - vg(a) || PR.g[a] - PR.g[b] || vp(b) - vp(a)
       : (a, b) => d * (ki(a) - ki(b)) || vg(b) - vg(a));
     aplicarFiltroVar();
+    if (k === 'venda') ordemPorVenda(d); else ordemRotasComVenda();
     return;
   }
   aplicarFiltroVar();
@@ -987,7 +1037,7 @@ function COLUNAS() {
     { k:'item', t:'Item', txt:1, w:190, fixa:1, bl:0 },
     { k:'grupo', t:'Cliente', txt:1, w:150, bl:0, dica:'Ordena pela venda do cliente e, dentro dele, pelos itens mais vendidos' },
     { k:'rota', t:'CD → UF', txt:1, bl:0 },
-    { k:'venda', t:'Venda média/mês', f:R, sub:x => fmtN.format(x.qm) + ' ' + (D.itens[x.i][3] || 'un') + '/mês', bl:0 },
+    { k:'venda', t:'Venda média/mês', f:x => x > 0 ? R(x) : '—', sub:x => x.comVenda ? fmtN.format(x.qm) + ' ' + (D.itens[x.i][3] || 'un') + '/mês' : 'sem venda nesta rota', bl:0 },
     { k:'custo', t:'Custo aquisição', f:R, bl:1, ini:1 },
     { k:'mg', t:'Margem', bl:1, input:1 },
     { k:'pl1', t:'Preço líquido', f:R, bl:1 },
@@ -1095,7 +1145,7 @@ function desenharTabela() {
   let html = '';
   for (let k = ini; k < fim; k++) {
     const { p, s, u } = linhaDe(k), x = detalhe(p, s, u);
-    html += `<tr data-p="${p}" data-s="${s}" data-u="${u}">` + cols.map(c => {
+    html += `<tr data-p="${p}" data-s="${s}" data-u="${u}"${x.comVenda ? ' class="com-venda"' : ''}>` + cols.map(c => {
       const cls = [c.ini ? 'b' + c.bl : '', c.ref ? 'ref' : '', c.fixa ? 'fixa' : '', c.gi ? 'det' : ''];
       if (c.txt) {
         const val = textoCol(x, c.k);
