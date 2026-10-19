@@ -182,8 +182,52 @@
   .mem-tab td:first-child { font-weight:600; white-space:nowrap; width:220px; }
   .mem-tab code { font-family:inherit; font-size:12.5px; background:var(--fundo); padding:3px 7px; border-radius:6px; color:var(--texto); }
   .mem-tab .num { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; width:120px; }
+  .g-topo .cartao-corpo { padding:12px 18px; }
+  .g-escopo { font-size:12px; color:var(--texto-3); margin-top:10px; } .g-escopo b { color:var(--texto); }
+  .g-segm { height:34px; margin-left:0; }
+  .g-grade { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr); gap:20px; }
+  .g-grade .cartao { margin-bottom:20px; } .g-grade .cartao-corpo { overflow-x:auto; } .g-grade { min-width:0; } .g-grade > .cartao { min-width:0; }
+  .g-dre { width:100%; border-collapse:collapse; font-size:13.5px; font-variant-numeric:tabular-nums; }
+  .g-dre th { font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--texto-3); text-align:right; padding:6px 10px; border-bottom:1px solid var(--borda); font-weight:600; }
+  .g-dre td { text-align:right; padding:9px 10px; border-bottom:1px solid var(--borda-2); white-space:nowrap; }
+  .g-dre td:first-child, .g-dre th:first-child { text-align:left; }
+  .g-dre tr.forte td { font-weight:700; background:#fafbfc; }
+  .g-dre tr.det td { font-size:12.5px; color:var(--texto-2); padding:6px 10px; } .g-dre tr.det td:first-child { padding-left:34px; }
+  .g-dre tr[data-tg] { cursor:pointer; } .g-dre .grp-tg { margin-right:8px; }
+  .g-nota { font-size:11.5px; color:var(--texto-3); margin-top:10px; line-height:1.5; }
+  .g-impacto { display:flex; flex-direction:column; gap:12px; }
+  .imp-bloco { text-align:left; border:1px solid var(--borda); background:#fff; border-radius:var(--raio-sm); padding:12px 14px; cursor:pointer; font:inherit; }
+  .imp-bloco:hover { border-color:var(--laranja); } .imp-bloco.ativo { border-color:var(--laranja); box-shadow:0 0 0 3px rgba(255,120,45,.12); }
+  .imp-t { font-size:12.5px; font-weight:600; color:var(--texto-2); display:flex; align-items:center; gap:7px; }
+  .imp-t .pt { width:8px; height:8px; border-radius:50%; } .imp-t .pt.pos { background:var(--vermelho); } .imp-t .pt.neg { background:var(--verde); }
+  .imp-v { font-size:20px; font-weight:700; margin-top:4px; } .imp-v small { font-size:12px; font-weight:500; color:var(--texto-3); margin-left:3px; }
+  .imp-barra { height:6px; background:var(--fundo); border-radius:4px; margin-top:8px; overflow:hidden; }
+  .imp-barra i { display:block; height:100%; border-radius:4px; } .b-pos { background:var(--vermelho); } .b-neg { background:var(--verde); }
+  .imp-s { font-size:11.5px; color:var(--texto-3); margin-top:6px; }
+  .imp-saldo { font-size:13px; color:var(--texto-2); padding:4px 2px; }
+  .g-tab-wrap { overflow-x:auto; }
+  .g-tab { width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums; }
+  .g-tab th { font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--texto-3); text-align:right; padding:9px 12px; border-bottom:1px solid var(--borda); background:#fafbfc; white-space:nowrap; font-weight:600; }
+  .g-tab th[data-o] { cursor:pointer; } .g-tab th.ord { color:var(--laranja-escuro); }
+  .g-tab td { text-align:right; padding:9px 12px; border-bottom:1px solid var(--borda-2); white-space:nowrap; }
+  .g-tab .txt { text-align:left; max-width:340px; overflow:hidden; text-overflow:ellipsis; }
+  .g-tab .sub { display:block; font-size:11px; color:var(--texto-3); font-weight:400; }
+  .g-tab .cod { color:var(--texto-3); font-size:11.5px; margin-right:6px; } .g-tab .un { color:var(--texto-3); font-size:11px; }
+  #g-cli tbody tr { cursor:pointer; } #g-cli tbody tr:hover td { background:var(--laranja-10); }
+  .g-tab .link { color:var(--laranja-escuro); font-size:12px; font-weight:600; }
+  @media (max-width:1100px) { .g-grade { grid-template-columns:1fr; } }
   .cb-info { padding:8px 10px; font-size:11.5px; color:var(--texto-3); }
-  .f-exec { width:160px; } .f-grupo { width:170px; } .f-cd { width:84px; } .f-uf { width:84px; } .f-ct { width:150px; } .f-fam { width:150px; } .f-item { width:220px; }
+  .f-exec { width:160px; } .f-grupo { width:170px; } .f-cd { width:84px; } .f-uf { width:84px; } .f-var { width:150px; } .f-fam { width:150px; } .f-item { width:220px; }
+  .filtros { position:sticky; top:72px; z-index:105; }
+  .filtros .so-fechado, .filtros .so-aberto-rolado { display:none; }
+  .filtros.compacto .cartao-corpo, .filtros.compacto .so-aberto { display:none; }
+  .filtros.compacto .so-fechado { display:inline-flex; } .filtros.compacto #f-resumo { display:block; }
+  .filtros.compacto { box-shadow:0 6px 18px rgba(16,24,40,.10); }
+  .filtros.compacto .cartao-cab { border-bottom:none; }
+  .filtros.rolado:not(.compacto) .so-aberto-rolado { display:inline-flex; }
+  .filtros.rolado:not(.compacto) { box-shadow:0 12px 32px rgba(16,24,40,.16); }
+  #f-resumo { max-width:60vw; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  #f-resumo b { color:var(--texto-2); font-weight:600; }
   .filtros .cartao-cab { padding:10px 18px; } .filtros .cartao-cab .t { font-size:14.5px; } .filtros .cartao-corpo { padding:12px 18px 14px; }
 
   /* Indicadores */
@@ -335,6 +379,7 @@
     </div>
     <nav class="menu">
       <a href="#" class="ativo" data-pag="simulador" title="Simulador"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="18"/><line x1="8" y1="18" x2="12" y2="18"/></svg><span>Simulador</span></a>
+      <a href="#" data-pag="gerencial" title="Gerencial"><svg class="ic" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span>Gerencial</span></a>
       <a href="#" data-pag="memoria" title="Memória de cálculo"><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg><span>Memória de cálculo</span></a>
     </nav>
     <div class="lat-rodape"><span>© 2026 Br Supply · Uso interno</span></div>
@@ -357,11 +402,15 @@
         <div><h2 id="saudacao"></h2><p id="hero-sub"></p></div>
       </div>
 
-      <div class="cartao filtros">
+      <div class="cartao filtros" id="cartao-filtros">
         <div class="cartao-cab">
           <svg class="ic" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
           <div class="t">Filtros e parâmetros</div>
-          <div class="q">Médias de <b id="i-periodo"></b> · atualizado em <b id="i-gerado"></b></div>
+          <div class="q so-aberto">Médias de <b id="i-periodo"></b> · atualizado em <b id="i-gerado"></b></div>
+          <div class="q so-fechado" id="f-resumo"></div>
+          <div class="espaco"></div>
+          <button class="btn-sec so-fechado" id="btn-abrir-filtros" type="button">Mostrar filtros</button>
+          <button class="btn-sec so-aberto-rolado" id="btn-fechar-filtros" type="button">Recolher</button>
         </div>
         <div class="cartao-corpo">
           <div class="linha-f">
@@ -369,7 +418,7 @@
             <div class="grp" id="grp-grupo"><span>Cliente (grupo econômico)</span><div class="cb f-grupo" data-f="grupo"></div></div>
             <div class="grp"><span>CD Origem</span><div class="cb f-cd" data-f="cd"></div></div>
             <div class="grp"><span>UF Destino</span><div class="cb f-uf" data-f="uf"></div></div>
-            <div class="grp"><span>Contribuinte</span><div class="cb f-ct" data-f="ct"></div></div>
+            <div class="grp"><span>Variação de preço</span><div class="cb f-var" data-f="var"></div></div>
             <div class="grp"><span>Família comercial</span><div class="cb f-fam" data-f="fam"></div></div>
             <div class="grp"><span>Item (código ou descrição)</span><div class="cb f-item" data-f="item"></div></div>
             <button class="btn-sec" id="btn-limpar" type="button">Limpar filtros</button>
@@ -406,13 +455,53 @@
       </div>
      </div>
 
+     <div id="pag-gerencial" class="oculto">
+      <div class="cartao g-topo">
+        <div class="cartao-corpo">
+          <div class="linha-f">
+            <div class="grp" id="g-grp-exec"><span>Executivo</span><div class="cb f-exec" data-ctx="ger" data-f="exec"></div></div>
+            <div class="grp"><span>Cliente (grupo econômico)</span><div class="cb f-grupo g-cli-f" data-ctx="ger" data-f="grupo"></div></div>
+            <div class="grp"><span>Família comercial</span><div class="cb f-fam" data-ctx="ger" data-f="fam"></div></div>
+            <button class="btn-sec" id="g-limpar" type="button">Limpar</button>
+            <div class="espaco"></div>
+            <div class="grp"><span>Leitura do impacto</span>
+              <div class="segm g-segm" id="g-leitura"><button type="button" data-v="repasse" title="A margem é mantida e o preço (ROB) muda">Com repasse no preço</button><button type="button" data-v="sem" title="O preço atual é mantido e o lucro muda">Sem repasse (preço mantido)</button></div></div>
+          </div>
+          <div class="g-escopo"><span id="g-escopo"></span> · valores mensais · parâmetros e margens do Simulador · contribuinte conforme Cadastro Fiscal</div>
+        </div>
+      </div>
+      <div class="kpis" id="g-kpis"></div>
+      <div class="g-grade">
+        <div class="cartao">
+          <div class="cartao-cab"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg><div class="t">DRE mensal</div><div class="q">clique em Impostos para abrir</div></div>
+          <div class="cartao-corpo"><table class="g-dre" id="g-dre"></table><p class="g-nota" id="g-dre-nota"></p></div>
+        </div>
+        <div class="cartao">
+          <div class="cartao-cab"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><div class="t">Onde está o impacto</div></div>
+          <div class="cartao-corpo g-impacto" id="g-impacto"></div>
+        </div>
+      </div>
+      <div class="cartao" id="g-card-cli">
+        <div class="cartao-cab"><svg class="ic" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="t">Clientes</div><div class="q" id="g-cli-qtd"></div></div>
+        <div class="g-tab-wrap"><table class="g-tab" id="g-cli"></table></div>
+        <div class="pag" id="g-cli-pag"></div>
+      </div>
+      <div class="cartao" id="g-card-itens">
+        <div class="cartao-cab"><svg class="ic" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg><div class="t">Itens para renegociar</div>
+          <div class="segm" id="g-abas"></div><div class="q" id="g-itens-qtd"></div><div class="espaco"></div>
+          <button class="btn oculto" id="g-btn-excel" type="button"><svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Exportar Excel</button></div>
+        <div class="g-tab-wrap"><table class="g-tab" id="g-itens"></table></div>
+        <div class="pag" id="g-itens-pag"></div>
+      </div>
+     </div>
+
      <div id="pag-memoria" class="oculto">
       <div class="cartao"><div class="cartao-cab"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><div class="t">Premissas e fontes</div></div>
         <div class="cartao-corpo" id="mem-premissas"></div></div>
       <p class="mem-ex" id="mem-ex"></p>
       <div class="cartao"><div class="cartao-cab"><span class="mem-tag atual">Modelo atual</span><div class="t">Não contribuinte</div></div>
         <div class="cartao-corpo" id="mem-nc"></div></div>
-      <div class="cartao"><div class="cartao-cab"><span class="mem-tag atual">Modelo atual</span><div class="t">Contribuinte</div><div class="q">Sem DIFAL e FCP</div></div>
+      <div class="cartao"><div class="cartao-cab"><span class="mem-tag atual">Modelo atual</span><div class="t">Contribuinte</div><div class="q">ST e FCP por fora</div></div>
         <div class="cartao-corpo" id="mem-c"></div></div>
       <div class="cartao"><div class="cartao-cab"><span class="mem-tag ref">Após a reforma</span><div class="t">Não contribuinte</div><div class="q">Sem PIS/COFINS · ICMS, DIFAL e FCP por dentro · CBS e IBS por fora</div></div>
         <div class="cartao-corpo" id="mem-ref"></div></div>
@@ -530,13 +619,16 @@ async function abrirPacote(sessao) {
   const chave = await crypto.subtle.importKey('raw', b64d(sessao.k), 'AES-GCM', false, ['decrypt']);
   const gz = await crypto.subtle.decrypt({ name:'AES-GCM', iv:buf.slice(0, 12) }, chave, buf.slice(12));
   const bin = await new Response(new Blob([gz]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
-  // [4 bytes: tamanho do cabeçalho][cabeçalho JSON][colunas: e u16, g u16, i u16, c u8, mg i16 x 10.000, pr u32 centavos]
+  // [4 bytes: tamanho][cabeçalho JSON][pares: e u16, g u16, i u16, c u8, mg i16 x 10.000, pr u32 centavos, qm f32][histórico: par u32, CD u8, UF u8, qtd f32]
   const tam = new DataView(bin).getUint32(0, true);
   const pac = JSON.parse(new TextDecoder().decode(new Uint8Array(bin, 4, tam)));
-  const n = pac.n; let pos = 4 + tam;
-  const ler = (Tipo) => { const a = new Tipo(bin.slice(pos, pos + n * Tipo.BYTES_PER_ELEMENT)); pos += Math.ceil(n * Tipo.BYTES_PER_ELEMENT / 4) * 4; return a; };
-  const e = ler(Uint16Array), g = ler(Uint16Array), i = ler(Uint16Array), c = ler(Uint8Array), mgI = ler(Int16Array), prC = ler(Uint32Array);
-  pac.pares = { e, g:Int32Array.from(g), i, c, mg:Float32Array.from(mgI, x => x === -32767 ? NaN : x / 10000), pr:Float32Array.from(prC) };
+  let pos = 4 + tam;
+  const ler = (Tipo, n = pac.n) => { const a = new Tipo(bin.slice(pos, pos + n * Tipo.BYTES_PER_ELEMENT)); pos += Math.ceil(n * Tipo.BYTES_PER_ELEMENT / 4) * 4; return a; };
+  const e = ler(Uint16Array), g = ler(Uint16Array), i = ler(Uint16Array), c = ler(Uint8Array), mgI = ler(Int16Array), prC = ler(Uint32Array), qm = ler(Float32Array);
+  pac.pares = { e, g:Int32Array.from(g), i, c, mg:Float32Array.from(mgI, x => x === -32767 ? NaN : x / 10000), pr:Float32Array.from(prC), qm };
+  // histórico cliente × item × CD × UF (Gerencial)
+  const nh = pac.nh || 0;
+  pac.hist = { p:ler(Uint32Array, nh), s:ler(Uint8Array, nh), u:ler(Uint8Array, nh), q:ler(Float32Array, nh) };
   return pac;
 }
 
@@ -565,10 +657,10 @@ let D = null;   // pacote
 const PADRAO = { icms:null, cbs:0.093, ibse:0.001, ibsm:0, mg:null };
 let PRM = { ...PADRAO };
 const OVR = new Map();   // margem digitada: chave "cliente|item" (cliente -1 = visão sem cliente)
-const FILTROS = ['exec', 'grupo', 'cd', 'uf', 'ct', 'fam', 'item'];
-const F_PAR = ['exec', 'grupo', 'ct', 'fam', 'item'];          // filtros no nível cliente × item
+const FILTROS = ['exec', 'grupo', 'cd', 'uf', 'fam', 'item', 'var'];
+const F_PAR = ['exec', 'grupo', 'fam', 'item'];          // filtros no nível cliente × item
 const SEL = {}; FILTROS.forEach(f => SEL[f] = new Set());     // vazio = todos
-const EST = { imp1:false, imp2:false, ord:'grupo', dir:1, pag:0, pagina:'simulador' };
+const EST = { imp1:false, imp2:false, ord:'grupo', dir:1, pag:0, pagina:'simulador', filtrosAbertos:false };
 const POR_PAG = 50, MAX_ORDENAR = 600000, MAX_EXCEL = 500000;
 
 async function iniciar(sessao) {
@@ -587,6 +679,7 @@ async function iniciar(sessao) {
   carregando(false);
   PR = D.pares;
   $('#grp-exec').classList.toggle('oculto', D.execs.length <= 1);
+  $('#g-grp-exec').classList.toggle('oculto', D.execs.length <= 1);
   calcularFatores(); atualizar(2);
   if (EST.pagina === 'memoria') irPara('memoria');
 }
@@ -601,6 +694,10 @@ function prepararBase() {
   // ordem alfabética das descrições (ordenação por item)
   const ordem = D.itens.map((_, i) => i).sort((a, b) => D.itens[a][1].localeCompare(D.itens[b][1], 'pt-BR'));
   D.itemRank = new Int32Array(nI); ordem.forEach((i, k) => D.itemRank[i] = k);
+  // representatividade: venda média mensal do cliente × item e total do cliente
+  const P0 = D.pares, nP = P0.i.length;
+  D.venda = new Float64Array(nP); D.vendaGrupo = new Float64Array(D.grupos.length);
+  for (let p = 0; p < nP; p++) { const v = P0.pr[p] / 100 * P0.qm[p]; D.venda[p] = ok(v) ? v : 0; D.vendaGrupo[P0.g[p]] += D.venda[p]; }
 }
 let PR = null;   // pares (cliente × item × contribuinte) da visão atual
 
@@ -611,8 +708,8 @@ const idRegra = (i, s, u, c) => D.PF[D.itPerfil[i] * 108 + s * 54 + u * 2 + c];
 
 // MODELO ATUAL — markup de impostos
 function modeloAtual(pl, custo, g, contrib) {
-  const [icms, dif0, fcp0, pc, ipi] = g;
-  const dif = contrib ? 0 : dif0, fcp = contrib ? 0 : fcp0;      // DIFAL e FCP: só não contribuinte
+  const [icms, dst, fcp0, pc, ipi] = g;                           // dst: DIFAL (não contribuinte) ou ST (contribuinte)
+  const dif = contrib ? 0 : dst, st = contrib ? dst : 0, fcp = fcp0;
   const f1 = ipi * icms;                                          // fator 1: IPI na base do ICMS
   const f2 = ipi * (icms + dif);                                  // fator 2: IPI na base do ICMS e do DIFAL
   const fator = contrib
@@ -620,12 +717,15 @@ function modeloAtual(pl, custo, g, contrib) {
     : (1 - icms - pc - dif - fcp - f2) + (icms + f1) * pc;
   const bruto = pl / fator;                                       // preço de mercadoria / preço bruto
   const vipi = bruto * ipi;
-  const rob = bruto + vipi;                                       // ROB = preço bruto + IPI
-  const vicms = rob * icms, vdif = rob * dif, vfcp = rob * fcp;   // % sobre a ROB
+  const base = bruto + vipi;                                      // preço bruto + IPI
+  const vicms = base * icms, vdif = base * dif;                   // % sobre (preço bruto + IPI)
+  const vst = base * st;                                          // contribuinte: ST por fora
+  const vfcp = base * fcp;                                        // FCP: por dentro (não contrib.) / por fora com a ST (contrib.)
+  const rob = contrib ? base + vst + vfcp : base;                 // ROB
   const vpc = (bruto - vicms) * pc;                               // PIS/COFINS sobre (preço bruto − ICMS)
-  const imp = vicms + vdif + vfcp + vpc + vipi;
-  return { pl, f1, f2, fator, bruto, vipi, rob, vicms, vdif, vfcp, vpis:vpc * PIS_PARTE, vcof:vpc * COF_PARTE,
-           imp, aliq:rob ? imp / rob : NaN, mg:pl ? 1 - custo / pl : NaN, lb:pl - custo, dif, fcp };
+  const imp = vicms + vdif + vst + vfcp + vpc + vipi;
+  return { pl, f1, f2, fator, bruto, vipi, base, rob, vicms, vdif, vst, vfcp, vpis:vpc * PIS_PARTE, vcof:vpc * COF_PARTE,
+           imp, aliq:rob ? imp / rob : NaN, mg:pl ? 1 - custo / pl : NaN, lb:pl - custo, dif, st, fcp };
 }
 // APÓS A REFORMA — markup de impostos; sem PIS/COFINS (IPI ainda não contemplado); CBS e IBS por fora
 //   não contribuinte: preço bruto = preço líquido ÷ (1 − %ICMS − %DIFAL − %FCP)
@@ -633,25 +733,27 @@ function modeloAtual(pl, custo, g, contrib) {
 //   ICMS, DIFAL/ST e FCP = preço bruto × %; CBS e IBS = preço líquido × %
 //   ROB = preço líquido + ICMS + DIFAL/ST + FCP + CBS + IBS
 function modeloReforma(pl, custo, g, contrib, icmsAjuste) {
-  const [icms0, dif, fcp, , , fcbs, fibs] = g;
+  const [icms0, dst, fcp, , , fcbs, fibs] = g;
   const icms = icmsAjuste === null ? icms0 : icmsAjuste;
+  const dif = contrib ? 0 : dst, st = contrib ? dst : 0;
   const fator = contrib ? 1 - icms : 1 - icms - dif - fcp;
   const bruto = pl / fator;
-  const vicms = bruto * icms, vdif = bruto * dif, vfcp = bruto * fcp;
+  const vicms = bruto * icms, vdif = bruto * dif, vst = bruto * st, vfcp = bruto * fcp;
   const acbs = PRM.cbs * fcbs, aibs = (PRM.ibse + PRM.ibsm) * fibs;
   const vcbs = pl * acbs, vibs = pl * aibs;
-  const imp = vicms + vdif + vfcp + vcbs + vibs;
+  const imp = vicms + vdif + vst + vfcp + vcbs + vibs;
   const rob = pl + imp;
-  return { pl, icms, dif, fcp, fator, acbs, aibs, bruto, vicms, vdif, vfcp, vcbs, vibs, rob, imp,
+  return { pl, icms, dif, st, fcp, fator, acbs, aibs, bruto, vicms, vdif, vst, vfcp, vcbs, vibs, rob, imp,
            aliq:rob ? imp / rob : NaN, mg:pl ? 1 - custo / pl : NaN, lb:pl - custo };
 }
 // Os dois modelos são proporcionais ao preço líquido: fatores por regra × contribuinte (rápido para os totais)
 let FAT = null;
+let FATD = null;
 function calcularFatores() {
-  const nr = D.regras.length; FAT = new Float64Array(nr * 8);
+  const nr = D.regras.length; FAT = new Float64Array(nr * 8); FATD = new Array(nr * 2);
   for (let r = 0; r < nr; r++) for (let c = 0; c < 2; c++) {
     const g = D.regras[r], a = modeloAtual(1, 0, g, c), n = modeloReforma(1, 0, g, c, PRM.icms), o = (r * 2 + c) * 4;
-    FAT[o] = a.rob; FAT[o + 1] = a.imp; FAT[o + 2] = n.rob; FAT[o + 3] = n.imp;
+    FAT[o] = a.rob; FAT[o + 1] = a.imp; FAT[o + 2] = n.rob; FAT[o + 3] = n.imp; FATD[r * 2 + c] = { a, n };
   }
 }
 // Margem: digitada no cliente × item > margem geral (parâmetro) > margem média histórica
@@ -669,12 +771,12 @@ function detalhe(p, s, u) {
   const g = D.regras[idRegra(i, s, u, c)];
   const pl = mg < 1 ? cu / (1 - mg) : NaN;
   const a = modeloAtual(pl, cu, g, c), n = modeloReforma(pl, cu, g, c, PRM.icms);
-  return { p, s, u, i, c, cu, mg, g, pl, a, n, dif:n.rob - a.rob, var:a.rob ? n.rob / a.rob - 1 : NaN };
+  return { p, s, u, i, c, cu, mg, g, pl, a, n, dif:n.rob - a.rob, var:a.rob ? n.rob / a.rob - 1 : NaN, qm:PR.qm[p], venda:PR.pr[p] / 100 * PR.qm[p] };
 }
 
 /* ═════════════ FILTROS (seleção múltipla, em cascata, pesquisáveis) ═════════════ */
 function valorPar(f, p) {
-  switch (f) { case 'exec': return PR.e[p]; case 'grupo': return PR.g[p]; case 'ct': return PR.c[p]; case 'fam': return D.itemFam[PR.i[p]]; case 'item': return PR.i[p]; }
+  switch (f) { case 'exec': return PR.e[p]; case 'grupo': return PR.g[p]; case 'fam': return D.itemFam[PR.i[p]]; case 'item': return PR.i[p]; }
 }
 function rotuloFiltro(f, v) {
   switch (f) {
@@ -682,7 +784,7 @@ function rotuloFiltro(f, v) {
     case 'grupo': return D.grupos[v];
     case 'cd': return D.cds[v];
     case 'uf': return D.ufs[v];
-    case 'ct': return v ? 'Contribuinte' : 'Não contribuinte';
+    case 'var': return ['Aumento de preço', 'Redução de preço', 'Sem variação'][v];
     case 'fam': return D.fams[v] || '(sem família)';
     case 'item': return D.itens[v][0] + ' · ' + D.itens[v][1];
   }
@@ -700,6 +802,7 @@ function filtrarPares() {
   return { fp, disp };
 }
 
+const classeVar = (r, c) => { const o = (r * 2 + c) * 4, d = FAT[o + 2] - FAT[o]; return d > 1e-9 * FAT[o] ? 0 : (d < -1e-9 * FAT[o] ? 1 : 2); };
 let V = null;   // linhas virtuais: pares filtrados × CDs × UFs
 function montarLinhas() {
   let res = filtrarPares(), podou = false;
@@ -709,11 +812,24 @@ function montarLinhas() {
   const ufs = SEL.uf.size ? [...SEL.uf].sort((a, b) => a - b) : D.ufs.map((_, k) => k);
   V = { fp:Uint32Array.from(res.fp), cds, ufs, nU:ufs.length, nCU:cds.length * ufs.length, ord:null, aviso:false };
   V.total = V.fp.length * V.nCU;
-  res.disp.cd = new Set(D.cds.map((_, k) => k)); res.disp.uf = new Set(D.ufs.map((_, k) => k));
+  res.disp.cd = new Set(D.cds.map((_, k) => k)); res.disp.uf = new Set(D.ufs.map((_, k) => k)); res.disp.var = new Set([0, 1, 2]);
   atualizarCombos(res.disp);
 }
+// filtro de variação: lista só as linhas da grade que atendem (sinal da variação depende só da regra fiscal)
+function aplicarFiltroVar() {
+  V.ids = null;
+  if (!SEL.var.size) { V.total = V.fp.length * V.nCU; return; }
+  const ids = new Uint32Array(V.fp.length * V.nCU); let n = 0;
+  for (let q = 0; q < V.fp.length; q++) {
+    const p = V.fp[q], i = PR.i[p], c = PR.c[p];
+    for (let a = 0; a < V.cds.length; a++) for (let b = 0; b < V.nU; b++)
+      if (SEL.var.has(classeVar(idRegra(i, V.cds[a], V.ufs[b], c), c))) ids[n++] = q * V.nCU + a * V.nU + b;
+  }
+  V.ids = ids.subarray(0, n); V.total = n;
+}
+const idDe = k => V.ord ? V.ord[k] : (V.ids ? V.ids[k] : k);
 function linhaDe(k) {
-  const id = V.ord ? V.ord[k] : k;
+  const id = idDe(k);
   const q = (id / V.nCU) | 0, rem = id - q * V.nCU;
   return { p:V.fp[q], s:V.cds[(rem / V.nU) | 0], u:V.ufs[rem % V.nU] };
 }
@@ -723,30 +839,34 @@ function ordenar() {
   const k = EST.ord, d = EST.dir;
   V.ord = null; V.aviso = false;
   const fp = V.fp;
-  if (k === 'grupo' || k === 'item') {
-    // ordena os pares (cliente / item); CDs e UFs seguem a ordem natural dentro de cada par
-    const kg = p => PR.g[p], ki = p => D.itemRank[PR.i[p]];
-    fp.sort(k === 'grupo'
-      ? (a, b) => d * (kg(a) - kg(b)) || ki(a) - ki(b) || PR.c[a] - PR.c[b]
-      : (a, b) => d * (ki(a) - ki(b)) || kg(a) - kg(b) || PR.c[a] - PR.c[b]);
+  if (k === 'grupo' || k === 'item' || k === 'venda') {
+    // ordena os pares; CDs e UFs seguem a ordem natural dentro de cada par
+    const vg = p => D.vendaGrupo[PR.g[p]], vp = p => D.venda[p], ki = p => D.itemRank[PR.i[p]];
+    fp.sort(k === 'grupo'        // cliente: maior venda do cliente primeiro; dentro dele, itens mais vendidos
+      ? (a, b) => d * (vg(b) - vg(a)) || PR.g[a] - PR.g[b] || vp(b) - vp(a)
+      : k === 'venda' ? (a, b) => d * (vp(a) - vp(b)) || PR.g[a] - PR.g[b]
+      : (a, b) => d * (ki(a) - ki(b)) || vg(b) - vg(a));
+    aplicarFiltroVar();
     return;
   }
+  aplicarFiltroVar();
   if (V.total > MAX_ORDENAR) { V.aviso = true; return; }
   const chave = new Float64Array(V.total), ids = new Uint32Array(V.total);
-  for (let id = 0; id < V.total; id++) {
-    ids[id] = id;
+  for (let k2 = 0; k2 < V.total; k2++) {
+    const id = V.ids ? V.ids[k2] : k2; ids[k2] = id;
     const q = (id / V.nCU) | 0, rem = id - q * V.nCU, s = V.cds[(rem / V.nU) | 0], u = V.ufs[rem % V.nU];
     const x = k === 'rota' ? s * 100 + u : valorCol(detalhe(fp[q], s, u), k);
-    chave[id] = ok(x) ? x : -Infinity;
+    chave[k2] = ok(x) ? x : -Infinity;
   }
-  ids.sort((a, b) => d * (chave[a] - chave[b]) || a - b);
-  V.ord = ids;
+  const pos = new Uint32Array(V.total).map((_, j) => j);
+  pos.sort((a, b) => d * (chave[a] - chave[b]) || a - b);
+  V.ord = pos.map(j => ids[j]);
 }
 
 /* ═════════════ ESTADO DA SESSÃO (margens, parâmetros e filtros) ═════════════ */
 const chaveEstado = () => 'sim_estado_' + (S && S.pacote);
 function salvarEstado() {
-  armazenar.set(chaveEstado(), { prm:PRM, ovr:[...OVR], sel:Object.fromEntries(FILTROS.map(f => [f, [...SEL[f]]])), est:EST });
+  armazenar.set(chaveEstado(), { prm:PRM, ovr:[...OVR], sel:Object.fromEntries(FILTROS.map(f => [f, [...SEL[f]]])), est:EST, gsel:Object.fromEntries(Object.keys(GSEL).map(f => [f, [...GSEL[f]]])), g:{ leitura:G.leitura, aba:G.aba, ordCli:G.ordCli } });
 }
 function restaurarEstado() {
   const e = armazenar.get(chaveEstado()); if (!e) return;
@@ -755,22 +875,24 @@ function restaurarEstado() {
     OVR.clear(); (e.ovr || []).forEach(([k, v]) => OVR.set(k, v));
     FILTROS.forEach(f => { SEL[f].clear(); ((e.sel || {})[f] || []).forEach(v => SEL[f].add(v)); });
     Object.assign(EST, e.est || {}); EST.pag = EST.pag || 0;
+    Object.keys(GSEL).forEach(f => { GSEL[f].clear(); ((e.gsel || {})[f] || []).forEach(v => GSEL[f].add(v)); });
+    Object.assign(G, e.g || {});
   } catch (x) {}
 }
 
 /* ═════════════ COMBOS DE SELEÇÃO MÚLTIPLA ═════════════ */
 const COMBOS = {};
 function criarCombo(el) {
-  const f = el.dataset.f;
+  const f = el.dataset.f, ger = el.dataset.ctx === 'ger', SX = ger ? GSEL : SEL;
   const todos = f === 'fam' ? 'Todas' : 'Todos';
   el.innerHTML = `<input class="inp" placeholder="${todos}" autocomplete="off" /><button type="button" class="cb-x" title="Limpar seleção">✕</button>
     <div class="cb-lista"><div class="cb-acoes"><button type="button" data-a="marcar">Marcar exibidos</button><button type="button" data-a="limpar">Limpar</button><span class="cb-n"></span></div><div class="cb-ops"></div></div>`;
   const inp = el.querySelector('input'), ops = el.querySelector('.cb-ops');
   const cb = { f, ops:[], foco:-1, visiveis:[], todosVis:[], topo:new Set() };
-  COMBOS[f] = cb;
+  COMBOS[(ger ? 'ger:' : '') + f] = cb;
   const MAX = 300;
   function resumo() {
-    const sel = SEL[f]; if (!sel.size) return '';
+    const sel = SX[f]; if (!sel.size) return '';
     const v = [...sel][0], t = f === 'item' ? D.itens[v][0] : rotuloFiltro(f, v);
     return sel.size === 1 ? rotuloFiltro(f, v) : `${t} +${sel.size - 1}`;
   }
@@ -780,20 +902,20 @@ function criarCombo(el) {
     if (!termos.length && cb.topo.size) vis = [...vis.filter(o => cb.topo.has(o.v)), ...vis.filter(o => !cb.topo.has(o.v))];   // marcados (ao abrir) primeiro
     cb.todosVis = vis; cb.visiveis = vis.slice(0, MAX);
     cb.foco = Math.min(cb.foco, cb.visiveis.length - 1);
-    ops.innerHTML = cb.visiveis.map((o, j) => `<div class="cb-op ${j === cb.foco ? 'foco' : ''} ${SEL[f].has(o.v) ? 'marcado' : ''}" data-v="${o.v}" title="${esc(o.t)}"><span class="ck"></span>${f === 'item' ? `<span class="cod">${esc(D.itens[o.v][0])}</span>${esc(D.itens[o.v][1])}` : esc(o.t)}</div>`).join('') +
+    ops.innerHTML = cb.visiveis.map((o, j) => `<div class="cb-op ${j === cb.foco ? 'foco' : ''} ${SX[f].has(o.v) ? 'marcado' : ''}" data-v="${o.v}" title="${esc(o.t)}"><span class="ck"></span>${f === 'item' ? `<span class="cod">${esc(D.itens[o.v][0])}</span>${esc(D.itens[o.v][1])}` : esc(o.t)}</div>`).join('') +
       (vis.length > MAX ? `<div class="cb-info">Mostrando ${MAX} de ${fmtN.format(vis.length)}. Continue digitando para refinar.</div>` : '') +
       (!vis.length ? '<div class="cb-info">Nenhum resultado.</div>' : '');
-    el.querySelector('.cb-n').textContent = SEL[f].size ? `${fmtN.format(SEL[f].size)} marcado${SEL[f].size > 1 ? 's' : ''}` : '';
+    el.querySelector('.cb-n').textContent = SX[f].size ? `${fmtN.format(SX[f].size)} marcado${SX[f].size > 1 ? 's' : ''}` : '';
   }
-  function mudou() { EST.pag = 0; atualizar(); if (el.classList.contains('aberto')) desenhar(); }
-  function alternar(v) { if (SEL[f].has(v)) SEL[f].delete(v); else SEL[f].add(v); mudou(); }
+  function mudou() { if (ger) { G.pagItens = G.pagCli = 0; atualizarGerencial(); } else { EST.pag = 0; atualizar(); } if (el.classList.contains('aberto')) desenhar(); }
+  function alternar(v) { if (SX[f].has(v)) SX[f].delete(v); else SX[f].add(v); mudou(); }
   cb.sincronizar = () => {
     if (document.activeElement !== inp) inp.value = resumo();
     inp.placeholder = document.activeElement === inp ? (resumo() || 'Pesquisar…') : todos;
-    el.classList.toggle('sel-on', SEL[f].size > 0);
+    el.classList.toggle('sel-on', SX[f].size > 0);
     if (el.classList.contains('aberto')) desenhar();
   };
-  inp.addEventListener('focus', () => { cb.topo = new Set(SEL[f]); inp.value = ''; inp.placeholder = resumo() || 'Pesquisar…'; cb.foco = -1; el.classList.add('aberto'); desenhar(); });
+  inp.addEventListener('focus', () => { cb.topo = new Set(SX[f]); inp.value = ''; inp.placeholder = resumo() || 'Pesquisar…'; cb.foco = -1; el.classList.add('aberto'); desenhar(); });
   inp.addEventListener('input', () => { cb.foco = 0; desenhar(); });
   inp.addEventListener('blur', () => setTimeout(() => { if (document.activeElement === inp) return; el.classList.remove('aberto'); inp.value = resumo(); inp.placeholder = todos; }, 150));
   inp.addEventListener('keydown', e => {
@@ -805,16 +927,16 @@ function criarCombo(el) {
   el.querySelector('.cb-lista').addEventListener('mousedown', e => {
     e.preventDefault();
     const a = e.target.closest('button[data-a]');
-    if (a) { if (a.dataset.a === 'limpar') SEL[f].clear(); else cb.todosVis.forEach(o => SEL[f].add(o.v)); mudou(); return; }
+    if (a) { if (a.dataset.a === 'limpar') SX[f].clear(); else cb.todosVis.forEach(o => SX[f].add(o.v)); mudou(); return; }
     const op = e.target.closest('.cb-op'); if (op) { cb.foco = cb.visiveis.findIndex(o => o.v === +op.dataset.v); alternar(+op.dataset.v); }
   });
-  el.querySelector('.cb-x').addEventListener('click', () => { SEL[f].clear(); mudou(); });
+  el.querySelector('.cb-x').addEventListener('click', () => { SX[f].clear(); mudou(); });
 }
 function atualizarCombos(disp) {
   for (const f of FILTROS) {
     const cb = COMBOS[f]; if (!cb) continue;
     cb.ops = [...disp[f]].map(v => ({ v, t:rotuloFiltro(f, v) }));
-    if (f !== 'uf' && f !== 'cd') cb.ops.sort((a, b) => a.t.localeCompare(b.t, 'pt-BR'));
+    if (f !== 'uf' && f !== 'cd' && f !== 'var') cb.ops.sort((a, b) => a.t.localeCompare(b.t, 'pt-BR'));
     cb.ops.forEach(o => o.n = normalizar(o.t));
     cb.sincronizar();
   }
@@ -831,7 +953,8 @@ function montarTela() {
   $('#i-gerado').textContent = m.gerado_em.split(' ')[0];
   $('#hero-sub').textContent = new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long', year:'numeric' }) + ` · clientes da carteira do último mês · itens comprados nos últimos ${m.meses} meses, simulados para os 2 CDs e as 27 UFs`;
   $('#btn-excel').classList.toggle('oculto', !S.exportar);
-  document.querySelectorAll('.cb').forEach(criarCombo);
+  document.querySelectorAll('#pag-simulador .cb').forEach(criarCombo);
+  criarGerencial();
   escreverParametros();
 }
 
@@ -862,13 +985,15 @@ function colunas() { return COLUNAS().filter(c => !c.gi || EST['imp' + c.gi]); }
 function COLUNAS() {
   return [
     { k:'item', t:'Item', txt:1, w:190, fixa:1, bl:0 },
-    { k:'grupo', t:'Cliente', txt:1, w:150, bl:0 },
+    { k:'grupo', t:'Cliente', txt:1, w:150, bl:0, dica:'Ordena pela venda do cliente e, dentro dele, pelos itens mais vendidos' },
     { k:'rota', t:'CD → UF', txt:1, bl:0 },
+    { k:'venda', t:'Venda média/mês', f:R, sub:x => fmtN.format(x.qm) + ' ' + (D.itens[x.i][3] || 'un') + '/mês', bl:0 },
     { k:'custo', t:'Custo aquisição', f:R, bl:1, ini:1 },
     { k:'mg', t:'Margem', bl:1, input:1 },
     { k:'pl1', t:'Preço líquido', f:R, bl:1 },
     { k:'vicms1', gi:1, t:'ICMS', f:R, sub:x => P2(x.g[0]), bl:1 },
     { k:'vdif1', gi:1, t:'DIFAL', f:R, sub:x => P2(x.a.dif), bl:1 },
+    { k:'vst1', gi:1, t:'ST', f:R, sub:x => P2(x.a.st), bl:1 },
     { k:'vfcp1', gi:1, t:'FCP', f:R, sub:x => P2(x.a.fcp), bl:1 },
     { k:'vpis', gi:1, t:'PIS', f:R, sub:x => P2(x.g[3] * PIS_PARTE), bl:1 },
     { k:'vcof', gi:1, t:'COFINS', f:R, sub:x => P2(x.g[3] * COF_PARTE), bl:1 },
@@ -880,7 +1005,8 @@ function COLUNAS() {
     { k:'mg2', t:'Margem', f:P, bl:2, ref:1 },
     { k:'pl2', t:'Preço líquido', f:R, bl:2, ref:1 },
     { k:'vicms2', gi:2, t:'ICMS', f:R, sub:x => P2(x.n.icms), bl:2, ref:1 },
-    { k:'vdif2', gi:2, t:'DIFAL / ST', f:R, sub:x => P2(x.n.dif), bl:2, ref:1 },
+    { k:'vdif2', gi:2, t:'DIFAL', f:R, sub:x => P2(x.n.dif), bl:2, ref:1 },
+    { k:'vst2', gi:2, t:'ST', f:R, sub:x => P2(x.n.st), bl:2, ref:1 },
     { k:'vfcp2', gi:2, t:'FCP', f:R, sub:x => P2(x.n.fcp), bl:2, ref:1 },
     { k:'vcbs', gi:2, t:'CBS', f:R, sub:x => P2(x.n.acbs), bl:2, ref:1 },
     { k:'vibs', gi:2, t:'IBS', f:R, sub:x => P2(x.n.aibs), bl:2, ref:1 },
@@ -896,10 +1022,11 @@ function valorCol(x, k) {
     case 'custo': case 'custo2': return x.cu;
     case 'mg': case 'mg2': return x.mg;
     case 'pl1': case 'pl2': case 'plv2': return x.pl;
-    case 'vicms1': return x.a.vicms; case 'vdif1': return x.a.vdif; case 'vfcp1': return x.a.vfcp;
+    case 'vicms1': return x.a.vicms; case 'vdif1': return x.a.vdif; case 'vst1': return x.a.vst; case 'vfcp1': return x.a.vfcp;
     case 'vpis': return x.a.vpis; case 'vcof': return x.a.vcof; case 'vipi': return x.a.vipi;
     case 'imp1': return x.a.imp; case 'pv1': return x.a.bruto; case 'nf1': return x.a.rob;
-    case 'vicms2': return x.n.vicms; case 'vdif2': return x.n.vdif; case 'vfcp2': return x.n.vfcp;
+    case 'vicms2': return x.n.vicms; case 'vdif2': return x.n.vdif; case 'vst2': return x.n.vst; case 'vfcp2': return x.n.vfcp;
+    case 'venda': return x.venda;
     case 'vcbs': return x.n.vcbs; case 'vibs': return x.n.vibs; case 'imp2': return x.n.imp; case 'nf2': return x.n.rob;
     case 'dif': return x.dif; case 'var': return x.var;
   }
@@ -920,9 +1047,10 @@ function atualizar(nivel = 2) {
   if (nivel >= 1) ordenar();
   desenharKpis();
   desenharTabela();
+  resumoFiltros();
   salvarEstado();
 }
-function recalcular(reordenar = true) { calcularFatores(); atualizar(reordenar ? 1 : 0); }
+function recalcular(reordenar = true) { calcularFatores(); atualizar(reordenar ? 1 : 0); if (EST.pagina === 'gerencial') atualizarGerencial(); }
 
 function desenharKpis() {
   let rob1 = 0, rob2 = 0, imp1 = 0, imp2 = 0, pl = 0, lb = 0, sobe = 0, n = 0;
@@ -934,11 +1062,12 @@ function desenharKpis() {
       const cu = D.custo[i * 2 + s]; if (!ok(cu)) continue;
       const plv = cu / (1 - mg), b = base + s * 54;
       for (const u of V.ufs) {
-        const o = (D.PF[b + u * 2] * 2 + c) * 4;
+        const r = D.PF[b + u * 2], o = (r * 2 + c) * 4;
+        if (SEL.var.size && !SEL.var.has(classeVar(r, c))) continue;
+        n++; pl += plv; lb += plv - cu;
         rob1 += plv * FAT[o]; imp1 += plv * FAT[o + 1]; rob2 += plv * FAT[o + 2]; imp2 += plv * FAT[o + 3];
         if (FAT[o + 2] > FAT[o] + 1e-9) sobe++;
       }
-      n += V.nU; pl += plv * V.nU; lb += (plv - cu) * V.nU;
     }
   }
   const v = rob1 ? rob2 / rob1 - 1 : NaN;
@@ -954,7 +1083,7 @@ function desenharTabela() {
   const cols = colunas();
   const nb = [0, 1, 2, 3].map(b => cols.filter(c => c.bl === b).length);
   const btnTg = c => `<button type="button" class="grp-tg" data-tg="${c.tg}" title="${EST['imp' + c.tg] ? 'Recolher' : 'Abrir'} impostos">${EST['imp' + c.tg] ? '−' : '+'}</button>`;
-  const seta = c => EST.ord === c.k ? (EST.dir < 0 ? ' ↓' : ' ↑') : '';
+  const seta = c => EST.ord === c.k ? (c.k === 'grupo' ? (EST.dir > 0 ? ' ↓' : ' ↑') : (EST.dir < 0 ? ' ↓' : ' ↑')) : '';
   $('#tabela thead').innerHTML =
     `<tr class="blocos"><th colspan="${nb[0]}" class="b-info"></th><th colspan="${nb[1]}" class="b-atual b1">MODELO ATUAL</th><th colspan="${nb[2]}" class="b-ref b2">APÓS A REFORMA</th><th colspan="${nb[3]}" class="b-imp b3">IMPACTO</th></tr>` +
     '<tr>' + cols.map(c => `<th data-k="${c.k}" class="h${c.bl} ${c.txt ? 'txt' : ''} ${c.ini ? 'b' + c.bl : ''} ${c.gi ? 'det' : ''} ${c.fixa ? 'fixa' : ''} ${EST.ord === c.k ? 'ord' : ''}">${c.tg ? btnTg(c) : ''}${c.t}${seta(c)}</th>`).join('') + '</tr>';
@@ -986,7 +1115,7 @@ function desenharTabela() {
   }
   $('#tabela tbody').innerHTML = html || `<tr><td class="vazio" colspan="${cols.length}">Nenhuma linha para os filtros escolhidos.</td></tr>`;
   const nPar = V.fp.length;
-  $('#t-qtd').innerHTML = `${fmtN.format(V.total)} linhas <span class="q2">(${fmtN.format(nPar)} cliente × item · ${V.cds.length} CD · ${V.nU} UF)</span>` +
+  $('#t-qtd').innerHTML = `${fmtN.format(V.total)} linhas <span class="q2">(${fmtN.format(nPar)} cliente × item · ${V.cds.length} CD · ${V.nU} UF${SEL.var.size ? ' · filtro de variação' : ''})</span>` +
     (OVR.size ? ` · <b>${fmtN.format(OVR.size)} margem${OVR.size > 1 ? 's' : ''} digitada${OVR.size > 1 ? 's' : ''}</b>` : '') +
     (V.aviso ? ` · <span class="aviso">ordenação por esta coluna disponível até ${fmtN.format(MAX_ORDENAR)} linhas — refine os filtros</span>` : '');
   $('#btn-limpar-mg').classList.toggle('oculto', !OVR.size);
@@ -1000,7 +1129,7 @@ $('#tabela thead').addEventListener('click', e => {
   if (tg) { const k = 'imp' + tg.dataset.tg; EST[k] = !EST[k]; atualizar(0); return; }
   const th = e.target.closest('th[data-k]'); if (!th) return;
   const k = th.dataset.k;
-  if (EST.ord === k) EST.dir *= -1; else { EST.ord = k; EST.dir = COLUNAS().find(c => c.k === k)?.txt ? 1 : -1; }
+  if (EST.ord === k) EST.dir *= -1; else { EST.ord = k; EST.dir = k === 'grupo' || COLUNAS().find(c => c.k === k)?.txt ? 1 : -1; }
   EST.pag = 0; carregando(true, 'Ordenando…'); setTimeout(() => { atualizar(1); carregando(false); }, 20);
 });
 $('#paginacao').addEventListener('click', e => { const b = e.target.closest('button[data-p]'); if (!b) return; EST.pag += +b.dataset.p; atualizar(0); window.scrollTo({ top:$('.bloco').offsetTop - 90 }); });
@@ -1052,9 +1181,11 @@ function desenharModal() {
     linhaTxt('Fator 1 (IPI × ICMS)', P2(a.f1)) + (ct ? '' : linhaTxt('Fator 2 (IPI × (ICMS + DIFAL))', P2(a.f2))) +
     linhaTxt('Fator geral', fmtN2.format(a.fator * 100) + ' %', 'destaque') +
     linha('Preço bruto (preço líquido ÷ fator)', a.bruto) + linha('IPI (preço bruto × %IPI)', a.vipi, g[4]) +
-    linha('ROB (preço bruto + IPI)', a.rob, undefined, 'destaque') + esp +
-    linhaAliq('ICMS (sobre a ROB)', g[0], a.vicms) +
-    (ct ? '' : linhaAliq('DIFAL (sobre a ROB)', a.dif, a.vdif) + linhaAliq('FCP (sobre a ROB)', a.fcp, a.vfcp)) +
+    (ct ? linha('Preço bruto + IPI', a.base) + linha('ST (sobre preço bruto + IPI)', a.vst, a.st) + linha('FCP (sobre preço bruto + IPI)', a.vfcp, a.fcp) +
+          linha('ROB (preço bruto + IPI + ST + FCP)', a.rob, undefined, 'destaque')
+        : linha('ROB (preço bruto + IPI)', a.rob, undefined, 'destaque')) + esp +
+    linhaAliq('ICMS (sobre preço bruto + IPI)', g[0], a.vicms) +
+    (ct ? linhaAliq('ST', a.st, a.vst) + linhaAliq('FCP', a.fcp, a.vfcp) : linhaAliq('DIFAL (sobre a ROB)', a.dif, a.vdif) + linhaAliq('FCP (sobre a ROB)', a.fcp, a.vfcp)) +
     linhaAliq('PIS ((bruto − ICMS) × %)', g[3] * PIS_PARTE, a.vpis) + linhaAliq('COFINS ((bruto − ICMS) × %)', g[3] * COF_PARTE, a.vcof) +
     linhaAliq('IPI', g[4], a.vipi) + linhaAliq('Total impostos (% da ROB)', a.aliq, a.imp, 'destaque') + esp +
     linha('CMV', v.custo) + linha('Lucro bruto', a.lb, a.mg, 'destaque');
@@ -1063,7 +1194,7 @@ function desenharModal() {
     linha('Custo de aquisição', v.custo) + linhaTxt('Margem (a mesma do modelo atual)', P2(v.mg)) + linha('Preço líquido (custo + margem)', pl, undefined, 'destaque') + esp +
     linhaTxt('Fator 1 (1 − ICMS' + (ct ? ')' : ' − DIFAL − FCP)'), fmtN2.format(n.fator * 100) + ' %', 'destaque') +
     linha('Preço bruto (preço líquido ÷ fator 1)', n.bruto) + esp +
-    linhaAliq('ICMS (sobre o preço bruto)', n.icms, n.vicms) + linhaAliq((ct ? 'ST' : 'DIFAL') + ' (sobre o preço bruto)', n.dif, n.vdif) + linhaAliq('FCP (sobre o preço bruto)', n.fcp, n.vfcp) +
+    linhaAliq('ICMS (sobre o preço bruto)', n.icms, n.vicms) + (ct ? linhaAliq('ST (sobre o preço bruto)', n.st, n.vst) : linhaAliq('DIFAL (sobre o preço bruto)', n.dif, n.vdif)) + linhaAliq('FCP (sobre o preço bruto)', n.fcp, n.vfcp) +
     linhaAliq('CBS (sobre o preço líquido)', n.acbs, n.vcbs) + linhaAliq('IBS (sobre o preço líquido)', n.aibs, n.vibs) +
     linha('ROB (preço líquido + impostos)', n.rob, undefined, 'destaque') +
     linhaAliq('Total impostos (% da ROB)', n.aliq, n.imp, 'destaque') + esp +
@@ -1106,11 +1237,12 @@ function desenharMemoria() {
     <ul class="mem-lista">
       <li><b>Período:</b> médias dos últimos ${m.meses} meses da base contábil (${mesAno(m.periodo_ini)} a ${mesAno(m.periodo_fim)}).</li>
       <li><b>Clientes:</b> somente os que compraram no último mês da base, na carteira do executivo desse mês. Fora do simulador: CD ES e os canais Acordos, Oceano, BRS OFF, Televendas e HP+.</li>
-      <li><b>Itens, CDs e UFs:</b> cada cliente × item comprado nos últimos ${m.meses} meses é simulado para os 2 CDs de origem (RS: 1100 e 1600 · SP: 1200 e 9200) e as 27 UFs de destino, mesmo sem venda histórica para o estado.</li>
+      <li><b>Itens, CDs e UFs:</b> só itens com histórico de compra do cliente (inclusive promocionais, personalizados e uniformes). Cada cliente × item comprado nos últimos ${m.meses} meses é simulado para os 2 CDs de origem (RS: 1100 e 1600 · SP: 1200 e 9200) e as 27 UFs de destino, mesmo sem venda histórica para o estado.</li>
       <li><b>Custo de aquisição:</b> custo unitário médio do último dia em que o item foi vendido no CD; vale para todos os clientes do CD.</li>
       <li><b>Margem:</b> margem média dos ${m.meses} meses do cliente × item (lucro bruto ÷ ROL), a mesma para qualquer CD e UF e para os dois modelos. Pode ser alterada na linha (vale para o cliente × item) ou no parâmetro geral.</li>
-      <li><b>Contribuinte:</b> pelo histórico do cliente — DIFAL partilha em 10% ou mais das vendas = não contribuinte; demais = contribuinte.</li>
+      <li><b>Contribuinte:</b> Cadastro Fiscal (Contribuinte ICMS 1 = contribuinte, 9 = não contribuinte), pelo código do cliente. No grupo econômico vale a classificação com mais códigos (empate = não contribuinte). Contribuinte usa as Tabelas Fiscais de contribuinte; não contribuinte, as de não contribuinte.</li>
       <li><b>Alíquotas:</b> Tabelas Fiscais (Base Tributária) por item × CD de origem × UF de destino × contribuinte. ICMS pela carga efetiva (base reduzida). Itens sem cadastro na tabela usam as alíquotas efetivas do histórico do item no CD.</li>
+      <li><b>Gerencial:</b> quantidade média mensal de cada cliente × item × CD × UF de destino (UF do Cadastro de Clientes) × valores unitários do simulador. Com repasse: margem mantida, muda a ROB. Sem repasse: ROB atual mantida, mudam impostos e lucro.</li>
       <li><b>Valores digitados</b> (margens e parâmetros) e filtros ficam gravados enquanto a sessão estiver aberta e saem no Excel.</li>
     </ul>`;
   $('#mem-nc').innerHTML = tab(
@@ -1131,9 +1263,11 @@ function desenharMemoria() {
     lin('Fator geral', '(1 − %ICMS − %PIS − %COFINS − Fator 1) + (%ICMS + Fator 1) × (%PIS + %COFINS)', fmtN2.format(c.fator * 100) + ' %') +
     lin('Preço bruto (mercadoria)', 'Preço líquido ÷ Fator geral', R(c.bruto)) +
     lin('IPI', 'Preço bruto × %IPI', R(c.vipi)) +
-    lin('ROB', 'Preço bruto + IPI', R(c.rob)) +
-    lin('ICMS', 'ROB × %ICMS', R(c.vicms)) +
-    lin('PIS + COFINS', '(Preço bruto − ICMS) × (%PIS + %COFINS)', R(c.vpis + c.vcof)));
+    lin('ICMS', '(Preço bruto + IPI) × %ICMS', R(c.vicms)) +
+    lin('ST', '(Preço bruto + IPI) × %ST — por fora', R(c.vst)) +
+    lin('FCP', '(Preço bruto + IPI) × %FCP — por fora', R(c.vfcp)) +
+    lin('PIS + COFINS', '(Preço bruto − ICMS) × (%PIS + %COFINS)', R(c.vpis + c.vcof)) +
+    lin('ROB', 'Preço bruto + IPI + ST + FCP', R(c.rob)));
   const cbsTxt = `Preço líquido × %CBS × fator de redução do item (${P2(PRM.cbs)} na tela)`, ibsTxt = `Preço líquido × %IBS × fator de redução do item (${P2(PRM.ibse + PRM.ibsm)} na tela)`;
   $('#mem-ref').innerHTML = tab(
     lin('Preço líquido', 'Custo ÷ (1 − Margem) — mesma margem do modelo atual', R(ex.pl)) +
@@ -1153,19 +1287,255 @@ function desenharMemoria() {
     lin('FCP', 'Preço bruto × %FCP', R(rc.vfcp)) +
     lin('CBS', cbsTxt, R(rc.vcbs)) + lin('IBS', ibsTxt, R(rc.vibs)) +
     lin('ROB', 'Preço líquido + ICMS + ST + FCP + CBS + IBS', R(rc.rob)));
-  $('#mem-ex').textContent = `Exemplo: preço líquido R$ 100,00 · ICMS 12% · DIFAL/ST 7,5% · FCP 1% · PIS/COFINS 9,25% · IPI 3,25% · CBS ${P2(PRM.cbs)} · IBS ${P2(PRM.ibse + PRM.ibsm)}.`;
+  $('#mem-ex').textContent = `Exemplo: preço líquido R$ 100,00 · ICMS 12% · DIFAL (ou ST) 7,5% · FCP 1% · PIS/COFINS 9,25% · IPI 3,25% · CBS ${P2(PRM.cbs)} · IBS ${P2(PRM.ibse + PRM.ibsm)}.`;
 }
 function irPara(pag) {
   EST.pagina = pag;
   document.querySelectorAll('.menu a').forEach(a => a.classList.toggle('ativo', a.dataset.pag === pag));
   $('#pag-simulador').classList.toggle('oculto', pag !== 'simulador');
   $('#pag-memoria').classList.toggle('oculto', pag !== 'memoria');
-  $('#titulo-pag').textContent = pag === 'memoria' ? 'Memória de cálculo' : 'Simulador de Preço · Reforma Tributária';
+  $('#pag-gerencial').classList.toggle('oculto', pag !== 'gerencial');
+  $('#titulo-pag').textContent = { memoria:'Memória de cálculo', gerencial:'Gerencial · Impacto da reforma' }[pag] || 'Simulador de Preço · Reforma Tributária';
   if (pag === 'memoria') desenharMemoria();
+  if (pag === 'gerencial') atualizarGerencial();
   salvarEstado();
   window.scrollTo({ top:0 });
 }
 document.querySelectorAll('.menu a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); irPara(a.dataset.pag); }));
+
+/* ═════════════ PÁGINA: GERENCIAL (DRE mensal) ═════════════
+   Para cada cliente × item × CD × UF do histórico: quantidade média mensal × valores unitários dos dois modelos.
+   Leitura "repasse": preço muda para manter a margem (ROB muda, lucro igual).
+   Leitura "sem repasse": preço atual mantido (ROB igual, impostos da reforma mudam o lucro). */
+const GSEL = { exec:new Set(), grupo:new Set(), fam:new Set() };
+const G = { leitura:'repasse', aba:'mais', ordCli:'dif', pagItens:0, pagCli:0 };
+const G_POR_PAG = 25;
+let GR = null;   // último resultado
+
+function calcularGerencial() {
+  const H = D.hist, nh = H.p.length, nP = PR.i.length;
+  const fEx = GSEL.exec.size ? GSEL.exec : null, fGr = GSEL.grupo.size ? GSEL.grupo : null, fFa = GSEL.fam.size ? GSEL.fam : null;
+  const disp = { exec:new Set(), grupo:new Set(), fam:new Set() };
+  const T = { a:{ rob:0, imp:0, icms:0, dif:0, st:0, fcp:0, pc:0, ipi:0, cbs:0, ibs:0, rol:0 }, n:{ rob:0, imp:0, icms:0, dif:0, st:0, fcp:0, pc:0, ipi:0, cbs:0, ibs:0, rol:0 }, cmv:0, real:0, fora:0 };
+  const par = new Map();                 // p -> { q, rob1, rob2, rol1, rol2, cmv }
+  const semRep = G.leitura === 'sem';
+  let ultP = -1, mg = NaN;
+  for (let h = 0; h < nh; h++) {
+    const p = H.p[h], i = PR.i[p], e = PR.e[p], g = PR.g[p], fa = D.itemFam[i];
+    // cascata dos filtros
+    const okE = !fEx || fEx.has(e), okG = !fGr || fGr.has(g), okF = !fFa || fFa.has(fa);
+    if (okG && okF) disp.exec.add(e); if (okE && okF) disp.grupo.add(g); if (okE && okG) disp.fam.add(fa);
+    if (!(okE && okG && okF)) continue;
+    const q = H.q[h], s = H.s[h], u = H.u[h], c = PR.c[p];
+    if (p !== ultP) { ultP = p; mg = margemPar(p); }
+    const cu = D.custo[i * 2 + s];
+    if (!(mg < 1) || !ok(cu) || !(q > 0)) { T.fora += q * (PR.pr[p] / 100 || 0); continue; }
+    const pl = cu / (1 - mg), r = idRegra(i, s, u, c), m = FATD[r * 2 + c], a = m.a, n = m.n;
+    // atual (por unidade de preço líquido)
+    const kq = pl * q;
+    let rob2, rol2, k2 = kq;                       // k2: preço líquido × qtd no cenário após a reforma
+    if (semRep) { k2 = kq * a.rob / n.rob; }       // mantém a ROB atual: preço líquido após = ROB atual ÷ markup da reforma
+    rob2 = k2 * n.rob; rol2 = k2;
+    const rob1 = kq * a.rob, cmv = cu * q;
+    T.a.rob += rob1; T.a.icms += kq * a.vicms; T.a.dif += kq * a.vdif; T.a.st += kq * a.vst; T.a.fcp += kq * a.vfcp; T.a.pc += kq * (a.vpis + a.vcof); T.a.ipi += kq * a.vipi; T.a.rol += kq;
+    T.n.rob += rob2; T.n.icms += k2 * n.vicms; T.n.dif += k2 * n.vdif; T.n.st += k2 * n.vst; T.n.fcp += k2 * n.vfcp; T.n.cbs += k2 * n.vcbs; T.n.ibs += k2 * n.vibs; T.n.rol += rol2;
+    T.cmv += cmv;
+    let x = par.get(p); if (!x) { x = { q:0, rob1:0, rob2:0, rol1:0, rol2:0, cmv:0 }; par.set(p, x); }
+    x.q += q; x.rob1 += rob1; x.rob2 += rob2; x.rol1 += kq; x.rol2 += rol2; x.cmv += cmv;
+  }
+  T.a.imp = T.a.icms + T.a.dif + T.a.st + T.a.fcp + T.a.pc + T.a.ipi;
+  T.n.imp = T.n.icms + T.n.dif + T.n.st + T.n.fcp + T.n.cbs + T.n.ibs;
+  // impacto por cliente × item e por cliente
+  const itens = [], cli = new Map();
+  let aum = 0, red = 0, nAum = 0, nRed = 0;
+  for (const [p, x] of par) {
+    const d = semRep ? x.rol2 - x.rol1 : x.rob2 - x.rob1;
+    itens.push({ p, ...x, d, dp:semRep ? (x.rol1 - x.cmv ? (x.rol2 - x.cmv) / (x.rol1 - x.cmv) - 1 : NaN) : (x.rob1 ? x.rob2 / x.rob1 - 1 : NaN) });
+    let k = cli.get(PR.g[p]); if (!k) { k = { g:PR.g[p], e:PR.e[p], rob1:0, rob2:0, rol1:0, rol2:0, cmv:0, aum:0, red:0, nAum:0, nRed:0 }; cli.set(PR.g[p], k); }
+    k.rob1 += x.rob1; k.rob2 += x.rob2; k.rol1 += x.rol1; k.rol2 += x.rol2; k.cmv += x.cmv;
+    if (d > 0.005) { aum += d; nAum++; k.aum += d; k.nAum++; } else if (d < -0.005) { red += d; nRed++; k.red += d; k.nRed++; }
+  }
+  for (const k of cli.values()) k.d = semRep ? k.rol2 - k.rol1 : k.rob2 - k.rob1;
+  GR = { T, itens, clientes:[...cli.values()], aum, red, nAum, nRed, disp };
+}
+
+function atualizarGerencial() {
+  if (!D) return;
+  calcularGerencial();
+  for (const f of ['exec', 'grupo', 'fam']) {
+    const cb = COMBOS['ger:' + f]; if (!cb) continue;
+    cb.ops = [...GR.disp[f]].map(v => ({ v, t:rotuloFiltro(f, v) })).sort((a, b) => a.t.localeCompare(b.t, 'pt-BR'));
+    cb.ops.forEach(o => o.n = normalizar(o.t));
+    cb.sincronizar();
+  }
+  desenharGerencial();
+  salvarEstado();
+}
+
+const RM = x => ok(x) ? fmtR.format(x) : '—';
+const RK = x => { if (!ok(x)) return '—'; const a = Math.abs(x), sn = x < 0 ? '-' : ''; return a >= 1e6 ? sn + 'R$ ' + fmtN2.format(a / 1e6) + ' mi' : a >= 1e4 ? sn + 'R$ ' + fmtN.format(a / 1e3) + ' mil' : fmtR.format(x); };
+const SINAL = (x, f = RM) => ok(x) ? (x > 0.005 ? '+' : '') + f(x) : '—';
+// cor: na leitura com repasse, aumento de preço = vermelho; sem repasse, perda de lucro = vermelho
+const clsImp = x => !ok(x) || Math.abs(x) < 0.005 ? '' : (G.leitura === 'sem' ? (x < 0 ? 'pos' : 'neg') : (x > 0 ? 'pos' : 'neg'));
+
+function desenharGerencial() {
+  const { T } = GR, semRep = G.leitura === 'sem';
+  const lucro1 = T.a.rol - T.cmv, lucro2 = T.n.rol - T.cmv;
+  const mg1 = T.a.rol ? lucro1 / T.a.rol : NaN, mg2 = T.n.rol ? lucro2 / T.n.rol : NaN;
+  const vr = (a, b) => a ? b / a - 1 : NaN;
+  // escopo
+  const nCli = GR.clientes.length;
+  $('#g-escopo').innerHTML = GSEL.grupo.size === 1
+    ? `Cliente <b>${esc(D.grupos[[...GSEL.grupo][0]])}</b>`
+    : `${fmtN.format(nCli)} cliente${nCli !== 1 ? 's' : ''} · ${fmtN.format(GR.itens.length)} cliente × item`;
+  // KPIs
+  const dRob = T.n.rob - T.a.rob, dLuc = lucro2 - lucro1;
+  const cliAum = GR.clientes.filter(k => clsImp(k.d) === 'pos').length;
+  $('#g-kpis').innerHTML = [
+    ['ROB mensal', `${RK(T.a.rob)} → ${RK(T.n.rob)}`, `<span class="${clsImp(semRep ? 0 : dRob)}">${SINAL(dRob, RK)} (${VAR(vr(T.a.rob, T.n.rob))})</span>`],
+    ['Impostos mensais', `${RK(T.a.imp)} → ${RK(T.n.imp)}`, `${P(T.a.rob ? T.a.imp / T.a.rob : NaN)} → ${P(T.n.rob ? T.n.imp / T.n.rob : NaN)} da ROB`],
+    ['Lucro bruto mensal', `${RK(lucro1)} → ${RK(lucro2)}`, `<span class="${clsImp(semRep ? dLuc : 0)}">${SINAL(dLuc, RK)} · margem ${P(mg1)} → ${P(mg2)}</span>`],
+    [semRep ? 'Clientes que perdem lucro' : 'Clientes com aumento de preço', `${fmtN.format(cliAum)} de ${fmtN.format(nCli)}`, nCli ? P(cliAum / nCli) + ' dos clientes' : ''],
+  ].map(([k, v, s], i) => `<div class="kpi"><div class="ico">${ICONES_KPI[i]}</div><div><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div></div>`).join('');
+
+  // DRE
+  const linhaD = (rot, a, b, cls, opt = {}) => {
+    if (opt.pct) return `<tr class="${cls || ''}"><td>${rot}</td><td>${P(a)}</td><td>${P(b)}</td><td>${ok(a) && ok(b) ? ((b - a) * 100 > 0 ? '+' : '') + fmtN2.format((b - a) * 100) + ' p.p.' : '—'}</td><td></td></tr>`;
+    const d = b - a, cor = opt.cor ? opt.cor(d) : '';
+    return `<tr class="${cls || ''}" ${opt.tg ? 'data-tg="imp"' : ''}><td>${opt.tg ? `<button type="button" class="grp-tg">${G.impAberto ? '−' : '+'}</button>` : ''}${rot}</td><td>${RM(a)}</td><td>${RM(b)}</td><td class="${cor}">${SINAL(d)}</td><td class="${cor}">${VAR(vr(a, b))}</td></tr>`;
+  };
+  const sub = (rot, a, b) => G.impAberto ? `<tr class="det"><td>${rot}</td><td>${RM(a)}</td><td>${RM(b)}</td><td>${SINAL(b - a)}</td><td></td></tr>` : '';
+  const corRob = d => semRep ? '' : clsImp(d), corLuc = d => semRep ? clsImp(d) : '';
+  $('#g-dre').innerHTML = `<thead><tr><th></th><th>Modelo atual</th><th>Após a reforma</th><th>Variação</th><th>Var. %</th></tr></thead><tbody>
+    ${linhaD('ROB', T.a.rob, T.n.rob, 'forte', { cor:corRob })}
+    ${linhaD('(−) Impostos', T.a.imp, T.n.imp, '', { tg:1 })}
+    ${sub('ICMS', T.a.icms, T.n.icms)}${sub('DIFAL', T.a.dif, T.n.dif)}${sub('ST', T.a.st, T.n.st)}${sub('FCP', T.a.fcp, T.n.fcp)}
+    ${sub('PIS/COFINS', T.a.pc, 0)}${sub('IPI', T.a.ipi, 0)}${sub('CBS', 0, T.n.cbs)}${sub('IBS', 0, T.n.ibs)}
+    ${linhaD('(=) ROL', T.a.rol, T.n.rol, 'forte', { cor:corLuc })}
+    ${linhaD('(−) CMV', T.cmv, T.cmv, '')}
+    ${linhaD('(=) Lucro bruto', lucro1, lucro2, 'forte', { cor:corLuc })}
+    ${linhaD('Margem bruta', mg1, mg2, '', { pct:1, pp:1 })}
+  </tbody>`;
+  $('#g-dre-nota').innerHTML = `Valores mensais: quantidade média mensal (${D.meta.meses} meses) × valores unitários do simulador, no CD e na UF de destino de cada venda. ` +
+    (semRep ? 'Leitura <b>sem repasse</b>: o preço (ROB) atual é mantido e a reforma altera impostos e lucro.' : 'Leitura <b>com repasse</b>: a margem é mantida e a reforma altera o preço (ROB).') +
+    (T.fora > 1 ? ` Ficaram de fora ${RK(T.fora)}/mês de vendas sem custo ou com margem ≥ 100%.` : '');
+
+  // Onde está o impacto
+  const tot = Math.abs(GR.aum) + Math.abs(GR.red) || 1;
+  const rotA = semRep ? 'Perdem lucro' : 'Ficam mais caros', rotR = semRep ? 'Ganham lucro' : 'Ficam mais baratos';
+  const vA = semRep ? GR.red : GR.aum, vR = semRep ? GR.aum : GR.red, nA = semRep ? GR.nRed : GR.nAum, nR = semRep ? GR.nAum : GR.nRed;
+  $('#g-impacto').innerHTML = `
+    <button type="button" class="imp-bloco ${G.aba === 'mais' ? 'ativo' : ''}" data-aba="mais">
+      <div class="imp-t"><span class="pt pos"></span>${rotA}</div><div class="imp-v pos">${SINAL(vA, RK)}<small>/mês</small></div>
+      <div class="imp-barra"><i class="b-pos" style="width:${Math.abs(vA) / tot * 100}%"></i></div>
+      <div class="imp-s">${fmtN.format(nA)} cliente × item · ver lista</div></button>
+    <button type="button" class="imp-bloco ${G.aba === 'menos' ? 'ativo' : ''}" data-aba="menos">
+      <div class="imp-t"><span class="pt neg"></span>${rotR}</div><div class="imp-v neg">${SINAL(vR, RK)}<small>/mês</small></div>
+      <div class="imp-barra"><i class="b-neg" style="width:${Math.abs(vR) / tot * 100}%"></i></div>
+      <div class="imp-s">${fmtN.format(nR)} cliente × item · ver lista</div></button>
+    <div class="imp-saldo">Saldo <b class="${clsImp(GR.aum + GR.red)}">${SINAL(GR.aum + GR.red, RK)}/mês</b> ${semRep ? 'no lucro bruto' : 'na ROB'}</div>`;
+
+  desenharClientesG();
+  desenharItensG();
+}
+
+function desenharClientesG() {
+  const unico = GSEL.grupo.size === 1;
+  $('#g-card-cli').classList.toggle('oculto', unico);
+  if (unico) return;
+  const semRep = G.leitura === 'sem';
+  const lista = GR.clientes.slice();
+  const k = G.ordCli;
+  const val = c => k === 'rob' ? c.rob1 : k === 'pct' ? (semRep ? (c.rol1 ? c.rol2 / c.rol1 - 1 : 0) : (c.rob1 ? c.rob2 / c.rob1 - 1 : 0)) : k === 'aum' ? (semRep ? -c.red : c.aum) : (semRep ? -c.d : c.d);
+  lista.sort((a, b) => val(b) - val(a));
+  const tot = Math.max(1, Math.ceil(lista.length / G_POR_PAG)); if (G.pagCli >= tot) G.pagCli = tot - 1;
+  const pag = lista.slice(G.pagCli * G_POR_PAG, (G.pagCli + 1) * G_POR_PAG);
+  const th = (key, t) => `<th data-o="${key}" class="${k === key ? 'ord' : ''}">${t}${k === key ? ' ↓' : ''}</th>`;
+  $('#g-cli').innerHTML = `<thead><tr><th class="txt">Cliente</th>${th('rob', 'ROB atual/mês')}<th>ROB após/mês</th>${th('dif', semRep ? 'Var. lucro/mês' : 'Var. ROB/mês')}${th('pct', 'Var. %')}${th('aum', semRep ? 'Itens que perdem lucro' : 'Itens mais caros')}<th>${semRep ? 'Itens que ganham lucro' : 'Itens mais baratos'}</th><th></th></tr></thead><tbody>` +
+    pag.map(c => {
+      const d = c.d, pct = semRep ? (c.rol1 ? c.rol2 / c.rol1 - 1 : NaN) : (c.rob1 ? c.rob2 / c.rob1 - 1 : NaN);
+      const [vA, nA, vR, nR] = semRep ? [c.red, c.nRed, c.aum, c.nAum] : [c.aum, c.nAum, c.red, c.nRed];
+      return `<tr data-g="${c.g}"><td class="txt"><b>${esc(D.grupos[c.g])}</b><span class="sub">${esc(D.execs[c.e])}</span></td><td>${RM(c.rob1)}</td><td>${RM(c.rob2)}</td>
+        <td class="${clsImp(d)}"><b>${SINAL(d)}</b></td><td class="${clsImp(d)}">${VAR(pct)}</td>
+        <td class="pos">${nA ? SINAL(vA) + `<span class="sub">${nA} ite${nA > 1 ? 'ns' : 'm'}</span>` : '—'}</td><td class="neg">${nR ? SINAL(vR) + `<span class="sub">${nR} ite${nR > 1 ? 'ns' : 'm'}</span>` : '—'}</td>
+        <td><span class="link">Abrir ›</span></td></tr>`;
+    }).join('') + '</tbody>';
+  $('#g-cli-pag').innerHTML = lista.length > G_POR_PAG ? `<span>Página ${G.pagCli + 1} de ${tot}</span><button class="btn-sec" data-p="-1" ${G.pagCli === 0 ? 'disabled' : ''}>Anterior</button><button class="btn-sec" data-p="1" ${G.pagCli >= tot - 1 ? 'disabled' : ''}>Próxima</button>` : '';
+  $('#g-cli-qtd').textContent = `${fmtN.format(lista.length)} clientes · clique para abrir o cliente`;
+}
+
+function itensDaAba() {
+  const semRep = G.leitura === 'sem';
+  // "mais": itens que ficam mais caros (repasse) ou que perdem lucro (sem repasse)
+  const alvo = G.aba === 'mais' ? (semRep ? -1 : 1) : (semRep ? 1 : -1);
+  return GR.itens.filter(x => alvo > 0 ? x.d > 0.005 : x.d < -0.005).sort((a, b) => alvo > 0 ? b.d - a.d : a.d - b.d);
+}
+function desenharItensG() {
+  const semRep = G.leitura === 'sem', lista = itensDaAba(), multi = GSEL.grupo.size !== 1;
+  const rotA = semRep ? 'Perdem lucro' : 'Ficam mais caros', rotR = semRep ? 'Ganham lucro' : 'Ficam mais baratos';
+  const nA = semRep ? GR.nRed : GR.nAum, nR = semRep ? GR.nAum : GR.nRed;
+  $('#g-abas').innerHTML = `<button type="button" data-aba="mais" class="${G.aba === 'mais' ? 'ativo' : ''}">${rotA} (${fmtN.format(nA)})</button><button type="button" data-aba="menos" class="${G.aba === 'menos' ? 'ativo' : ''}">${rotR} (${fmtN.format(nR)})</button>`;
+  const tot = Math.max(1, Math.ceil(lista.length / G_POR_PAG)); if (G.pagItens >= tot) G.pagItens = tot - 1;
+  const pag = lista.slice(G.pagItens * G_POR_PAG, (G.pagItens + 1) * G_POR_PAG);
+  $('#g-itens').innerHTML = `<thead><tr><th class="txt">Item</th>${multi ? '<th class="txt">Cliente</th>' : ''}<th>Qtd./mês</th><th>Preço atual (ROB/un.)</th><th>Preço após (ROB/un.)</th><th>${semRep ? 'Var. lucro %' : 'Var. preço %'}</th>${semRep ? '<th>Lucro atual/mês</th><th>Lucro após/mês</th>' : '<th>ROB atual/mês</th><th>ROB após/mês</th>'}<th>${semRep ? 'Var. lucro/mês' : 'Impacto/mês'}</th></tr></thead><tbody>` +
+    (pag.map(x => {
+      const it = D.itens[PR.i[x.p]], u1 = x.rob1 / x.q, u2 = x.rob2 / x.q;
+      const v1 = semRep ? x.rol1 - x.cmv : x.rob1, v2 = semRep ? x.rol2 - x.cmv : x.rob2;
+      return `<tr><td class="txt"><span class="cod">${esc(it[0])}</span>${esc(it[1])}</td>${multi ? `<td class="txt">${esc(D.grupos[PR.g[x.p]])}</td>` : ''}
+        <td>${fmtN.format(x.q)} <span class="un">${esc(it[3] || '')}</span></td><td>${RM(u1)}</td><td>${RM(u2)}</td><td class="${clsImp(x.d)}">${VAR(x.dp)}</td>
+        <td>${RM(v1)}</td><td>${RM(v2)}</td><td class="${clsImp(x.d)}"><b>${SINAL(x.d)}</b></td></tr>`;
+    }).join('') || `<tr><td class="vazio" colspan="9">Nenhum item nesta lista.</td></tr>`) + '</tbody>';
+  $('#g-itens-pag').innerHTML = lista.length > G_POR_PAG ? `<span>Página ${G.pagItens + 1} de ${tot}</span><button class="btn-sec" data-p="-1" ${G.pagItens === 0 ? 'disabled' : ''}>Anterior</button><button class="btn-sec" data-p="1" ${G.pagItens >= tot - 1 ? 'disabled' : ''}>Próxima</button>` : '';
+  const soma = lista.reduce((t, x) => t + x.d, 0);
+  $('#g-itens-qtd').innerHTML = `${fmtN.format(lista.length)} cliente × item · total ${SINAL(soma, RK)}/mês · ordenado do maior para o menor impacto`;
+  $('#g-btn-excel').classList.toggle('oculto', !S.exportar);
+}
+
+function criarGerencial() {
+  document.querySelectorAll('#pag-gerencial .cb').forEach(criarCombo);
+  $('#g-leitura').addEventListener('click', e => { const b = e.target.closest('button[data-v]'); if (!b) return; G.leitura = b.dataset.v; G.pagItens = 0; marcarLeitura(); atualizarGerencial(); });
+  const trocaAba = e => { const b = e.target.closest('[data-aba]'); if (!b) return; G.aba = b.dataset.aba; G.pagItens = 0; desenharGerencial(); if (e.currentTarget.id === 'g-impacto') $('#g-card-itens').scrollIntoView({ behavior:'smooth', block:'start' }); };
+  $('#g-impacto').addEventListener('click', trocaAba); $('#g-abas').addEventListener('click', trocaAba);
+  $('#g-dre').addEventListener('click', e => { if (e.target.closest('tr[data-tg]')) { G.impAberto = !G.impAberto; desenharGerencial(); } });
+  $('#g-cli').addEventListener('click', e => {
+    const th = e.target.closest('th[data-o]'); if (th) { G.ordCli = th.dataset.o; G.pagCli = 0; desenharClientesG(); return; }
+    const tr = e.target.closest('tr[data-g]'); if (!tr) return;
+    GSEL.grupo.clear(); GSEL.grupo.add(+tr.dataset.g); G.pagItens = 0; G.aba = 'mais'; atualizarGerencial(); window.scrollTo({ top:0, behavior:'smooth' });
+  });
+  $('#g-cli-pag').addEventListener('click', e => { const b = e.target.closest('button[data-p]'); if (b) { G.pagCli += +b.dataset.p; desenharClientesG(); } });
+  $('#g-itens-pag').addEventListener('click', e => { const b = e.target.closest('button[data-p]'); if (b) { G.pagItens += +b.dataset.p; desenharItensG(); } });
+  $('#g-limpar').addEventListener('click', () => { Object.values(GSEL).forEach(s => s.clear()); G.pagCli = G.pagItens = 0; atualizarGerencial(); });
+  $('#g-btn-excel').addEventListener('click', exportarGerencial);
+  marcarLeitura();
+}
+function marcarLeitura() { document.querySelectorAll('#g-leitura button').forEach(b => b.classList.toggle('ativo', b.dataset.v === G.leitura)); }
+
+async function exportarGerencial() {
+  if (!S.exportar) return;
+  carregando(true, 'Gerando o Excel…'); await new Promise(r => setTimeout(r, 30));
+  try {
+    const semRep = G.leitura === 'sem', T = GR.T, u = x => ok(x) ? Math.round(x * 100) / 100 : null, pc = x => ok(x) ? Math.round(x * 1e6) / 1e6 : null;
+    const l1 = T.a.rol - T.cmv, l2 = T.n.rol - T.cmv;
+    const dre = [['ROB', u(T.a.rob), u(T.n.rob), u(T.n.rob - T.a.rob)], ['Impostos', u(T.a.imp), u(T.n.imp), u(T.n.imp - T.a.imp)],
+      ['  ICMS', u(T.a.icms), u(T.n.icms), u(T.n.icms - T.a.icms)], ['  DIFAL', u(T.a.dif), u(T.n.dif), u(T.n.dif - T.a.dif)], ['  ST', u(T.a.st), u(T.n.st), u(T.n.st - T.a.st)],
+      ['  FCP', u(T.a.fcp), u(T.n.fcp), u(T.n.fcp - T.a.fcp)], ['  PIS/COFINS', u(T.a.pc), 0, u(-T.a.pc)], ['  IPI', u(T.a.ipi), 0, u(-T.a.ipi)], ['  CBS', 0, u(T.n.cbs), u(T.n.cbs)], ['  IBS', 0, u(T.n.ibs), u(T.n.ibs)],
+      ['ROL', u(T.a.rol), u(T.n.rol), u(T.n.rol - T.a.rol)], ['CMV', u(T.cmv), u(T.cmv), 0], ['Lucro bruto', u(l1), u(l2), u(l2 - l1)],
+      ['Margem bruta', pc(T.a.rol ? l1 / T.a.rol : NaN), pc(T.n.rol ? l2 / T.n.rol : NaN), null],
+      [], ['Leitura', semRep ? 'Sem repasse (preço atual mantido)' : 'Com repasse (margem mantida)'],
+      ['Clientes', GSEL.grupo.size ? [...GSEL.grupo].map(g => D.grupos[g]).join('; ').slice(0, 30000) : 'Todos'],
+      ['Valores', 'Mensais (quantidade média mensal × valores unitários)']];
+    const cli = GR.clientes.slice().sort((a, b) => (semRep ? a.d - b.d : b.d - a.d)).map(c => [D.grupos[c.g], D.execs[c.e], u(c.rob1), u(c.rob2), u(c.rob2 - c.rob1), pc(c.rob1 ? c.rob2 / c.rob1 - 1 : NaN), u(c.rol1 - c.cmv), u(c.rol2 - c.cmv), u(c.aum), c.nAum, u(c.red), c.nRed]);
+    const its = GR.itens.slice().sort((a, b) => (semRep ? a.d - b.d : b.d - a.d)).map(x => { const it = D.itens[PR.i[x.p]];
+      return [D.grupos[PR.g[x.p]], D.execs[PR.e[x.p]], it[0], it[1], D.fams[it[2]], it[3], u(x.q), u(x.rob1 / x.q), u(x.rob2 / x.q), u(x.rob1), u(x.rob2), u(x.rob2 - x.rob1), u(x.rol1 - x.cmv), u(x.rol2 - x.cmv), u(x.rol2 - x.rol1), pc(x.dp)]; });
+    const blob = await gerarXlsx([
+      { nome:'DRE mensal', cab:['Linha', 'Modelo atual', 'Após a reforma', 'Variação'], estilos:[0, 1, 1, 1], linhas:dre, larguras:[22, 18, 18, 18] },
+      { nome:'Clientes', cab:['Cliente', 'Executivo', 'ROB atual/mês', 'ROB após/mês', 'Var. ROB/mês', 'Var. %', 'Lucro atual/mês', 'Lucro após/mês', 'Aumentos/mês', 'Itens com aumento', 'Reduções/mês', 'Itens com redução'], estilos:[0, 0, 1, 1, 1, 2, 1, 1, 1, 3, 1, 3], linhas:cli, total:cli.length, filtro:true, congelar:true, larguras:[34, 26, 14, 14, 14, 10, 14, 14, 14, 10, 14, 10] },
+      { nome:'Itens', cab:['Cliente', 'Executivo', 'Cód. item', 'Item', 'Família', 'Un.', 'Qtd./mês', 'ROB/un. atual', 'ROB/un. após', 'ROB atual/mês', 'ROB após/mês', 'Var. ROB/mês', 'Lucro atual/mês', 'Lucro após/mês', 'Var. lucro/mês', 'Var. %'], estilos:[0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2], linhas:its, total:its.length, filtro:true, congelar:true, larguras:[30, 24, 11, 46, 22, 6, 10, 12, 12, 14, 14, 14, 14, 14, 14, 10] },
+    ]);
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Gerencial_Reforma_${new Date().toISOString().slice(0, 10)}.xlsx`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+  } catch (e) { console.error(e); } finally { carregando(false); }
+}
 
 /* ═════════════ EXPORTAR (somente master) ═════════════ */
 // Gerador .xlsx enxuto: XML em blocos + compressão nativa do navegador (deflate) + ZIP.
@@ -1258,21 +1628,21 @@ $('#btn-excel').addEventListener('click', async () => {
   carregando(true, 'Gerando o Excel…');
   await new Promise(r => setTimeout(r, 30));
   try {
-    const cab = ['Executivo', 'Cliente (grupo econômico)', 'CD Origem', 'UF Destino', 'Contribuinte', 'Regra fiscal', 'Cód. item', 'Item', 'Família comercial', 'Un.',
-      'Custo aquisição', 'Margem histórica %', 'Margem utilizada %', 'Origem da margem', 'Preço líquido', 'Fator geral %', 'ICMS %', 'ICMS R$', 'DIFAL %', 'DIFAL R$', 'FCP %', 'FCP R$', 'PIS/COFINS %', 'PIS R$', 'COFINS R$', 'IPI %', 'IPI R$', 'Total impostos %', 'Total impostos R$', 'Preço bruto', 'ROB',
-      'Custo aquisição', 'Margem %', 'Preço líquido', 'Fator 1 %', 'Preço bruto', 'ICMS %', 'ICMS R$', 'DIFAL/ST %', 'DIFAL/ST R$', 'FCP %', 'FCP R$', 'CBS %', 'CBS R$', 'IBS %', 'IBS R$', 'Total impostos %', 'Total impostos R$', 'Preço líquido de venda', 'ROB',
+    const cab = ['Executivo', 'Cliente (grupo econômico)', 'CD Origem', 'UF Destino', 'Contribuinte', 'Regra fiscal', 'Cód. item', 'Item', 'Família comercial', 'Un.', 'Qtd. média/mês', 'Venda média/mês',
+      'Custo aquisição', 'Margem histórica %', 'Margem utilizada %', 'Origem da margem', 'Preço líquido', 'Fator geral %', 'ICMS %', 'ICMS R$', 'DIFAL %', 'DIFAL R$', 'ST %', 'ST R$', 'FCP %', 'FCP R$', 'PIS/COFINS %', 'PIS R$', 'COFINS R$', 'IPI %', 'IPI R$', 'Total impostos %', 'Total impostos R$', 'Preço bruto', 'ROB',
+      'Custo aquisição', 'Margem %', 'Preço líquido', 'Fator 1 %', 'Preço bruto', 'ICMS %', 'ICMS R$', 'DIFAL %', 'DIFAL R$', 'ST %', 'ST R$', 'FCP %', 'FCP R$', 'CBS %', 'CBS R$', 'IBS %', 'IBS R$', 'Total impostos %', 'Total impostos R$', 'Preço líquido de venda', 'ROB',
       'Var. preço R$', 'Var. preço %'];
     const fimAtual = cab.indexOf('ROB'), iniRef = fimAtual + 1, fimRef = cab.lastIndexOf('ROB');
-    const grupos = [{ t:'MODELO ATUAL', ini:10, fim:fimAtual, estilo:5 }, { t:'APÓS A REFORMA', ini:iniRef, fim:fimRef, estilo:6 }, { t:'IMPACTO', ini:fimRef + 1, fim:fimRef + 2, estilo:7 }];
+    const grupos = [{ t:'MODELO ATUAL', ini:12, fim:fimAtual, estilo:5 }, { t:'APÓS A REFORMA', ini:iniRef, fim:fimRef, estilo:6 }, { t:'IMPACTO', ini:fimRef + 1, fim:fimRef + 2, estilo:7 }];
     const est = cab.map((h, i) => i < 10 || h === 'Origem da margem' ? 0 : (h.endsWith('%') ? 2 : 1));
     const u = x => ok(x) ? Math.round(x * 10000) / 10000 : null, pc = x => ok(x) ? Math.round(x * 1e6) / 1e6 : null;
     const ORIGEM = { linha:'Digitada', geral:'Parâmetro geral', historica:'Histórica' };
     function* linhas() {
       for (let k = 0; k < V.total; k++) {
         const { p, s, u: uf } = linhaDe(k), x = detalhe(p, s, uf), it = D.itens[x.i], g = x.g, a = x.a, n = x.n;
-        yield [D.execs[PR.e[p]], textoCol(x, 'grupo'), D.cds[s], D.ufs[uf], x.c ? 'Sim' : 'Não', g[7] ? 'Histórico' : 'Tabela', it[0], it[1], D.fams[it[2]], it[3],
-          u(x.cu), pc(PR.mg[p]), pc(x.mg), ORIGEM[origemMg(p)], u(x.pl), pc(a.fator), pc(g[0]), u(a.vicms), pc(a.dif), u(a.vdif), pc(a.fcp), u(a.vfcp), pc(g[3]), u(a.vpis), u(a.vcof), pc(g[4]), u(a.vipi), pc(a.aliq), u(a.imp), u(a.bruto), u(a.rob),
-          u(x.cu), pc(x.mg), u(x.pl), pc(n.fator), u(n.bruto), pc(n.icms), u(n.vicms), pc(n.dif), u(n.vdif), pc(n.fcp), u(n.vfcp), pc(n.acbs), u(n.vcbs), pc(n.aibs), u(n.vibs), pc(n.aliq), u(n.imp), u(x.pl), u(n.rob),
+        yield [D.execs[PR.e[p]], textoCol(x, 'grupo'), D.cds[s], D.ufs[uf], x.c ? 'Sim' : 'Não', g[7] ? 'Histórico' : 'Tabela', it[0], it[1], D.fams[it[2]], it[3], u(x.qm), u(x.venda),
+          u(x.cu), pc(PR.mg[p]), pc(x.mg), ORIGEM[origemMg(p)], u(x.pl), pc(a.fator), pc(g[0]), u(a.vicms), pc(a.dif), u(a.vdif), pc(a.st), u(a.vst), pc(a.fcp), u(a.vfcp), pc(g[3]), u(a.vpis), u(a.vcof), pc(g[4]), u(a.vipi), pc(a.aliq), u(a.imp), u(a.bruto), u(a.rob),
+          u(x.cu), pc(x.mg), u(x.pl), pc(n.fator), u(n.bruto), pc(n.icms), u(n.vicms), pc(n.dif), u(n.vdif), pc(n.st), u(n.vst), pc(n.fcp), u(n.vfcp), pc(n.acbs), u(n.vcbs), pc(n.aibs), u(n.vibs), pc(n.aliq), u(n.imp), u(x.pl), u(n.rob),
           u(x.dif), pc(x.var)];
       }
     }
@@ -1286,7 +1656,7 @@ $('#btn-excel').addEventListener('click', async () => {
       ['Exportado por', S.nome], ['Exportado em', new Date().toLocaleString('pt-BR')]];
     const digitadas = [...OVR].map(([k, v]) => { const [g, i] = k.split('|').map(Number); return [D.grupos[g], D.itens[i][0], D.itens[i][1], pc(v)]; });
     const planilhas = [
-      { nome:'Simulação', cab, grupos, estilos:est, linhas:linhas(), total:V.total, filtro:true, congelar:true, larguras:[26, 26, 8, 8, 10, 10, 11, 46, 22, 6, 12, 12, 12, 14, ...Array(cab.length - 14).fill(12)] },
+      { nome:'Simulação', cab, grupos, estilos:est, linhas:linhas(), total:V.total, filtro:true, congelar:true, larguras:[26, 26, 8, 8, 10, 10, 11, 46, 22, 6, 11, 12, 12, 12, 12, 14, ...Array(cab.length - 16).fill(12)] },
       { nome:'Parâmetros', cab:['Parâmetro', 'Valor'], estilos:[0, 0], linhas:par, larguras:[34, 60] },
     ];
     if (digitadas.length) planilhas.push({ nome:'Margens digitadas', cab:['Cliente (grupo econômico)', 'Cód. item', 'Item', 'Margem %'], estilos:[0, 0, 0, 2], linhas:digitadas, larguras:[34, 11, 46, 12] });
@@ -1314,6 +1684,30 @@ $('#btn-recolher').addEventListener('click', () => {
 { let pref = null; try { pref = localStorage.getItem('sim_menu'); } catch (e) {}
   if (pref === '1' || (pref === null && window.innerWidth < 1700)) $('#app').classList.add('recolhido'); }
 
+
+/* Filtros: recolhem ao rolar a página; "Mostrar filtros" abre de novo */
+(() => {
+  const el = $('#cartao-filtros'); let abertoEm = null;
+  const aplicar = () => {
+    if ($('#pag-simulador').classList.contains('oculto')) return;
+    const y = window.scrollY, rolado = y > 40;
+    el.classList.toggle('rolado', rolado);
+    if (!rolado) { abertoEm = null; el.classList.remove('compacto'); return; }
+    if (abertoEm !== null && Math.abs(y - abertoEm) < 60) return;     // aberto pelo usuário: fica até rolar de novo
+    abertoEm = null; el.classList.add('compacto');
+  };
+  window.addEventListener('scroll', aplicar, { passive:true });
+  $('#btn-abrir-filtros').addEventListener('click', () => { abertoEm = window.scrollY; el.classList.remove('compacto'); });
+  $('#btn-fechar-filtros').addEventListener('click', () => { abertoEm = null; el.classList.add('compacto'); });
+})();
+function resumoFiltros() {
+  const nomes = { exec:'Executivo', grupo:'Cliente', cd:'CD', uf:'UF', fam:'Família', item:'Item', var:'Variação' };
+  const partes = FILTROS.filter(f => SEL[f].size).map(f => {
+    const v = [...SEL[f]][0], t = f === 'item' ? D.itens[v][0] : rotuloFiltro(f, v);
+    return `<b>${nomes[f]}:</b> ${esc(t)}${SEL[f].size > 1 ? ' +' + (SEL[f].size - 1) : ''}`;
+  });
+  $('#f-resumo').innerHTML = partes.length ? partes.join(' · ') : 'Sem filtros';
+}
 
 /* ═════════════ RETOMA SESSÃO ═════════════ */
 (async () => {
