@@ -1159,7 +1159,14 @@ function atualizar(nivel = 2) {
 function recalcular(reordenar = true) { calcularFatores(); atualizar(reordenar ? 1 : 0); if (EST.pagina === 'gerencial') atualizarGerencial(); }
 
 function desenharKpis() {
-  let rob1 = 0, rob2 = 0, imp1 = 0, imp2 = 0, pl = 0, lb = 0, sobe = 0, n = 0;
+  // contagem de rotas (todas as rotas filtradas)
+  let sobe = 0, n = 0;
+  // médias ponderadas pela venda: quantidade média mensal de cada rota CD → UF com venda (LB / ROL, como no fechamento)
+  let rob1 = 0, rob2 = 0, imp1 = 0, imp2 = 0, rol = 0, lb = 0;
+  // sem venda nas rotas filtradas: média simples das rotas
+  let s1 = 0, s2 = 0, si1 = 0, si2 = 0, srol = 0, slb = 0;
+  const H = D.hist, cdOk = new Uint8Array(D.cds.length), ufOk = new Uint8Array(D.ufs.length);
+  V.cds.forEach(s => cdOk[s] = 1); V.ufs.forEach(u => ufOk[u] = 1);
   for (const p of V.fp) {
     const i = PR.i[p], c = PR.c[p], mg = margemPar(p);
     if (!(mg < 1)) continue;
@@ -1170,18 +1177,30 @@ function desenharKpis() {
       for (const u of V.ufs) {
         const r = D.PF[b + u * 2], o = (r * 2 + c) * 4;
         if (SEL.var.size && !SEL.var.has(classeVar(r, c))) continue;
-        n++; pl += plv; lb += plv - cu;
-        rob1 += plv * FAT[o]; imp1 += plv * FAT[o + 1]; rob2 += plv * FAT[o + 2]; imp2 += plv * FAT[o + 3];
+        n++; srol += plv; slb += plv - cu;
+        s1 += plv * FAT[o]; si1 += plv * FAT[o + 1]; s2 += plv * FAT[o + 2]; si2 += plv * FAT[o + 3];
         if (FAT[o + 2] > FAT[o] + 1e-9) sobe++;
       }
     }
+    for (let h = D.hIni[p]; h >= 0 && h < D.hFim[p]; h++) {
+      const s = H.s[h], u = H.u[h], q = H.q[h];
+      if (!cdOk[s] || !ufOk[u] || !(q > 0)) continue;
+      const cu = D.custo[i * 2 + s]; if (!ok(cu)) continue;
+      const r = D.PF[base + s * 54 + u * 2], o = (r * 2 + c) * 4;
+      if (SEL.var.size && !SEL.var.has(classeVar(r, c))) continue;
+      const plq = cu / (1 - mg) * q;
+      rol += plq; lb += plq - cu * q;
+      rob1 += plq * FAT[o]; imp1 += plq * FAT[o + 1]; rob2 += plq * FAT[o + 2]; imp2 += plq * FAT[o + 3];
+    }
   }
-  const v = rob1 ? rob2 / rob1 - 1 : NaN;
+  const pond = rol > 0;
+  if (!pond) { rob1 = s1; rob2 = s2; imp1 = si1; imp2 = si2; rol = srol; lb = slb; }
+  const v = rob1 ? rob2 / rob1 - 1 : NaN, obs = pond ? 'ponderada pela venda' : 'média simples (sem venda nas rotas filtradas)';
   $('#kpis').innerHTML = [
-    ['Variação média de preço (ROB)', `<span class="${clsVar(v)}">${VAR(v)}</span>`, 'Após a reforma × modelo atual'],
-    ['Carga tributária média', `${P(rob1 ? imp1 / rob1 : NaN)} → ${P(rob2 ? imp2 / rob2 : NaN)}`, 'Impostos sobre a ROB'],
-    ['Margem média', P(pl ? lb / pl : NaN), 'Mesma margem nos dois modelos'],
-    ['Linhas com aumento de preço', `${fmtN.format(sobe)} de ${fmtN.format(n)}`, n ? P(sobe / n) + ' das linhas filtradas' : ''],
+    ['Variação média de preço (ROB)', `<span class="${clsVar(v)}">${VAR(v)}</span>`, 'Após a reforma × modelo atual · ' + obs],
+    ['Carga tributária média', `${P(rob1 ? imp1 / rob1 : NaN)} → ${P(rob2 ? imp2 / rob2 : NaN)}`, 'Impostos sobre a ROB · ' + obs],
+    ['Margem média (LB / ROL)', P(rol ? lb / rol : NaN), 'Mesma nos dois modelos · ' + obs],
+    ['Linhas com aumento de preço', `${fmtN.format(sobe)} de ${fmtN.format(n)}`, n ? P(sobe / n) + ' das rotas filtradas' : ''],
   ].map(([k, val, s], i) => `<div class="kpi"><div class="ico">${ICONES_KPI[i]}</div><div><div class="k">${k}</div><div class="v">${val}</div><div class="s">${esc(s)}</div></div></div>`).join('');
 }
 
@@ -1363,7 +1382,7 @@ function desenharMemoria() {
       <li><b>Clientes:</b> somente os que compraram no último mês da base, na carteira do executivo desse mês. Fora do simulador: CD ES e os canais Acordos, Oceano, BRS OFF, Televendas e HP+.</li>
       <li><b>Itens, CDs e UFs:</b> só itens com histórico de compra do cliente (inclusive promocionais, personalizados e uniformes). Cada cliente × item comprado nos últimos ${m.meses} meses é simulado para os 2 CDs de origem (RS: 1100 e 1600 · SP: 1200 e 9200) e as 27 UFs de destino, mesmo sem venda histórica para o estado.</li>
       <li><b>Custo de aquisição:</b> custo unitário médio do último dia em que o item foi vendido no CD; vale para todos os clientes do CD.</li>
-      <li><b>Margem:</b> margem média dos ${m.meses} meses do cliente × item (lucro bruto ÷ ROL), a mesma para qualquer CD e UF e para os dois modelos. Pode ser alterada na linha (vale para o cliente × item) ou no parâmetro geral.</li>
+      <li><b>Margem:</b> margem média dos ${m.meses} meses do cliente × item = LB ÷ ROL, com a ROL contábil dos fechamentos (ROB + impostos + devoluções + rebate) e LB = ROL − CMV, a mesma para qualquer CD e UF e para os dois modelos. Pode ser alterada na linha (vale para o cliente × item) ou no parâmetro geral.</li>
       <li><b>Contribuinte:</b> Cadastro Fiscal (Contribuinte ICMS 1 = contribuinte, 9 = não contribuinte), pelo código do cliente. No grupo econômico vale a classificação com mais códigos (empate = não contribuinte). Contribuinte usa as Tabelas Fiscais de contribuinte; não contribuinte, as de não contribuinte.</li>
       <li><b>Alíquotas:</b> Tabelas Fiscais (Base Tributária) por item × CD de origem × UF de destino × contribuinte. ICMS pela carga efetiva (base reduzida). Itens sem cadastro na tabela usam as alíquotas efetivas do histórico do item no CD.</li>
       <li><b>CBS e IBS:</b> alíquotas da tela × fator do item. Itens da planilha RT - Exceção: "0" = sem CBS e IBS; "60%" = alíquota reduzida em 60% (ex.: CBS 9,3% → 3,72%). Demais itens: alíquota cheia.</li>
